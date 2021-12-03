@@ -1,0 +1,84 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@websanova/vue-auth": "^2.21.16-beta",
+    "axios": "^0.24.0",
+    "bootstrap": "^4.1.3",
+    "core-js": "^3.6.5",
+    "iview": "^3.5.4",
+    "jquery": "^3.3.1",
+    "jquery-slimscroll": "^1.3.8",
+    "jquerykeyframes": "^1.0.6",
+    "register-service-worker": "^1.7.1",
+    "vue": "^2.6.11",
+    "vue-axios": "^3.4.0",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0",
+    "metismenu": "^3.0.3",
+    "animate.css": "^3.7.0",
+    "font-awesome": "^4.7.0"
+  },
+  "devDependencies": {  
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",  
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^0.28.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-dollar-sign": "^1.0.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-url": "^7.2.1",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vue-template-compiler": "^2.6.11",
+    "expose-loader": "^0.7.5",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "globals": {
+      "$": true,
+      "jQuery": true
+    },
+    "env": {
+      "node": true,
+      "jquery": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "plugins": [
+      "dollar-sign"
+    ],
+    "rules": {
+      "no-console": "off",
+      "dollar-sign/dollar-sign": [
+        2,
+        "ignoreProperties"
+      ]
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
