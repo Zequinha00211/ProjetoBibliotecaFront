@@ -2,26 +2,27 @@
   <Form ref="formUsuario" :model="formUsuario" :rules="ruleUsuario" inline>
     <row :gutter="20">
       <i-col :sm="24">
-        <FormItem prop="email">
+        <FormItem prop="email"  label="E-mail">
           <Input
             type="text"
             v-model="formUsuario.email"
             placeholder="E-Mail"
             :disabled="true"
+           
           >
             <Icon type="ios-person-outline" slot="prepend"></Icon>
           </Input>
         </FormItem>
       </i-col>
-      <i-col :sm="24">
-        <FormItem prop="name">
+      <i-col :sm="12">
+        <FormItem prop="name" label="Nome">
           <Input type="text" v-model="formUsuario.name" placeholder="Nome">
             <Icon type="ios-person-outline" slot="prepend"></Icon>
           </Input>
         </FormItem>
       </i-col>
-      <i-col :sm="24">
-        <FormItem prop="password">
+      <i-col :sm="12">
+        <FormItem prop="password"  label="Senha">
           <Input
             type="password"
             v-model="formUsuario.password"
