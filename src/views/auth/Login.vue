@@ -113,7 +113,7 @@ export default {
 <style >
 
 .form_login .ivu-form-item-label{
-  color:#ffffff
+  color:#ffffff!important;
 }
 .form_login input {-webkit-text-fill-color: #ccfc4f!important; }
 
