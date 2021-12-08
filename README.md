@@ -8,7 +8,7 @@ npm install
 ### Start docker e compilar projeto
 ```
 docker-compose -f docker-compose-development.yml up -d --build
-docker exec -it sstui_vue
+docker exec -it sstui_vue bash
 npm run serve
 ```
 
