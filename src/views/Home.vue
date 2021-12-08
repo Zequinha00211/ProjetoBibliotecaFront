@@ -1,14 +1,20 @@
 <template>
   <div class="home">
-    HOME
+    <h1>SST - TRON INFORMÁTICA</h1>
   </div>
 </template>
 
-<script> 
-
+<script>
 export default {
-  name: 'Home',
-  components: { 
-  }
-}
+  components: {},
+};
 </script>
+<style>
+.home,
+h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  text-align: center;
+}
+</style>
