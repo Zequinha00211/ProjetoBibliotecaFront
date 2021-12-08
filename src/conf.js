@@ -89,6 +89,7 @@ export class Conf {
             router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
             tokenDefaultName: 'token',
             rolesVar: 'permissoes',
+            registerData: {url: "auth/register", method: 'POST', redirect: '/login'},
             loginData: { url: 'auth/login', method: 'POST', fetchUser: true },
             fetchData: { url: 'auth/user-profile', method: 'GET', enabled: true },
             refreshData: { url: 'refresh', method: 'GET', atInit: false, enabled: false },
