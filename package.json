@@ -23,7 +23,11 @@
     "vuex": "^3.4.0",
     "metismenu": "^3.0.3",
     "animate.css": "^3.7.0",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "devextreme": "^18.2.3",
+    "devextreme-intl": "^18.2.4",
+    "devextreme-vue": "^18.2.3",
+    "date-fns": "^1.29.0"
   },
   "devDependencies": {  
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",  

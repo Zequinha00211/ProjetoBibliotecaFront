@@ -4,7 +4,7 @@
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <ti-top-menu/>
             <ti-header-breadcrumb/>
-            <div style="margin-top: 20px; padding-bottom: 15px">
+            <div style="margin-top: 20px; padding: 15px; background-color:#ffffff">
                 <slot/>
             </div>
         </div>
