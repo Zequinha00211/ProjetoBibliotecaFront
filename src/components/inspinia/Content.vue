@@ -51,9 +51,6 @@ export default {
 
 <style >
 .ivu-form-inline .ivu-form-item {
-    display: inline-block;
-    margin-right: 10px;
-    vertical-align: top;
     width: 100%!important;
 }
 </style>
