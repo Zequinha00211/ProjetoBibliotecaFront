@@ -1,12 +1,14 @@
-# app
+# SST Tron Informática  - VUEJS
 
-## Project setup
+## Inicialização do Projeto
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Start docker e compilar projeto
 ```
+docker-compose -f docker-compose-development.yml up -d --build
+docker exec -it sstui_vue
 npm run serve
 ```
 
