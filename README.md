@@ -1,10 +1,10 @@
 # SST Tron Informática  - VUEJS
 
 ## Inicialização do Projeto
-<p>O npm install será executado da configuração do projeto</p>
 ```
 npm install
 ```
+<p>O npm install será executado na configuração do projeto</p>
 
 ### Start docker e compilar projeto
 ```
