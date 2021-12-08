@@ -21,7 +21,7 @@
       </p>
       <Form
         ref="form"
-        class="login"
+        class="form_login"
         @submit="login"
         :model="user"
         :rules="rules"
@@ -50,7 +50,7 @@
         </row>
         <row :gutter="20">
           <i-col :sm="24">
-            <Button long type="success" @click="login">Login</Button>
+            <Button long  @click="login">Login</Button>
           </i-col>
         </row>
         <br />
@@ -109,8 +109,14 @@ export default {
     document.body.style.backgroundSize = "";
   },
 };
-</script>
+</script> 
 <style >
+
+.form_login .ivu-form-item-label{
+  color:#ffffff
+}
+.form_login input {-webkit-text-fill-color: #ccfc4f!important; }
+
 .background-radom-img {
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -150,7 +156,7 @@ export default {
   margin: auto;
   margin-top: 50px;
   padding: 20px;
-  margin-top: 140px;
+  margin-top: 1px;
 }
 .login-sst > .sst-content-img {
   width: 100%;
