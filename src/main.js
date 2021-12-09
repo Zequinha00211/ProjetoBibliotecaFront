@@ -6,6 +6,7 @@ import store from './store'
 import { Conf } from './conf';
 import localization from 'devextreme/localization';
 import ptMessages from 'devextreme/localization/messages/pt.json';
+import VueTheMask from 'vue-the-mask'
 
 
 import 'font-awesome/css/font-awesome.min.css'
@@ -31,6 +32,8 @@ localization.locale(navigator.language || navigator.browserLanguage)
 
 Vue.router = router
 Vue.config.productionTip = false
+Vue.use(VueTheMask)
+
 new Conf()
   .requests()
   .auth()

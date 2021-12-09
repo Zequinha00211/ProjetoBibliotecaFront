@@ -14,7 +14,7 @@
       </i-col>
       <i-col :sm="12">
         <FormItem prop="cnpj" label="CNPJ">
-          <Input type="text" v-model="formCompany.cnpj" placeholder="CNPJ">
+          <Input type="text" v-model="formCompany.cnpj" placeholder="CNPJ" v-mask="`##.###.###/####-##`">
             <Icon type="ios-lock-outline" slot="prepend"></Icon>
           </Input>
         </FormItem>
@@ -29,9 +29,13 @@
 </template>
 
 <script>
+import { mask } from "vue-the-mask";
 export default {
   props: {
     value: {},
+  },
+  directives: {
+    mask,
   },
   data() {
     return {
@@ -54,12 +58,7 @@ export default {
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
-          {
-            type: "string",
-            min: 13,
-            message: "É preciso inserir 13 caracteres!",
-            trigger: "blur",
-          },
+         
         ],
       },
     };
@@ -67,6 +66,7 @@ export default {
   watch: {
     value(newValue) {
       this.formCompany = newValue || {};
+      this.formCompany.cnpj = newValue.cnpjFormat;
     },
   },
   methods: {
@@ -82,6 +82,7 @@ export default {
   },
   created() {
     this.formCompany = this.value || {};
+    this.formCompany.cnpj = this.value.cnpjFormat;
   },
 };
 </script>
