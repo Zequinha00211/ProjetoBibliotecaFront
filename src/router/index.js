@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home';
 import Login from '@/views/auth/Login';
-import routerCompany from "./routers/company"
+import routerCompany from "./routers/company";
+import routerUsers from './routers/users'
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,8 @@ const routes = [
     component: Login,
     meta: { auth: false, title: "Login" },
   },
-  ...routerCompany
+  ...routerCompany,
+  ...routerUsers
 ]
 
 const router = new VueRouter({
