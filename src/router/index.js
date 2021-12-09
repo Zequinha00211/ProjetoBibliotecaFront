@@ -20,7 +20,6 @@ const routes = [
     meta: { auth: false, title: "Login" },
   },
   ...routerCompany
-
 ]
 
 const router = new VueRouter({

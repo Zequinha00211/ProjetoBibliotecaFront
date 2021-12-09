@@ -1,5 +1,3 @@
-
-
 import RegisterCompany from '@/views/company/RegisterCompany';
 import EditCompany from '@/views/company/EditCompany';
 import ListCompany from '@/views/company/ListCompany';
