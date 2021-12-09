@@ -25,11 +25,6 @@
           >Atualizar Usuário</router-link
         >
       </li>
-      <li>
-        <router-link class="dropdown-item" :to="`/company/register`"
-          >Registrar Empresa</router-link
-        >
-      </li>
       <li class="dropdown-divider"></li>
       <li>
         <a class="dropdown-item" @click="$auth.logout()">Sair</a>

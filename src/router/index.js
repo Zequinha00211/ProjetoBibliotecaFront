@@ -6,6 +6,7 @@ import RegisterUser from '../views/auth/Register.vue';
 import UpdateUser from '../views/users/EditUser.vue';
 import RegisterCompany from '../views/company/RegisterCompany.vue';
 import EditCompany from '../views//company/EditCompany.vue';
+import ListCompany from '../views//company/ListCompany.vue';
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,6 +45,12 @@ const routes = [
     name: 'editCompany',
     component: EditCompany,
     meta: { auth:true, title: "Atualização da Empresa" },
+  },
+  {
+    path: '/company/',
+    name: 'listCompany',
+    component: ListCompany,
+    meta: { auth:true, title: "Empresas" },
   }
 ]
 
