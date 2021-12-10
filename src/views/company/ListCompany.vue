@@ -4,11 +4,11 @@
     <Modal v-model="showModal" width="360">
       <p slot="header" style="color: #f60; text-align: center">
         <Icon type="ios-information-circle"></Icon>
-        <span>Deseja deletar?</span>
+        <span>Deseja deletar {{company.name}} ?</span>
       </p>
       <div style="text-align: center">
         <p>
-          Está ação depois de realizada não poderá ser desfeita.{{ company }}
+          Está ação depois de realizada não poderá ser desfeita.
         </p>
       </div>
       <div slot="footer">
