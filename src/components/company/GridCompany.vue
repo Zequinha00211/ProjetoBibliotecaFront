@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     deleteCompany(data) {
-      console.log(data);
+      this.$emit("modalDeleteCompany", data);     
     },
   },
   created() {
