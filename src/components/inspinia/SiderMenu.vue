@@ -12,28 +12,28 @@
           icon="fa fa-home"
           :isGroup="false"
         />
-         <ti-menu-grupo name="Empresas" icon="fa fa-building">
-           <ti-sider-menu-item
+        <ti-menu-grupo name="Empresas" icon="fa fa-building">
+          <ti-sider-menu-item
+            name="Listar"
+            :to="{ name: 'listCompany' }"
+            icon="fa fa-list"
+          />
+          <ti-sider-menu-item
+            name="Adicionar"
+            :to="{ name: 'registerCompany' }"
+            icon="fa fa-plus"
+          />
+        </ti-menu-grupo>
+        <ti-menu-grupo name="Esocial" icon="fa fa-building">
+          <ti-menu-grupo-level3 name="S-2210" icon="fa fa-circle">
+            <ti-sider-menu-item
               name="Adicionar"
-              :to="{ name: 'registerCompany'}"
+              :to="{ name: 's2210Esocial' }"
               icon="fa fa-plus"
             />
-
-         </ti-menu-grupo>
-       <!--  <ti-menu-grupo name="Licença" icon="fa fa-key">
-          <ti-menu-grupo-level3 name="Tron Server" icon="fa fa-circle">
-            <ti-sider-menu-item
-              name="Chave de Liberação do Sistema"
-              to="/"
-              icon="fa fa-circle"
-            />
           </ti-menu-grupo-level3>
-          <ti-sider-menu-item
-            name="Manutenção de Servidores de Licença"
-            to="/"
-            icon="fa fa-circle"
-          />
-        </ti-menu-grupo> -->
+          <ti-sider-menu-item />
+        </ti-menu-grupo>
       </ul>
     </div>
   </nav>
@@ -43,13 +43,13 @@
 import TiMenuGrupo from "./MenuGrupo";
 import TiSiderMenuItem from "./SiderMenuItem";
 import TiPerfilUsuarioResumo from "./PerfilUsuarioResumo";
-/* import TiMenuGrupoLevel3 from "./MenuGrupoLevel3"; */
+import TiMenuGrupoLevel3 from "./MenuGrupoLevel3";
 
 export default {
   components: {
     TiSiderMenuItem,
     TiPerfilUsuarioResumo,
-    /* TiMenuGrupoLevel3, */
+    TiMenuGrupoLevel3,
     TiMenuGrupo,
   },
   methods: {

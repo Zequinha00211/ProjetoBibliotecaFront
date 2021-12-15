@@ -4,6 +4,7 @@ import Home from '@/views/Home';
 import Login from '@/views/auth/Login';
 import routerCompany from "./routers/company";
 import routerUsers from './routers/users'
+import routerEsocial from "./routers/esocial";
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,8 @@ const routes = [
     meta: { auth: false, title: "Login" },
   },
   ...routerCompany,
-  ...routerUsers
+  ...routerUsers,
+  ...routerEsocial
 ]
 
 const router = new VueRouter({
