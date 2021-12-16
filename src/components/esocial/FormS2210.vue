@@ -118,11 +118,14 @@
           </i-col>
           <i-col :sm="10">
             <FormItem prop="tipocat" label="Tipo de CAT">
-              <Input
-                type="text"
-                v-model="formEsocial.tipocat"
-                placeholder=" "
-              />
+              <Select v-model="formEsocial.tipocat" filterable>
+                <Option
+                  v-for="tipocat in tipocat"
+                  :value="tipocat.codigo"
+                  :key="tipocat.id"
+                  > {{ tipocat.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="5">
@@ -376,12 +379,15 @@
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="lateralidade" label="Lateralidade">
-              <Input
-                type="text"
-                v-model="formEsocial.lateralidade"
-                placeholder=" "
-              />
+            <FormItem prop="lateralidadepartesatingidas" label="Lateralidade Das Partes Atingidas">
+              <Select v-model="formEsocial.lateralidadepartesatingidas" filterable>
+                <Option
+                  v-for="lateralidadepartesatingidas in lateralidadepartesatingidas"
+                  :value="lateralidadepartesatingidas.codigo"
+                  :key="lateralidadepartesatingidas.id"
+                  >{{ lateralidadepartesatingidas.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
         </row>
@@ -602,6 +608,8 @@ export default {
       parteatingida: {},
       descricaolesao: {},
       tipoacidentetrabalho: {},
+      tipocat: {},
+      lateralidadepartesatingidas: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {
@@ -1034,6 +1042,14 @@ export default {
      async buscarTipoAcidenteTrabalho(){
       const { data } = await axios.get("/esocial/atributos/tipo-acidente-trabalho")
       this.tipoacidentetrabalho = data.data.data;
+    },
+    async buscarTipodeCat(){
+      const { data } = await axios.get("/esocial/atributos/tipo-cat")
+      this.tipocat = data.data.data;
+    },
+    async buscarLateralidadePartesAtingidas(){
+      const { data } = await axios.get("/esocial/atributos/lateralidade-partes-atingidas")
+      this.lateralidadepartesatingidas = data.data.data;
     }
   },
   created() {
@@ -1045,6 +1061,8 @@ export default {
     this.buscarParteAtingida();
     this.buscarDescricaoLesao();
     this.buscarTipoAcidenteTrabalho();
+    this.buscarTipodeCat();
+    this.buscarLateralidadePartesAtingidas();
     this.formEsocial = this.value || {};
     this.formEsocial.cnpj = this.value.cnpjFormat;
   },
