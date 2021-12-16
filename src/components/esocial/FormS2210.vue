@@ -86,7 +86,14 @@
           </i-col>
           <i-col :sm="14">
             <FormItem prop="tipo" label="Tipo do Acidente">
-              <Input type="text" v-model="formEsocial.tipo" placeholder=" " />
+              <Select v-model="formEsocial.tipo" filterable>
+                <Option
+                  v-for="tipo in tipoacidentetrabalho"
+                  :value="tipo.codigo"
+                  :key="tipo.id"
+                  >{{ tipo.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="5">
@@ -358,11 +365,14 @@
         <row :gutter="20">
           <i-col :sm="12">
             <FormItem prop="codatingida" label="Código da parte Atingida">
-              <Input
-                type="text"
-                v-model="formEsocial.codatingida"
-                placeholder=" "
-              />
+              <Select v-model="formEsocial.codatingida" filterable>
+                <Option
+                  v-for="codatingida in parteatingida"
+                  :value="codatingida.codigo"
+                  :key="codatingida.id"
+                  >{{ codatingida.id }} - {{ codatingida.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="12">
@@ -488,11 +498,14 @@
           </i-col>
           <i-col :sm="5">
             <FormItem prop="desclesao" label="Descrição da Lesão">
-              <Input
-                type="text"
-                v-model="formEsocial.desclesao"
-                placeholder=" "
-              />
+              <Select v-model="formEsocial.desclesao" filterable>
+                <Option
+                  v-for="desclesao in descricaolesao"
+                  :value="desclesao.codigo"
+                  :key="desclesao.id"
+                  >{{ desclesao.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="14">
@@ -586,6 +599,9 @@ export default {
       tipolocaldoAcidente: {},
       tipodeLogradouro: {},
       paisdoacidente: {},
+      parteatingida: {},
+      descricaolesao: {},
+      tipoacidentetrabalho: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {
@@ -1007,6 +1023,18 @@ export default {
       const { data } = await axios.get("/esocial/tabela/06");
       this.paisdoacidente = data.data.data;
     },
+    async buscarParteAtingida(){
+      const { data } = await axios.get("/esocial/tabela/13")
+      this.parteatingida = data.data.data;
+    },
+    async buscarDescricaoLesao(){
+      const { data } = await axios.get("/esocial/tabela/17")
+      this.descricaolesao = data.data.data;
+    },
+     async buscarTipoAcidenteTrabalho(){
+      const { data } = await axios.get("/esocial/atributos/tipo-acidente-trabalho")
+      this.tipoacidentetrabalho = data.data.data;
+    }
   },
   created() {
     this.buscarCategoriadoTrabalhador();
@@ -1014,6 +1042,9 @@ export default {
     this.buscarTipodeInscricaoLocaldoAcidente();
     this.buscartipodeLogradouro();
     this.buscarPais();
+    this.buscarParteAtingida();
+    this.buscarDescricaoLesao();
+    this.buscarTipoAcidenteTrabalho();
     this.formEsocial = this.value || {};
     this.formEsocial.cnpj = this.value.cnpjFormat;
   },
