@@ -156,11 +156,14 @@
           </i-col>
           <i-col :sm="8">
             <FormItem prop="iniciativa" label="Iniciativa da CAT">
-              <Input
-                type="text"
-                v-model="formEsocial.iniciativa"
-                placeholder=" "
-              />
+              <Select v-model="formEsocial.iniciativa" filterable>
+                <Option
+                  v-for="iniciativa in iniciativacat"
+                  :value="iniciativa.codigo"
+                  :key="iniciativa.id"
+                  >{{ iniciativa.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="8">
@@ -470,11 +473,14 @@
           </i-col>
           <i-col :sm="7">
             <FormItem prop="orgaoclasse" label="Orgão de Classe">
-              <Input
-                type="text"
-                v-model="formEsocial.orgaoclasse"
-                placeholder=" "
-              />
+               <Select v-model="formEsocial.orgaoclasse" filterable>
+                <Option
+                  v-for="orgaoclasse in orgaoclasse"
+                  :value="orgaoclasse.codigo"
+                  :key="orgaoclasse.id"
+                  > {{ orgaoclasse.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="7">
@@ -602,6 +608,8 @@ export default {
       parteatingida: {},
       descricaolesao: {},
       tipoacidentetrabalho: {},
+      iniciativacat: {},
+      orgaoclasse: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {
@@ -1034,6 +1042,14 @@ export default {
      async buscarTipoAcidenteTrabalho(){
       const { data } = await axios.get("/esocial/atributos/tipo-acidente-trabalho")
       this.tipoacidentetrabalho = data.data.data;
+    },
+     async buscarIniciativaCat(){
+      const { data } = await axios.get("/esocial/atributos/iniciativa-cat")
+      this.iniciativacat = data.data.data;
+    },
+    async buscarOrgaodeClasse(){
+      const { data } = await axios.get("/esocial/atributos/orgao-classe")
+      this.orgaoclasse = data.data.data;
     }
   },
   created() {
@@ -1045,6 +1061,8 @@ export default {
     this.buscarParteAtingida();
     this.buscarDescricaoLesao();
     this.buscarTipoAcidenteTrabalho();
+    this.buscarIniciativaCat();
+    this.buscarOrgaodeClasse();
     this.formEsocial = this.value || {};
     this.formEsocial.cnpj = this.value.cnpjFormat;
   },
