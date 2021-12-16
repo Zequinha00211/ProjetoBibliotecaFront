@@ -2,10 +2,10 @@
   <div
     class="background-radom-img body-sst"
     ref="body-login"
-    style="margin: 0; padding: 0"
+    style="margin: 0"
   >
     <div class="pre-load-img" ref="pre-load-img"></div>
-    <img  class="imagem-sst-carrossel" />
+    <img class="imagem-sst-carrossel" />
     <div class="login-sst">
       <h1>Seja bem-vindo(a) ao SST!</h1>
 
@@ -50,10 +50,11 @@
         </row>
         <row :gutter="20">
           <i-col :sm="24">
-            <Button long  @click="login">Login</Button>
+            <Button long @click="login">Login</Button>
           </i-col>
         </row>
         <br />
+        <router-link :to="`/register`">← Ir para tela de login</router-link>
       </Form>
     </div>
   </div>
@@ -109,13 +110,14 @@ export default {
     document.body.style.backgroundSize = "";
   },
 };
-</script> 
+</script>  
 <style >
-
-.form_login .ivu-form-item-label{
-  color:#ffffff!important;
+.form_login .ivu-form-item-label {
+  color: #000000 !important;
 }
-.form_login input {-webkit-text-fill-color: #ccfc4f!important; }
+.form_login input {
+  -webkit-text-fill-color: #ccfc4f !important;
+}
 
 .background-radom-img {
   background-repeat: no-repeat;
@@ -151,12 +153,11 @@ export default {
 .login-sst {
   width: 500px;
   min-height: 650px;
-  background-color: #154733;
+  background-color: #fff;
+  color: #154733;
   border-radius: 15px;
   margin: auto;
-  margin-top: 50px;
-  padding: 20px;
-  margin-top: 1px;
+  padding: 10px; 
 }
 .login-sst > .sst-content-img {
   width: 100%;
@@ -184,33 +185,29 @@ export default {
 }
 .login-sst > .instrucoes-acesso {
   margin-top: 20px;
-  color: #ccfc4f;
+  color: #154733;
   font-size: 18px;
   text-align: center;
 }
 
 /* Change the white to any color ;) */
-Chrome
-.login-sst input:-webkit-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Chrome .login-sst input:-webkit-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -webkit-box-shadow: 0 0 0 30px #154733 inset !important;
   -webkit-text-fill-color: #ccfc4f !important;
 }
-Firefox
-.login-sst input:-moz-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Firefox .login-sst input:-moz-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -moz-box-shadow: 0 0 0 30px #154733 inset !important;
   -moz-text-fill-color: #ccfc4f !important;
 }
-Opera
-.login-sst input:-o-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Opera .login-sst input:-o-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -o-box-shadow: 0 0 0 30px #154733 inset !important;
   -o-text-fill-color: #ccfc4f !important;
 }
-Microsoft Edge/Explore
-.login-sst input:-ms-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Microsoft Edge/Explore .login-sst input:-ms-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -ms-box-shadow: 0 0 0 30px #154733 inset !important;
   -ms-text-fill-color: #ccfc4f !important;
 }
@@ -239,6 +236,7 @@ Microsoft Edge/Explore
 }
 
 .imagem-sst-carrossel {
+   background-image: url("https://picsum.photos/1920/1080/?random"); /* The image used */
   z-index: -100;
   min-height: 100%;
   min-width: 1024px;

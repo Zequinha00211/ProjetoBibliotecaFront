@@ -5,8 +5,8 @@
     style="margin: 0; padding: 0"
   >
     <div class="pre-load-img" ref="pre-load-img"></div>
-    <img class="imagem-sst-carrossel" />
-    <div class="login-sst">
+    <img class="imagem-sst-carrossel-register" />
+    <div class="register-sst">
       <h1>Cadastro de usuário</h1>
 
       <p class="desc-sst">
@@ -60,6 +60,7 @@
           </i-col>
         </row>
         <br />
+         <router-link :to="`/login`">Não possui conta ainda? Criar conta →</router-link>
       </Form>
     </div>
   </div>
@@ -118,10 +119,10 @@ export default {
     document.body.style.backgroundSize = "";
   },
 };
-</script> 
+</script>
 <style >
 .form_register .ivu-form-item-label {
-  color: #ffffff!important;
+  color: #000000 !important;
 }
 .form_register input {
   -webkit-text-fill-color: #ccfc4f !important;
@@ -143,13 +144,7 @@ export default {
   position: relative;
   width: 400px;
 }
-
-.login-content {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 8px;
-}
-
+ 
 .body-sst {
   color: #fff;
   padding-top: 50px;
@@ -158,70 +153,69 @@ export default {
   font-weight: 900;
 }
 
-.login-sst {
+.register-sst {
   width: 500px;
   min-height: 650px;
-  background-color: #154733;
+  background-color: #fff;
+  color: #154733;
   border-radius: 15px;
   margin: auto;
-  margin-top: 50px;
-  padding: 20px;
-  margin-top: 1px;
+  padding: 10px; 
 }
-.login-sst > .sst-content-img {
+.register-sst > .sst-content-img {
   width: 100%;
   height: 80px;
 }
 
-.login-sst > .sst-content-img > img {
+.register-sst > .sst-content-img > img {
   top: -100px;
   width: 100%;
   position: relative;
   left: -28px;
 }
 
-.login-sst > h1 {
+.register-sst > h1 {
   text-align: center;
   font-weight: 900;
   font-size: 45px;
   padding: 10px;
 }
 
-.login-sst > .desc-sst {
+.register-sst > .desc-sst {
   font-size: 18px;
   padding: 5px 40px 5px 40px;
   text-align: center;
 }
-.login-sst > .instrucoes-acesso {
+.register-sst > .instrucoes-acesso {
   margin-top: 20px;
-  color: #ccfc4f;
+  color: #154733;
   font-size: 18px;
   text-align: center;
 }
 
 /* Change the white to any color ;) */
-Chrome .login-sst input:-webkit-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Chrome .register-sst input:-webkit-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -webkit-box-shadow: 0 0 0 30px #154733 inset !important;
   -webkit-text-fill-color: #ccfc4f !important;
 }
-Firefox .login-sst input:-moz-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Firefox .register-sst input:-moz-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -moz-box-shadow: 0 0 0 30px #154733 inset !important;
   -moz-text-fill-color: #ccfc4f !important;
 }
-Opera .login-sst input:-o-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Opera .register-sst input:-o-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -o-box-shadow: 0 0 0 30px #154733 inset !important;
   -o-text-fill-color: #ccfc4f !important;
 }
-Microsoft Edge/Explore .login-sst input:-ms-autofill {
-  box-shadow: 0 0 0 30px #154733 inset !important;
+Microsoft Edge/Explore .register-sst input:-ms-autofill {
+  box-shadow: 0 0 0 30px #ffff inset !important;
   -ms-box-shadow: 0 0 0 30px #154733 inset !important;
   -ms-text-fill-color: #ccfc4f !important;
 }
 
-.login-sst input {
+.register-sst input {
   box-shadow: 0 0 0 30px #154733 inset !important;
   border: 0.8px solid #ccfc4f !important;
   color: #ccfc4f !important;
@@ -229,22 +223,23 @@ Microsoft Edge/Explore .login-sst input:-ms-autofill {
   padding: 25px;
   font-weight: 1000;
 }
-.login-sst input::placeholder {
+.register-sst input::placeholder {
   color: #ccfc4f !important;
 }
 
-.login-sst [type="submit"] {
+.register-sst [type="submit"] {
   color: #154733;
   background-color: #fff;
   border: 0.8px solid #ccfc4f;
   font-weight: 900;
 }
-.login-sst .form-control {
+.register-sst .form-control {
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.imagem-sst-carrossel {
+.imagem-sst-carrossel-register {
+   background-image: url("https://picsum.photos/1920/1080/?random"); /* The image used */
   z-index: -100;
   min-height: 100%;
   min-width: 1024px;
@@ -256,7 +251,7 @@ Microsoft Edge/Explore .login-sst input:-ms-autofill {
 }
 @media screen and (max-width: 1024px) {
   /* Specific to this particular image */
-  .imagem-sst-carrossel {
+  .imagem-sst-carrossel-register {
     left: 50%;
     margin-left: -512px; /* 50% */
   }
@@ -264,17 +259,17 @@ Microsoft Edge/Explore .login-sst input:-ms-autofill {
 
 @media screen and (max-width: 500px) {
   /* Specific to this particular image */
-  .login-sst {
+  .register-sst {
     width: 100%;
   }
-  .login-sst > h1 {
+  .register-sst > h1 {
     font-size: 25px;
   }
 
-  .login-sst > .desc-sst {
+  .register-sst > .desc-sst {
     font-size: 15px;
   }
-  .login-sst > .instrucoes-acesso {
+  .register-sst > .instrucoes-acesso {
     font-size: 15px;
   }
 }
