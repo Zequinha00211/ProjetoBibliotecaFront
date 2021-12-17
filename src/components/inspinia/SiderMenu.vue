@@ -34,6 +34,13 @@
           </ti-menu-grupo-level3>
           <ti-sider-menu-item />
         </ti-menu-grupo>
+         <ti-menu-grupo name="Exemplos" icon="fa fa-building">
+          <ti-sider-menu-item
+            name="Lista dinamica"
+            :to="{ name: 'exemplosIndex' }"
+            icon="fa fa-list"
+          /> 
+        </ti-menu-grupo>
       </ul>
     </div>
   </nav>

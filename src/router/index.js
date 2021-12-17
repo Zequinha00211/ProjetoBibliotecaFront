@@ -5,6 +5,7 @@ import Login from '@/views/auth/Login';
 import routerCompany from "./routers/company";
 import routerUsers from './routers/users'
 import routerEsocial from "./routers/esocial";
+import routerExemplos from "./routers/exemplos"
 
 Vue.use(VueRouter)
 
@@ -23,7 +24,8 @@ const routes = [
   },
   ...routerCompany,
   ...routerUsers,
-  ...routerEsocial
+  ...routerEsocial,
+  ...routerExemplos
 ]
 
 const router = new VueRouter({
