@@ -636,9 +636,9 @@ export default {
         comunicacao: "",
         iniciativa: "",
         codsituacao: "",
-        obs: "",
         tipoloc: "",
         descloc: "",
+        obs: "",
         pais: "",
         cep: "",
         tipolog: "",
@@ -775,21 +775,7 @@ export default {
             trigger: "blur",
           },
         ],
-        obs: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
         tipoloc: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        descloc: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -810,21 +796,7 @@ export default {
             trigger: "blur",
           },
         ],
-        tipolog: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
         numerolog: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        bairro: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -839,13 +811,6 @@ export default {
           },
         ],
         codpostal: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        complementolog: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -971,21 +936,7 @@ export default {
             trigger: "blur",
           },
         ],
-        desccomplelesao: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
         nmrrecibo: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        diagprov: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -1081,6 +1032,7 @@ export default {
     this.buscarOrgaodeClasse();
     this.buscarTipodeCat();
     this.buscarLateralidadePartesAtingidas();
+
     this.formEsocial = this.value || {};
     this.formEsocial.cnpj = this.value.cnpjFormat;
   },
