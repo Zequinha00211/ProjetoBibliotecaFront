@@ -26,13 +26,13 @@
       <i-col :sm="8">
         <FormItem prop="ordemexame" label="Ordem do Exame">
            <Select v-model="formEsocial.ordemexame" filterable>
-                  <Option value="I">Inicial</Option>
-                  <Option value="S">Sequencial</Option>
+                  <Option value="1">Inicial</Option>
+                  <Option value="2">Sequencial</Option>
               </Select>
         </FormItem>
       </i-col>
       </row>
-       <row :gutter="20">
+     <row :gutter="20">
       <i-col :sm="24">
         <FormItem prop="indicacaoresultado" label="Indicação do Resultado">
            <Select v-model="formEsocial.indicacaoresultado" filterable>
@@ -46,7 +46,7 @@
         </FormItem>
       </i-col>
         </row>
-         <row :gutter="20">
+      <row :gutter="20">
       <i-col :sm="24">
         <FormItem prop="obs" label="Observações">
           <Input
@@ -82,32 +82,23 @@ export default {
       stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
       formEsocial: {
         codexame: "",
-    /*     dataexame: "", */
+        dataexame: "",
         ordemexame: "",
         obs: "",
       },
       ruleEsocial: {
-        nmrinsc: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
         codexame: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
+          },       
         ],
-        /* dataexame: [
+          dataexame: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },       
-        ], */
+        ],
          ordemexame: [
           {
             required: true,
@@ -136,7 +127,7 @@ export default {
       this.$refs["formEsocial"].validate((valid) => {
         if (valid) {
           this.$emit("handleSubmit", this.formEsocial); 
-           this.formEsocial = { codexame: "" ,/*  dataexame: "", */ ordemexame: "", indicacaoresultado: "", obs: ""}        
+          this.formEsocial = { codexame: "",dataexame: "", ordemexame: "", indicacaoresultado: "", obs: ""}       
         } else {
           this.$Message.error("Insira todos os campos!");
         }

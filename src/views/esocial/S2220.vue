@@ -124,13 +124,6 @@
             </i-col>
           </row>
           <row :gutter="20">
-            <i-col :sm="12">
-              <FormItem>
-                <Button @click="salvar()"> Salvar</Button>
-              </FormItem>
-            </i-col>
-          </row>
-          <row :gutter="20">
             <i-col :sm="24">
               <ButtonGroup shape="circle">
                 <Button
@@ -307,14 +300,12 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         dataemissaoatestado: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         inscmedico: [
@@ -381,18 +372,20 @@ export default {
     },
      deleteItem(data) {
       this.exames = this.exames.filter((exame) => {
-        if (exame.cnpj != data.cnpj) {
+        if (exame.obs != data.obs) {
           return exame;
         }
       });
     },
-    async salvar() {
-      const params = {
-        ...this.formEsocial,
-        array: this.exames,
-      };
-      await axios.post("exemplos", params);
-      this.$Message.success("Alterado com Sucesso!");
+    salvar() {
+      this.$refs["formEsocial"].validate((valid) => {
+        if (valid) {
+          console.log(this.formEsocial);
+           this.$emit("handleSubmit", this.formEsocial);
+        } else {
+          this.$Message.error("Insira todos os campos!");
+        }
+      });
     },
     async buscarCategoriadoTrabalhador() {
     const { data } = await axios.get("/esocial/tabela/01");

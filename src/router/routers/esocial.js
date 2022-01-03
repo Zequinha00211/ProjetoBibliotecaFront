@@ -1,5 +1,6 @@
 import S2210Esocial from '@/views/esocial/S2210';
 import S2220Esocial from '@/views/esocial/S2220';
+import S2240Esocial from '@/views/esocial/S2240';
 export default [
     {
         path: '/esocial/s-2210',
@@ -12,6 +13,12 @@ export default [
         name: 's2220Esocial',
         component: S2220Esocial,
         meta: { auth: true, title: "Cadastro S-2220" },
+    },
+    {
+        path: '/esocial/s-2240',
+        name: 's2240Esocial',
+        component: S2240Esocial,
+        meta: { auth: true, title: "Cadastro S-2240" },
     },
 
 ];

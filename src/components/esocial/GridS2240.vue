@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="exames"
+    :data-source="datasinicio"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,19 +17,15 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="200" data-field="codexame" caption="Código do Exame" />
-    <DxColumn :width="200" data-field="dataexame" caption="Data do Exame" />
-    <DxColumn :width="200" data-field="ordemexame" caption="Ordem do Exame" />
-    <DxColumn data-field="indicacaoresultado" caption="Indicação do Exame" /> 
-    <DxColumn data-field="obs" caption="Observações do Exame" /> 
+    <DxColumn :width="1200" data-field="datainicio" caption="Data" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar(data.key)"
+        @click="editar1(data.key)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem(data.key)" size="small">
+      <Button @click="deleteItem1(data.key)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -70,24 +66,24 @@ export default {
   },
   data() {
     return {
-      exames: {},
+      datasinicio: {},
     };
   },
   watch: {
     value(newValue) {
-      this.exames = newValue || [];
+      this.datasinicio = newValue || [];
     },
   },
   methods: {
-    deleteItem(data) {
-      this.$emit("deleteItem", data);     
+    deleteItem1(data) {
+      this.$emit("deleteItem1", data);     
     },
-     editar(data) {
-      this.$emit("editar", data);     
+     editar1(data) {
+      this.$emit("editar1", data);     
     },
   },
   created() {
-    this.exames = this.value || [];
+    this.datasinicio = this.value || [];
   },
 };
 </script>

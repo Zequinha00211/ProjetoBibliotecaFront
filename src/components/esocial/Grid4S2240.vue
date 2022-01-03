@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="exames"
+    :data-source="epis"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,19 +17,16 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="200" data-field="codexame" caption="Código do Exame" />
-    <DxColumn :width="200" data-field="dataexame" caption="Data do Exame" />
-    <DxColumn :width="200" data-field="ordemexame" caption="Ordem do Exame" />
-    <DxColumn data-field="indicacaoresultado" caption="Indicação do Exame" /> 
-    <DxColumn data-field="obs" caption="Observações do Exame" /> 
+    <DxColumn :width="600" data-field="caoudoc" caption="Documento de Avaliação" />
+    <DxColumn :width="600" data-field="descepi" caption="Descrição do EPI" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar(data.key)"
+        @click="editar3(data.key)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem(data.key)" size="small">
+      <Button @click="deleteItem3(data.key)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -70,24 +67,24 @@ export default {
   },
   data() {
     return {
-      exames: {},
+      epis: {},
     };
   },
   watch: {
     value(newValue) {
-      this.exames = newValue || [];
+      this.epis = newValue || [];
     },
   },
   methods: {
-    deleteItem(data) {
-      this.$emit("deleteItem", data);     
+    deleteItem3(data) {
+      this.$emit("deleteItem3", data);     
     },
-     editar(data) {
-      this.$emit("editar", data);     
+     editar3(data) {
+      this.$emit("editar3", data);     
     },
   },
   created() {
-    this.exames = this.value || [];
+    this.epis = this.value || [];
   },
 };
 </script>

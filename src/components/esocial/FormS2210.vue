@@ -242,7 +242,7 @@
           </i-col>
           <i-col :sm="4">
             <FormItem prop="cep" label="CEP">
-              <Input type="text" v-model="formEsocial.cep" placeholder=" " />
+              <Input type="text" v-model="formEsocial.cep" placeholder=" " v-mask="`#####-###`" />
             </FormItem>
           </i-col>
           <i-col :sm="4">
@@ -702,21 +702,18 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         data: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         tipo: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         hora: [
@@ -737,7 +734,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         ho: [
@@ -751,7 +747,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         comunicacao: [
@@ -765,14 +760,12 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         codsituacao: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         tipoloc: [
@@ -786,7 +779,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         cep: [
@@ -835,7 +827,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         numinsc: [
@@ -849,7 +840,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         lateralidade: [
@@ -870,7 +860,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         horaatendimento: [
@@ -905,7 +894,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         uforgaoclasse: [
@@ -926,7 +914,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         nmrinscorgao: [

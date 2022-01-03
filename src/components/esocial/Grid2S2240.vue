@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="exames"
+    :data-source="agentesnocivos"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,11 +17,10 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="200" data-field="codexame" caption="Código do Exame" />
-    <DxColumn :width="200" data-field="dataexame" caption="Data do Exame" />
-    <DxColumn :width="200" data-field="ordemexame" caption="Ordem do Exame" />
-    <DxColumn data-field="indicacaoresultado" caption="Indicação do Exame" /> 
-    <DxColumn data-field="obs" caption="Observações do Exame" /> 
+    <DxColumn :width="100" data-field="codagentenocivo" caption="Código do Agente Nocivo" />
+    <DxColumn :width="400" data-field="descagentenocivo" caption="Descrição do Agente Nocivo" />
+    <DxColumn :width="300" data-field="tipoavaliacao" caption="Tipo de Avaliação" />
+    <DxColumn :width="400" data-field="doseexpo" caption="Dose da Exposição" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
         @click="editar(data.key)"
@@ -70,12 +69,12 @@ export default {
   },
   data() {
     return {
-      exames: {},
+      agentesnocivos: {},
     };
   },
   watch: {
     value(newValue) {
-      this.exames = newValue || [];
+      this.agentesnocivos = newValue || [];
     },
   },
   methods: {
@@ -87,7 +86,7 @@ export default {
     },
   },
   created() {
-    this.exames = this.value || [];
+    this.agentesnocivos = this.value || [];
   },
 };
 </script>

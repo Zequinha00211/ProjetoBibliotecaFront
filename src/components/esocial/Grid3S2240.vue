@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="exames"
+    :data-source="responsaveis"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,19 +17,19 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="200" data-field="codexame" caption="Código do Exame" />
-    <DxColumn :width="200" data-field="dataexame" caption="Data do Exame" />
-    <DxColumn :width="200" data-field="ordemexame" caption="Ordem do Exame" />
-    <DxColumn data-field="indicacaoresultado" caption="Indicação do Exame" /> 
-    <DxColumn data-field="obs" caption="Observações do Exame" /> 
+    <DxColumn :width="200" data-field="cpfresponsavel" caption="CPF do responsável" />
+    <DxColumn :width="200" data-field="orgclasse" caption="Órgão de Classe" />
+    <DxColumn :width="100" data-field="uforgao" caption="UF do Órgão de classe" />
+    <DxColumn :width="200" data-field="descorgaoclase" caption="Descrição do Órgão de Classe" />
+    <DxColumn :width="300" data-field="nmrinscorgao" caption="Número de inscrição do Órgão de classe" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar(data.key)"
+        @click="editar2(data.key)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem(data.key)" size="small">
+      <Button @click="deleteItem2(data.key)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -70,24 +70,24 @@ export default {
   },
   data() {
     return {
-      exames: {},
+      responsaveis: {},
     };
   },
   watch: {
     value(newValue) {
-      this.exames = newValue || [];
+      this.responsaveis = newValue || [];
     },
   },
   methods: {
-    deleteItem(data) {
-      this.$emit("deleteItem", data);     
+    deleteItem2(data) {
+      this.$emit("deleteItem2", data);     
     },
-     editar(data) {
-      this.$emit("editar", data);     
+     editar2(data) {
+      this.$emit("editar2", data);     
     },
   },
   created() {
-    this.exames = this.value || [];
+    this.responsaveis = this.value || [];
   },
 };
 </script>
