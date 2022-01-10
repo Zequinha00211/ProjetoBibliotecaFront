@@ -1,11 +1,11 @@
 <template>
-  <Form ref="form4Esocial" :model="form4Esocial" :rules="rule4Esocial" inline>
+  <Form ref="FormDadosEPI" :model="FormDadosEPI" :rules="rule4Esocial" inline>
     <row :gutter="20">
           <i-col :sm="12">
             <FormItem prop="caoudoc" label="CA ou documento de avaliação de EPI">
               <Input
                 type="text"
-                v-model="form4Esocial.caoudoc"
+                v-model="FormDadosEPI.caoudoc"
                 placeholder=" "
               />
             </FormItem>
@@ -14,17 +14,28 @@
             <FormItem prop="descepi" label="Descrição do EPI">
               <Input
                 type="text"
-                v-model="form4Esocial.descepi"
+                v-model="FormDadosEPI.descepi"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
-        <i-col :sm="12">
+        </row>
+         <row :gutter="20">
+      <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()">{{stringBtn}}</Button>
+          <Button @click="$emit('cancelarDadosEPI')" class="btnFormDadosEPI"
+            >Cancelar</Button
+          >
         </FormItem>
       </i-col>
-        </row>
+      <i-col :sm="12">
+        <FormItem>
+          <Button type="primary" @click="salvar()" class="btnFormDadosEPI">{{
+            stringBtn
+          }}</Button>
+        </FormItem>
+      </i-col>
+    </row>
   </Form>
 </template>
 
@@ -40,7 +51,7 @@ export default {
   data() {
     return {
       stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
-      form4Esocial: {
+      FormDadosEPI: {
         caoudoc: "",
         descepi: "",
       },
@@ -50,16 +61,16 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.form4Esocial = newValue || {}; 
+      this.FormDadosEPI = newValue || {}; 
       
     },
   },
   methods: {
     salvar() {
-      this.$refs["form4Esocial"].validate((valid) => {
+      this.$refs["FormDadosEPI"].validate((valid) => {
         if (valid) {
-          this.$emit("handleSubmit3", this.form4Esocial); 
-           this.form4Esocial = { caoudoc: "", descepi: "",}        
+          this.$emit("salvarDadosEPI", this.FormDadosEPI); 
+           this.FormDadosEPI = { caoudoc: "", descepi: "",}        
         } else {
           this.$Message.error("Insira todos os campos!");
         }
@@ -67,7 +78,12 @@ export default {
     },
   },
   created() {
-    this.form4Esocial = this.value || {};  
+    this.FormDadosEPI = this.value || {};  
   },
 };
 </script>
+<style scoped>
+.btnFormDadosEPI{
+  width: 100%;
+}
+</style>

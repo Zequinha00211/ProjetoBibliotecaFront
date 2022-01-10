@@ -26,12 +26,17 @@ export default {
       exibir: true,
     };
   },
-  mounted() {
-    let componentsSlot = this.$slots.default.filter((item) => {
-      return item?.componentInstance?.checkPermissao;
-    });
+  computed: {
+    checkPermissao(){
+      let componentsSlot = this.$slots.default.filter((item) => {
+        return item?.componentInstance?.checkPermissao;
+      });
 
-    this.exibir = componentsSlot.length > 0;
+      return componentsSlot.length > 0; 
+    }
+  },
+  mounted() {
+    this.exibir = this.checkPermissao;
   },
   methods: {},
 };

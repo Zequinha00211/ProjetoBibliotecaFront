@@ -7,37 +7,41 @@
       >
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="inscemp" label="Inscrição da Empresa">
+            <FormItem prop="inscricaoempresa" label="Inscrição da Empresa">
               <Input
                 type="text"
-                v-model="formEsocial.inscemp"
+                v-model="formEsocial.inscricaoempresa"
                 placeholder=" "
                 v-mask="`##.###.###/####-##`"
               />
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="name" label="Nome do Empregado">
-              <Input type="text" v-model="formEsocial.name" placeholder=" " />
+            <FormItem prop="nameempregado" label="Nome do Empregado">
+              <Input
+                type="text"
+                v-model="formEsocial.nameempregado"
+                placeholder=" "
+              />
             </FormItem>
           </i-col>
         </row>
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="cpf" label="CPF do Empregado">
+            <FormItem prop="cpfempregado" label="CPF do Empregado">
               <Input
                 type="text"
-                v-model="formEsocial.cpf"
+                v-model="formEsocial.cpfempregado"
                 placeholder=" "
                 v-mask="`###.###.###-##`"
               />
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="matricula" label="Matricula do Empregado">
+            <FormItem prop="matriculaempregado" label="Matricula do Empregado">
               <Input
                 type="text"
-                v-model="formEsocial.matricula"
+                v-model="formEsocial.matriculaempregado"
                 placeholder=" "
               />
             </FormItem>
@@ -45,13 +49,22 @@
         </row>
         <row :gutter="20">
           <i-col :sm="24">
-            <FormItem prop="codigo" label="Codigo da Categoria do Trabalhador">
-              <Select v-model="formEsocial.codigo" filterable>
+            <FormItem
+              prop="codigodecategoriatrabalhador"
+              label="Codigo da Categoria do Trabalhador"
+            >
+              <Select
+                v-model="formEsocial.codigodecategoriatrabalhador"
+                filterable
+              >
                 <Option
-                  v-for="categoria in categoriasTrabalhador"
-                  :value="categoria.codigo"
-                  :key="categoria.id"
-                  >{{ categoria.group.descricao }} - {{ categoria.descricao }}</Option
+                  v-for="codigodecategoriatrabalhador in categoriasTrabalhador"
+                  :value="
+                    codigodecategoriatrabalhador.codigo
+                  "
+                  :key="codigodecategoriatrabalhador.id"
+                  >{{ codigodecategoriatrabalhador.group.descricao }} -
+                  {{ codigodecategoriatrabalhador.descricao }}</Option
                 >
               </Select>
             </FormItem>
@@ -75,32 +88,32 @@
       >
         <row :gutter="20">
           <i-col :sm="5">
-            <FormItem prop="data" label="Data do Acidente">
+            <FormItem prop="datadoacidente" label="Data do Acidente">
               <DatePicker
                 type="date"
-                format="DD/MM/yyyy"
-                v-model="formEsocial.data"
+                format="dd/MM/yyyy"
+                v-model="formEsocial.datadoacidente"
                 style="width: 100%"
               ></DatePicker>
             </FormItem>
           </i-col>
           <i-col :sm="14">
-            <FormItem prop="tipo" label="Tipo do Acidente">
-              <Select v-model="formEsocial.tipo" filterable>
+            <FormItem prop="tipodoacidente" label="Tipo do Acidente">
+              <Select v-model="formEsocial.tipodoacidente" filterable>
                 <Option
-                  v-for="tipo in tipoacidentetrabalho"
-                  :value="tipo.codigo"
-                  :key="tipo.id"
-                  >{{ tipo.descricao }}</Option
+                  v-for="tipodoacidente in tipoacidentetrabalho"
+                  :value="tipodoacidente.codigo"
+                  :key="tipodoacidente.id"
+                  >{{ tipodoacidente.descricao }}</Option
                 >
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="5">
-            <FormItem prop="hora" label="Hora do Acidente">
+            <FormItem prop="horadoacidente" label="Hora do Acidente">
               <TimePicker
                 format="HH:mm"
-                v-model="formEsocial.hora"
+                v-model="formEsocial.horadoacidente"
                 style="width: 100%"
               />
             </FormItem>
@@ -108,10 +121,13 @@
         </row>
         <row :gutter="20">
           <i-col :sm="5">
-            <FormItem prop="horatrab" label="Horas Trabalhadas Antes">
+            <FormItem
+              prop="horastrabalhadasantes"
+              label="Horas Trabalhadas Antes"
+            >
               <TimePicker
                 format="HH:mm"
-                v-model="formEsocial.horatrab"
+                v-model="formEsocial.horastrabalhadasantes"
                 style="width: 100%"
               />
             </FormItem>
@@ -123,25 +139,26 @@
                   v-for="tipocat in tipocat"
                   :value="tipocat.codigo"
                   :key="tipocat.id"
-                  > {{ tipocat.descricao }}</Option
+                >
+                  {{ tipocat.descricao }}</Option
                 >
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="5">
-            <FormItem prop="ho" label="Houve Obito">
-              <Select v-model="formEsocial.ho" filterable>
-                  <Option value="S">Sim</Option>
-                  <Option value="N">Não</Option>
+            <FormItem prop="houveobito" label="Houve Obito">
+              <Select v-model="formEsocial.houveobito" filterable>
+                <Option value="S">Sim</Option>
+                <Option value="N">Não</Option>
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="4">
-            <FormItem prop="datobi" label="Data do Óbito">
+            <FormItem prop="datadoobito" label="Data do Óbito">
               <DatePicker
                 type="date"
-                format="DD/MM/yyyy"
-                v-model="formEsocial.datobi"
+                format="dd/MM/yyyy"
+                v-model="formEsocial.datadoobito"
                 style="width: 100%"
               ></DatePicker>
             </FormItem>
@@ -149,37 +166,43 @@
         </row>
         <row :gutter="20">
           <i-col :sm="8">
-            <FormItem prop="comunicacao" label="Comunicação á autoridade">
+            <FormItem
+              prop="comunicacaoaautoridade"
+              label="Comunicação á autoridade"
+            >
               <Input
                 type="text"
-                v-model="formEsocial.comunicacao"
+                v-model="formEsocial.comunicacaoaautoridade"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
           <i-col :sm="8">
-            <FormItem prop="iniciativa" label="Iniciativa da CAT">
-              <Select v-model="formEsocial.iniciativa" filterable>
+            <FormItem prop="iniciativacat" label="Iniciativa da CAT">
+              <Select v-model="formEsocial.iniciativacat" filterable>
                 <Option
-                  v-for="iniciativa in iniciativacat"
-                  :value="iniciativa.codigo"
-                  :key="iniciativa.id"
-                  >{{ iniciativa.descricao }}</Option
+                  v-for="iniciativacat in iniciativacat"
+                  :value="iniciativacat.codigo"
+                  :key="iniciativacat.id"
+                  >{{ iniciativacat.descricao }}</Option
                 >
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="8">
             <FormItem
-              prop="codsituacao"
+              prop="codigodasituacaogeradoradoacidente"
               label="Código da Situação Geradora do Acidente"
             >
-            <Select v-model="formEsocial.codsituacao" filterable>
+              <Select
+                v-model="formEsocial.codigodasituacaogeradoradoacidente"
+                filterable
+              >
                 <Option
-                  v-for="codsituacao in codsituacaoTrabalhador"
-                  :value="codsituacao.codigo"
-                  :key="codsituacao.id"
-                  >{{ codsituacao.descricao }}</Option
+                  v-for="codigodasituacaogeradoradoacidente in codsituacaoTrabalhador"
+                  :value="codigodasituacaogeradoradoacidente.codigo"
+                  :key="codigodasituacaogeradoradoacidente.id"
+                  >{{ codigodasituacaogeradoradoacidente.descricao }}</Option
                 >
               </Select>
             </FormItem>
@@ -187,8 +210,12 @@
         </row>
         <row :gutter="20">
           <i-col :sm="24">
-            <FormItem prop="obs" label="Observações">
-              <Input type="text" v-model="formEsocial.obs" placeholder=" " />
+            <FormItem prop="observacoes" label="Observações">
+              <Input
+                type="text"
+                v-model="formEsocial.observacoes"
+                placeholder=" "
+              />
             </FormItem>
           </i-col>
           <i-col :sm="24">
@@ -211,26 +238,26 @@
       <TabPane label="Local do Acidente" name="localdoacidente">
         <row :gutter="20">
           <i-col :sm="4">
-            <FormItem prop="tipoloc" label="Tipo do Local">
+            <FormItem prop="tipodolocal" label="Tipo do Local">
               <Input
                 type="text"
-                v-model="formEsocial.tipoloc"
+                v-model="formEsocial.tipodolocal"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
           <i-col :sm="8">
-            <FormItem prop="descloc" label="Descrição do Local">
+            <FormItem prop="desclocal" label="Descrição do Local">
               <Input
                 type="text"
-                v-model="formEsocial.descloc"
+                v-model="formEsocial.desclocal"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
           <i-col :sm="4">
             <FormItem prop="pais" label="País">
-               <Select v-model="formEsocial.pais" filterable>
+              <Select v-model="formEsocial.pais" filterable>
                 <Option
                   v-for="pais in paisdoacidente"
                   :value="pais.codigo"
@@ -242,7 +269,12 @@
           </i-col>
           <i-col :sm="4">
             <FormItem prop="cep" label="CEP">
-              <Input type="text" v-model="formEsocial.cep" placeholder=" " v-mask="`#####-###`" />
+              <Input
+                type="text"
+                v-model="formEsocial.cep"
+                placeholder=" "
+                v-mask="`#####-###`"
+              />
             </FormItem>
           </i-col>
           <i-col :sm="4">
@@ -253,22 +285,23 @@
         </row>
         <row :gutter="20">
           <i-col :sm="8">
-            <FormItem prop="tipolog" label="Tipo do Logradouro">
-              <Select v-model="formEsocial.tipolog" filterable>
+            <FormItem prop="tipodologradouro" label="Tipo do Logradouro">
+              <Select v-model="formEsocial.tipodologradouro" filterable>
                 <Option
-                  v-for="tipolog in tipodeLogradouro"
-                  :value="tipolog.codigo"
-                  :key="tipolog.id"
-                  >{{tipolog.codigo}} - {{ tipolog.descricao }}</Option
+                  v-for="tipodologradouro in tipodeLogradouro"
+                  :value="tipodologradouro.codigo"
+                  :key="tipodologradouro.id"
+                  >{{ tipodologradouro.codigo }} -
+                  {{ tipodologradouro.descricao }}</Option
                 >
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="8">
-            <FormItem prop="numerolog" label="Número do Logradouro">
+            <FormItem prop="numerodologradouro" label="Número do Logradouro">
               <Input
                 type="text"
-                v-model="formEsocial.numerolog"
+                v-model="formEsocial.numerodologradouro"
                 placeholder=" "
               />
             </FormItem>
@@ -281,17 +314,21 @@
         </row>
         <row :gutter="20">
           <i-col :sm="6">
-            <FormItem prop="desclog" label="Descrição do Logradouro">
+            <FormItem prop="desclogradouro" label="Descrição do Logradouro">
               <Input
                 type="text"
-                v-model="formEsocial.desclog"
+                v-model="formEsocial.desclogradouro"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
           <i-col :sm="6">
-            <FormItem prop="codmu" label="Código do Município">
-              <Input type="text" v-model="formEsocial.codmu" placeholder=" " />
+            <FormItem prop="codmunicipio" label="Código do Município">
+              <Input
+                type="text"
+                v-model="formEsocial.codmunicipio"
+                placeholder=" "
+              />
             </FormItem>
           </i-col>
           <i-col :sm="6">
@@ -304,10 +341,13 @@
             </FormItem>
           </i-col>
           <i-col :sm="6">
-            <FormItem prop="complementolog" label="Complemento do Logradouro">
+            <FormItem
+              prop="complementologradouro"
+              label="Complemento do Logradouro"
+            >
               <Input
                 type="text"
-                v-model="formEsocial.complementolog"
+                v-model="formEsocial.complementologradouro"
                 placeholder=" "
               />
             </FormItem>
@@ -352,10 +392,10 @@
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="numinsc" label="Número de Inscrição">
+            <FormItem prop="nmrinsc" label="Número de Inscrição">
               <Input
                 type="text"
-                v-model="formEsocial.numinsc"
+                v-model="formEsocial.nmrinsc"
                 placeholder=" "
               />
             </FormItem>
@@ -370,20 +410,30 @@
         </row>
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="codatingida" label="Código da parte Atingida">
-              <Select v-model="formEsocial.codatingida" filterable>
+            <FormItem
+              prop="codigoparteatingida"
+              label="Código da parte Atingida"
+            >
+              <Select v-model="formEsocial.codigoparteatingida" filterable>
                 <Option
-                  v-for="codatingida in parteatingida"
-                  :value="codatingida.codigo"
-                  :key="codatingida.id"
-                  >{{ codatingida.id }} - {{ codatingida.descricao }}</Option
+                  v-for="codigoparteatingida in parteatingida"
+                  :value="codigoparteatingida.codigo"
+                  :key="codigoparteatingida.id"
+                  >{{ codigoparteatingida.id }} -
+                  {{ codigoparteatingida.descricao }}</Option
                 >
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="lateralidadepartesatingidas" label="Lateralidade Das Partes Atingidas">
-              <Select v-model="formEsocial.lateralidadepartesatingidas" filterable>
+            <FormItem
+              prop="lateralidadepartesatingidas"
+              label="Lateralidade Das Partes Atingidas"
+            >
+              <Select
+                v-model="formEsocial.lateralidadepartesatingidas"
+                filterable
+              >
                 <Option
                   v-for="lateralidadepartesatingidas in lateralidadepartesatingidas"
                   :value="lateralidadepartesatingidas.codigo"
@@ -404,12 +454,12 @@
         <row :gutter="20">
           <i-col :sm="24">
             <FormItem
-              prop="codagente"
+              prop="codagentecausadoracidente"
               label="Código do agente causador do acidente"
             >
               <Input
                 type="text"
-                v-model="formEsocial.codagente"
+                v-model="formEsocial.codagentecausadoracidente"
                 placeholder=" "
               />
             </FormItem>
@@ -431,29 +481,29 @@
       <TabPane label="Atestado Médico" name="atestadomedico">
         <row :gutter="20">
           <i-col :sm="5">
-            <FormItem prop="dataatendimento" label="Data do Atendimento">
+            <FormItem prop="datadoatendimento" label="Data do Atendimento">
               <DatePicker
                 type="date"
-                format="DD/MM/yyyy"
-                v-model="formEsocial.dataatendimento"
+                format="dd/MM/yyyy"
+                v-model="formEsocial.datadoatendimento"
                 style="width: 100%"
               ></DatePicker>
             </FormItem>
           </i-col>
           <i-col :sm="5">
-            <FormItem prop="horaatendimento" label="Horário do Atendimento">
+            <FormItem prop="horarioatendimento" label="Horário do Atendimento">
               <TimePicker
                 format="HH:mm"
-                v-model="formEsocial.horaatendimento"
+                v-model="formEsocial.horarioatendimento"
                 style="width: 100%"
               />
             </FormItem>
           </i-col>
           <i-col :sm="14">
-            <FormItem prop="nomemed" label="Nome do Médico">
+            <FormItem prop="namedomedico" label="Nome do Médico">
               <Input
                 type="text"
-                v-model="formEsocial.nomemed"
+                v-model="formEsocial.namedomedico"
                 placeholder=" "
               />
             </FormItem>
@@ -461,39 +511,40 @@
         </row>
         <row :gutter="20">
           <i-col :sm="5">
-            <FormItem prop="houveinter" label="Houve Internação">
-              <Select v-model="formEsocial.houveinter" filterable>
-                  <Option value="S">Sim</Option>
-                  <Option value="N">Não</Option>
+            <FormItem prop="houveinternacao" label="Houve Internação">
+              <Select v-model="formEsocial.houveinternacao" filterable>
+                <Option value="S">Sim</Option>
+                <Option value="N">Não</Option>
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="5">
-            <FormItem prop="duracaotrata" label="Duração do Tratamento">
+            <FormItem prop="duracaodotratamento" label="Duração do Tratamento">
               <TimePicker
                 format="HH:mm"
-                v-model="formEsocial.duracaotrata"
+                v-model="formEsocial.duracaodotratamento"
                 style="width: 100%"
               />
             </FormItem>
           </i-col>
           <i-col :sm="7">
-            <FormItem prop="orgaoclasse" label="Orgão de Classe">
-               <Select v-model="formEsocial.orgaoclasse" filterable>
+            <FormItem prop="orgaodeclasse" label="Orgão de Classe">
+              <Select v-model="formEsocial.orgaodeclasse" filterable>
                 <Option
-                  v-for="orgaoclasse in orgaoclasse"
-                  :value="orgaoclasse.codigo"
-                  :key="orgaoclasse.id"
-                  > {{ orgaoclasse.descricao }}</Option
+                  v-for="orgaodeclasse in orgaoclasse"
+                  :value="orgaodeclasse.codigo"
+                  :key="orgaodeclasse.id"
+                >
+                  {{ orgaodeclasse.descricao }}</Option
                 >
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="7">
-            <FormItem prop="uforgaoclasse" label="UF do Orgão de Classe">
+            <FormItem prop="ufdoorgaoclasse" label="UF do Orgão de Classe">
               <Input
                 type="text"
-                v-model="formEsocial.uforgaoclasse"
+                v-model="formEsocial.ufdoorgaoclasse"
                 placeholder=" "
               />
             </FormItem>
@@ -501,11 +552,11 @@
         </row>
         <row :gutter="20">
           <i-col :sm="5">
-            <FormItem prop="houveafa" label="Houve Afastamento">
-             <Select v-model="formEsocial.houveafa" filterable>
-                  <Option value="S">Sim</Option>
-                  <Option value="N">Não</Option>
-              </Select> 
+            <FormItem prop="houveafastamento" label="Houve Afastamento">
+              <Select v-model="formEsocial.houveafastamento" filterable>
+                <Option value="S">Sim</Option>
+                <Option value="N">Não</Option>
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="5">
@@ -522,12 +573,12 @@
           </i-col>
           <i-col :sm="14">
             <FormItem
-              prop="nmrinscorgao"
+              prop="nmrinscdoorgaodeclasse"
               label="Número de Inscrição do Orgão de Classe"
             >
               <Input
                 type="text"
-                v-model="formEsocial.nmrinscorgao"
+                v-model="formEsocial.nmrinscdoorgaodeclasse"
                 placeholder=" "
               />
             </FormItem>
@@ -536,21 +587,24 @@
         <row :gutter="20">
           <i-col :sm="12">
             <FormItem
-              prop="desccomplelesao"
+              prop="desccomplementardalesao"
               label="Descrição complementar da Lesão"
             >
               <Input
                 type="text"
-                v-model="formEsocial.desccomplelesao"
+                v-model="formEsocial.desccomplementardalesao"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="nmrrecibo" label="Número do Recibo da última CAT">
+            <FormItem
+              prop="nmrdoreciboultimacat"
+              label="Número do Recibo da última CAT"
+            >
               <Input
                 type="text"
-                v-model="formEsocial.nmrrecibo"
+                v-model="formEsocial.nmrdoreciboultimacat"
                 placeholder=" "
               />
             </FormItem>
@@ -558,22 +612,30 @@
         </row>
         <row :gutter="20">
           <i-col :sm="8">
-            <FormItem prop="diagprov" label="Diagnóstico Provável">
+            <FormItem prop="diagnosticoprovavel" label="Diagnóstico Provável">
               <Input
                 type="text"
-                v-model="formEsocial.diagprov"
+                v-model="formEsocial.diagnosticoprovavel"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
           <i-col :sm="8">
-            <FormItem prop="cid" label="Código da Tabela CID">
-              <Input type="text" v-model="formEsocial.cid" placeholder=" " />
+            <FormItem prop="coddatabelacid" label="Código da Tabela CID">
+              <Input
+                type="text"
+                v-model="formEsocial.coddatabelacid"
+                placeholder=" "
+              />
             </FormItem>
           </i-col>
           <i-col :sm="8">
-            <FormItem prop="obs" label="Observações">
-              <Input type="text" v-model="formEsocial.obs" placeholder=" " />
+            <FormItem prop="observacoes2" label="Observações">
+              <Input
+                type="text"
+                v-model="formEsocial.observacoes2"
+                placeholder=" "
+              />
             </FormItem>
           </i-col>
           <i-col :sm="24">
@@ -620,110 +682,105 @@ export default {
       lateralidadepartesatingidas: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
-      formEsocial: {
-        inscemp: "",
-        name: "",
-        cpf: "",
-        matricula: "",
-        codigo: "",
-        data: "",
-        tipo: "",
-        hora: "",
-        horatrab: "",
+      formEsocial: {},
+   /*    formEsocial: {
+        inscricaoempresa: "",
+        nameempregado: "",
+        cpfempregado: "",
+        matriculaempregado: "",
+        codigodecategoriatrabalhador: "",
+        datadoacidente: "",
+        tipodoacidente: "",
+        horadoacidente: "",
+        horastrabalhadasantes: "",
         tipocat: "",
-        ho: "",
-        datobi: "",
-        comunicacao: "",
-        iniciativa: "",
-        codsituacao: "",
-        tipoloc: "",
-        descloc: "",
-        obs: "",
+        houveobito: "",
+        datadoobito: "",
+        comunicacaoaautoridade: "",
+        iniciativacat: "",
+        codigodasituacaogeradoradoacidente: "",
+        tipodolocal: "",
+        desclocal: "",
+        observacoes: "",
         pais: "",
         cep: "",
-        tipolog: "",
-        numerolog: "",
+        tipodologradouro: "",
+        numerodologradouro: "",
         bairro: "",
-        desclog: "",
-        codmu: "",
+        desclogradouroradouro: "",
+        codmunicipionicipio: "",
         codpostal: "",
-        complementolog: "",
+        complementologradouroradouro: "",
         uf: "",
         tipoinsclocal: "",
-        numinsc: "",
-        codatingida: "",
+        nmrinsc: "",
+        codigoparteatingida: "",
         lateralidade: "",
-        codagente: "",
-        dataatendimento: "",
-        horaatendimento: "",
-        nomemed: "",
-        houveinter: "",
-        duracaotrata: "",
-        orgaoclasse: "",
-        uforgaoclasse: "",
-        houveafa: "",
+        codagentecausadoracidente: "",
+        datadoatendimento: "",
+        horarioatendimento: "",
+        namedomedico: "",
+        houveinternacao: "",
+        duracaodotratamento: "",
+        orgaodeclasse: "",
+        ufdoorgaoclasse: "",
+        houveafastamento: "",
         desclesao: "",
-        nmrinscorgao: "",
-        desccomplelesao: "",
-        nmrrecibo: "",
-        diagprov: "",
-        cid: "",
-      },
+        nmrinscdoorgaodeclasse: "",
+        desccomplementardalesao: "",
+        nmrdoreciboultimacat: "",
+        diagnosticoprovavel: "",
+        coddatabelacid: "",
+      }, */
       ruleEsocial: {
-        inscemp: [
+        inscricaoempresa: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        name: [
+        nameempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        cpf: [
+        cpfempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        matricula: [
+        matriculaempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        codigo: [
+        datadoacidente: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        data: [
+        tipodoacidente: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        tipo: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-          },
-        ],
-        hora: [
+        horadoacidente: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        horatrab: [
+        horastrabalhadasantes: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -736,39 +793,39 @@ export default {
             message: "Campo Obrigatório.",
           },
         ],
-        ho: [
+        houveobito: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        datobi: [
+        datadoobito: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        comunicacao: [
+        comunicacaoaautoridade: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        iniciativa: [
+        iniciativacat: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        codsituacao: [
+        codigodasituacaogeradoradoacidente: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        tipoloc: [
+        tipodolocal: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -788,14 +845,14 @@ export default {
             trigger: "blur",
           },
         ],
-        numerolog: [
+        numerodologradouro: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        desclog: [
+        desclogradouro: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -816,7 +873,7 @@ export default {
             trigger: "blur",
           },
         ],
-        codmu: [
+        codmunicipionicipio: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -829,81 +886,80 @@ export default {
             message: "Campo Obrigatório.",
           },
         ],
-        numinsc: [
+        nmrinsc: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        codatingida: [
+        codigoparteatingida: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        lateralidade: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        codagente: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        dataatendimento: [
+        lateralidadepartesatingidas: [
           {
             required: true,
             message: "Campo Obrigatório.",
           },
         ],
-        horaatendimento: [
+        codagentecausadoracidente: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        nomemed: [
+        datadoatendimento: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+          },
+        ],
+        horarioatendimento: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        houveinter: [
+        namedomedico: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        duracaotrata: [
+        houveinternacao: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        orgaoclasse: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-          },
-        ],
-        uforgaoclasse: [
+        duracaodotratamento: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        houveafa: [
+        orgaodeclasse: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+          },
+        ],
+        ufdoorgaoclasse: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        houveafastamento: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -916,21 +972,21 @@ export default {
             message: "Campo Obrigatório.",
           },
         ],
-        nmrinscorgao: [
+        nmrinscdoorgaodeclasse: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        nmrrecibo: [
+        nmrdoreciboultimacat: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        cid: [
+        coddatabelacid: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -951,7 +1007,7 @@ export default {
       this.$refs["formEsocial"].validate((valid) => {
         if (valid) {
           console.log(this.formEsocial);
-          /*  this.$emit("handleSubmit", this.formEsocial); */
+          this.$emit("handleSubmit", this.formEsocial);
         } else {
           this.$Message.error("Insira todos os campos!");
         }
@@ -973,38 +1029,42 @@ export default {
       const { data } = await axios.get("/esocial/tabela/20");
       this.tipodeLogradouro = data.data.data;
     },
-      async buscarPais() {
+    async buscarPais() {
       const { data } = await axios.get("/esocial/tabela/06");
       this.paisdoacidente = data.data.data;
     },
-    async buscarParteAtingida(){
-      const { data } = await axios.get("/esocial/tabela/13")
+    async buscarParteAtingida() {
+      const { data } = await axios.get("/esocial/tabela/13");
       this.parteatingida = data.data.data;
     },
-    async buscarDescricaoLesao(){
-      const { data } = await axios.get("/esocial/tabela/17")
+    async buscarDescricaoLesao() {
+      const { data } = await axios.get("/esocial/tabela/17");
       this.descricaolesao = data.data.data;
     },
-     async buscarTipoAcidenteTrabalho(){
-      const { data } = await axios.get("/esocial/atributos/tipo-acidente-trabalho")
+    async buscarTipoAcidenteTrabalho() {
+      const { data } = await axios.get(
+        "/esocial/atributos/tipo-acidente-trabalho"
+      );
       this.tipoacidentetrabalho = data.data.data;
     },
-     async buscarIniciativaCat(){
-      const { data } = await axios.get("/esocial/atributos/iniciativa-cat")
+    async buscarIniciativaCat() {
+      const { data } = await axios.get("/esocial/atributos/iniciativa-cat");
       this.iniciativacat = data.data.data;
     },
-    async buscarOrgaodeClasse(){
-      const { data } = await axios.get("/esocial/atributos/orgao-classe")
+    async buscarOrgaodeClasse() {
+      const { data } = await axios.get("/esocial/atributos/orgao-classe");
       this.orgaoclasse = data.data.data;
     },
-    async buscarTipodeCat(){
-      const { data } = await axios.get("/esocial/atributos/tipo-cat")
+    async buscarTipodeCat() {
+      const { data } = await axios.get("/esocial/atributos/tipo-cat");
       this.tipocat = data.data.data;
     },
-    async buscarLateralidadePartesAtingidas(){
-      const { data } = await axios.get("/esocial/atributos/lateralidade-partes-atingidas")
+    async buscarLateralidadePartesAtingidas() {
+      const { data } = await axios.get(
+        "/esocial/atributos/lateralidade-partes-atingidas"
+      );
       this.lateralidadepartesatingidas = data.data.data;
-    }
+    },
   },
   created() {
     this.buscarCategoriadoTrabalhador();

@@ -1,9 +1,9 @@
 <template>
-  <Form ref="form2Esocial" :model="form2Esocial" :rules="rule2Esocial" inline>
+  <Form ref="FormDadosAgenteNocivo" :model="FormDadosAgenteNocivo" :rules="rule2Esocial" inline>
     <row :gutter="20">
           <i-col :sm="12">
             <FormItem prop="codagentenocivo" label="Código do Agente Nocivo">
-              <Select v-model="form2Esocial.codagentenocivo" filterable>
+              <Select v-model="FormDadosAgenteNocivo.codagentenocivo" filterable>
                 <Option
                   v-for="codagentenocivo in codigoagentenocivo"
                   :value="codagentenocivo.codigo"
@@ -20,7 +20,7 @@
             >
               <Input
                 type="text"
-                v-model="form2Esocial.descagentenocivo"
+                v-model="FormDadosAgenteNocivo.descagentenocivo"
                 placeholder=" "
               />
             </FormItem>
@@ -29,7 +29,7 @@
         <row :gutter="20">
           <i-col :sm="12">
             <FormItem prop="tipoavaliacao" label="Tipo de Avaliação">
-              <Select v-model="form2Esocial.tipoavaliacao" filterable>
+              <Select v-model="FormDadosAgenteNocivo.tipoavaliacao" filterable>
                 <Option value="1">Critério quantitativo</Option>
                 <Option value="2">Critério qualitativo</Option>
               </Select>
@@ -39,16 +39,25 @@
             <FormItem prop="doseexpo" label="Dose da Exposição">
               <Input
                 type="text"
-                v-model="form2Esocial.doseexpo"
+                v-model="FormDadosAgenteNocivo.doseexpo"
                 placeholder=" "
               />
             </FormItem>
           </i-col>
         </row>
-         <row :gutter="20">
-      <i-col :sm="24">
+       <row :gutter="20">
+      <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()">{{stringBtn}}</Button>
+          <Button @click="$emit('cancelarDadosAgenteNocivo')" class="btnFormDadosAgenteNocivo"
+            >Cancelar</Button
+          >
+        </FormItem>
+      </i-col>
+      <i-col :sm="12">
+        <FormItem>
+          <Button type="primary" @click="salvar()" class="btnFormDadosAgenteNocivo">{{
+            stringBtn
+          }}</Button>
         </FormItem>
       </i-col>
     </row>
@@ -69,7 +78,7 @@ export default {
     return {
       codigoagentenocivo: {},
       stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
-      form2Esocial: {
+      FormDadosAgenteNocivo: {
          codagentenocivo: "",
          descagentenocivo: "",
          tipoavaliacao: "",
@@ -94,16 +103,16 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.form2Esocial = newValue || {}; 
+      this.FormDadosAgenteNocivo = newValue || {}; 
       
     },
   },
   methods: {
     salvar() {
-      this.$refs["form2Esocial"].validate((valid) => {
+      this.$refs["FormDadosAgenteNocivo"].validate((valid) => {
         if (valid) {
-          this.$emit("handleSubmit2", this.form2Esocial); 
-           this.form2Esocial = { codagentenocivo: "", descagentenocivo: "", tipoavaliacao: "", doseexpo: "",}        
+          this.$emit("salvarDadosAgenteNocivo", this.FormDadosAgenteNocivo); 
+           this.FormDadosAgenteNocivo = { codagentenocivo: "", descagentenocivo: "", tipoavaliacao: "", doseexpo: "",}        
         } else {
           this.$Message.error("Insira todos os campos!");
         }
@@ -116,7 +125,12 @@ export default {
   },
   created() {
     this.buscarCodigoAgenteNocivo();
-    this.form2Esocial = this.value || {};  
+    this.FormDadosAgenteNocivo = this.value || {};  
   },
 };
 </script>
+<style scoped>
+.btnFormDadosAgenteNocivo{
+  width: 100%;
+}
+</style>

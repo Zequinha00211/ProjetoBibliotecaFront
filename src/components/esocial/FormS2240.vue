@@ -2,20 +2,29 @@
   <Form ref="formEsocial" :model="formEsocial" :rules="ruleEsocial" inline>
     <row :gutter="20">
       <i-col :sm="24">
-        <FormItem prop="datainicio" label="Data de Início nas Condições de Risco">
-         <DatePicker
-                type="date"
-                format="DD/MM/yyyy"
-                v-model="formEsocial.datainicio"
-                style="width: 100%"
-              ></DatePicker>
+        <FormItem
+          prop="datainicio"
+          label=""
+        >
+          <DatePicker
+            type="date"
+            format="dd/MM/yyyy"
+            v-model="formEsocial.datainicio"
+            style="width: 100%"
+          ></DatePicker>
         </FormItem>
       </i-col>
-      </row>
-         <row :gutter="20">
-      <i-col :sm="24">
+    </row>
+    <row :gutter="20">
+        
+      <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()">{{stringBtn}}</Button>
+          <Button @click="$emit('cancelar')" class="btnFormS2240">Cancelar</Button>
+        </FormItem>
+      </i-col>
+      <i-col :sm="12">
+        <FormItem>
+          <Button type="primary" @click="salvar()" class="btnFormS2240">{{ stringBtn }}</Button>
         </FormItem>
       </i-col>
     </row>
@@ -33,7 +42,7 @@ export default {
   },
   data() {
     return {
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
+      stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       formEsocial: {
         datainicio: "",
       },
@@ -49,16 +58,15 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.formEsocial = newValue || {}; 
-      
+      this.formEsocial = newValue || {};
     },
   },
   methods: {
     salvar() {
       this.$refs["formEsocial"].validate((valid) => {
         if (valid) {
-          this.$emit("handleSubmit", this.formEsocial); 
-           this.formEsocial = { datainicio: ""}        
+          this.$emit("handleSubmit", this.formEsocial);
+          this.formEsocial = { datainicio: "" };
         } else {
           this.$Message.error("Insira todos os campos!");
         }
@@ -66,7 +74,12 @@ export default {
     },
   },
   created() {
-    this.formEsocial = this.value || {};  
+    this.formEsocial = this.value || {};
   },
 };
 </script>
+<style scoped>
+.btnFormS2240{
+  width: 100%;
+}
+</style>

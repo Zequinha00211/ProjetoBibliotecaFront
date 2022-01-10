@@ -170,7 +170,7 @@
               <label>Agente Nocivo</label>
             </i-col>
             <i-col :sm="24">
-              <Button @click="(showModal2 = true), (agentenocivo = {})">
+              <Button @click="(showModalAgenteNocivo = true), (agentenocivo = {})">
                 Adicionar Informações</Button
               >
             </i-col>
@@ -310,7 +310,7 @@
               <label>EPI</label>
             </i-col>
             <i-col :sm="24">
-              <Button @click="(showModal4 = true), (epi = {})">
+              <Button @click="(showModalDadosEPI = true), (epi = {})">
                 Adicionar Informações</Button
               >
             </i-col>
@@ -408,7 +408,7 @@
               <label>Dados dos Responsáveis</label>
             </i-col>
             <i-col :sm="24">
-              <Button @click="(showModal3 = true), (responsavel = {})">
+              <Button @click="(showModalDadosResponsaveis = true), (responsavel = {})">
                 Adicionar Dados</Button
               >
             </i-col>
@@ -457,42 +457,46 @@
       </TabPane>
     </Tabs>
   </Form>
-   <Modal v-model="showModal" width="760">
+   <Modal v-model="showModal" width="500" :footer-hide="true" title="Data de Início nas Condições de Risco">
       <div style="text-align: center">
         <FormS2240
           v-model="datainicio"
           @handleSubmit="handleSubmit"
+          @cancelar="cancelar"
           v-if="exibirForm"
         />
       </div>
       <div slot="footer"></div>
     </Modal>
-    <Modal v-model="showModal2" width="760">
+    <Modal v-model="showModalAgenteNocivo" width="760" title="Dados do Agente Nocivo" :footer-hide="true">
       <div style="text-align: center">
-        <Form2S2240
+        <TiFormDadosAgenteNocivo
           v-model="agentenocivo"
-          @handleSubmit2="handleSubmit2"
-          v-if="exibirForm2"
+          @salvarDadosAgenteNocivo="salvarDadosAgenteNocivo"
+          @cancelarDadosAgenteNocivo="cancelarDadosAgenteNocivo"
+          v-if="exibirFormAgenteNocivo"
         />
       </div>
       <div slot="footer"></div>
     </Modal>
-    <Modal v-model="showModal3" width="760">
+    <Modal v-model="showModalDadosResponsaveis" width="760" title="Dados dos Responsáveis" :footer-hide="true" >
       <div style="text-align: center">
-        <Form3S2240
+        <TiFormDadosReponsaveis
           v-model="responsavel"
-          @handleSubmit3="handleSubmit3"
-          v-if="exibirForm3"
+          @salvarDadosResponsaveis="salvarDadosResponsaveis"
+          @cancelarDadosResponsaveis="cancelarDadosResponsaveis"
+          v-if="exibirFormDadosResponsaveis"
         />
       </div>
       <div slot="footer"></div>
     </Modal>
-     <Modal v-model="showModal4" width="760">
+     <Modal v-model="showModalDadosEPI" width="760" title="Dados do EPI" :footer-hide="true">
       <div style="text-align: center">
-        <Form4S2240
+        <TiFormDadosEPI
           v-model="epi"
-          @handleSubmit3="handleSubmit4"
-          v-if="exibirForm4"
+          @salvarDadosEPI="salvarDadosEPI"
+          @cancelarDadosEPI="cancelarDadosEPI"
+          v-if="exibirFormDadosEPI"
         />
       </div>
       <div slot="footer"></div>
@@ -504,12 +508,12 @@
 import { mask } from "vue-the-mask";
 import ListData from "@/components/esocial/GridS2240";
 import FormS2240 from "@/components/esocial/FormS2240";
-import ListAgenteNocivo from "@/components/esocial/Grid2S2240";
-import Form2S2240 from "@/components/esocial/Form2S2240";
-import ListResponsavel from "@/components/esocial/Grid3S2240";
-import Form3S2240 from "@/components/esocial/Form3S2240";
-import ListEpi from "@/components/esocial/Grid4S2240";
-import Form4S2240 from "@/components/esocial/Form4S2240";
+import ListAgenteNocivo from "@/components/esocial/GridDadosAgenteNocivo";
+import TiFormDadosAgenteNocivo from "@/components/esocial/FormDadosAgenteNocivo";
+import ListResponsavel from "@/components/esocial/GridDadosResponsaveis";
+import TiFormDadosReponsaveis from "@/components/esocial/FormDadosReponsaveis";
+import ListEpi from "@/components/esocial/GridDadosEPI";
+import TiFormDadosEPI from "@/components/esocial/FormDadosEPI";
 import axios from "axios";
 export default {
   props: {
@@ -638,16 +642,16 @@ export default {
       exibirForm: true,
       datainicio: {},
       agentesnocivos: [],
-      showModal2: false,
-      exibirForm2: true,
+      showModalAgenteNocivo: false,
+      exibirFormAgenteNocivo: true,
       agentenocivo: {},
       responsaveis: [],
-      showModal3: false,
-      exibirForm3: true,
+      showModalDadosResponsaveis: false,
+      exibirFormDadosResponsaveis: true,
       responsavel: {},
       epis: [],
-      showModal4: false,
-      exibirForm4: true,
+      showModalDadosEPI: false,
+      exibirFormDadosEPI: true,
       epi: {},
     };   
   },
@@ -655,11 +659,11 @@ export default {
     ListData,
     FormS2240,
     ListAgenteNocivo,
-    Form2S2240,
+    TiFormDadosAgenteNocivo,
     ListResponsavel,
-    Form3S2240,
+    TiFormDadosReponsaveis,
     ListEpi,
-    Form4S2240,
+    TiFormDadosEPI,
   },
   methods: {
      handleSubmit(data) {
@@ -682,8 +686,12 @@ export default {
       this.exibirForm = true;
       this.showModal = false;
     },
-    handleSubmit2(data) {
-      this. exibirForm2 = false;
+    cancelar(){
+      this.exibirForm = true;
+      this.showModal = false;
+    },
+    salvarDadosAgenteNocivo(data) {
+      this. exibirFormAgenteNocivo = false;
       if (data.id === undefined) {
         this.agentesnocivos.push({
           ...data,
@@ -699,11 +707,15 @@ export default {
         });
       }
 
-      this.exibirForm2 = true;
-      this.showModal2 = false;
+      this.exibirFormAgenteNocivo = true;
+      this.showModalAgenteNocivo = false;
     },
-    handleSubmit3(data) {
-      this. exibirForm3 = false;
+    cancelarDadosAgenteNocivo(){
+      this.exibirFormAgenteNocivo = true;
+      this.showModalAgenteNocivo = false;
+    },
+    salvarDadosResponsaveis(data) {
+      this. exibirFormDadosResponsaveis = false;
       if (data.id === undefined) {
         this.responsaveis.push({
           ...data,
@@ -719,11 +731,15 @@ export default {
         });
       }
 
-      this.exibirForm3 = true;
-      this.showModal3 = false;
+      this.exibirFormDadosResponsaveis = true;
+      this.showModalDadosResponsaveis = false;
     },
-    handleSubmit4(data) {
-      this. exibirForm4 = false;
+    cancelarDadosResponsaveis(){
+      this.exibirFormDadosResponsaveis = true;
+      this.showModalDadosResponsaveis = false;
+    },
+    salvarDadosEPI(data) {
+      this. exibirFormDadosEPI = false;
       if (data.id === undefined) {
         this.epis.push({
           ...data,
@@ -739,8 +755,12 @@ export default {
         });
       }
 
-      this.exibirForm4 = true;
-      this.showModal4 = false;
+      this.exibirFormDadosEPI = true;
+      this.showModalDadosEPI = false;
+    },
+    cancelarDadosEPI(){
+      this.exibirFormDadosEPI = true;
+      this.showModalDadosEPI = false;
     },
     editar1(data) {
       console.log(data);
@@ -760,11 +780,11 @@ export default {
     },
       editar(data) {
       console.log(data);
-      this.exibirForm2 = false;
+      this.exibirFormAgenteNocivo = false;
       this.agentenocivo = data;
       setTimeout(() => {
-        this.showModal2 = true;
-        this.exibirForm2 = true;
+        this.showModalAgenteNocivo = true;
+        this.exibirFormAgenteNocivo = true;
       }, 250);
     },
      deleteItem(data) {
@@ -776,11 +796,11 @@ export default {
     },
      editar2(data) {
       console.log(data);
-      this.exibirForm3 = false;
+      this.exibirFormDadosResponsaveis = false;
       this.responsavel = data;
       setTimeout(() => {
-        this.showModal3 = true;
-        this.exibirForm3 = true;
+        this.showModalDadosResponsaveis = true;
+        this.exibirFormDadosResponsaveis = true;
       }, 250);
     },
      deleteItem2(data) {
@@ -792,11 +812,11 @@ export default {
      },
       editar3(data) {
       console.log(data);
-      this.exibirForm4 = false;
+      this.exibirFormDadosEPI = false;
       this.epi = data;
       setTimeout(() => {
-        this.showModal4 = true;
-        this.exibirForm4 = true;
+        this.showModalDadosEPI = true;
+        this.exibirFormDadosEPI = true;
       }, 250);
     },
     deleteItem3(data) {
@@ -830,7 +850,6 @@ export default {
     this.buscarUnidadeMedida();
 
     this.formEsocial = this.value || {};
-    this.formEsocial.cnpj = this.value.cnpjFormat;
     this.form2Esocial = this.value || {};
     this.form3Esocial = this.value || {};
     this.form4Esocial = this.value || {};

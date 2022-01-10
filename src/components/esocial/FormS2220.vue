@@ -17,7 +17,7 @@
         <FormItem prop="dataexame" label="Data do Exame">
          <DatePicker
                 type="date"
-                format="DD/MM/yyyy"
+                format="dd/MM/yyyy"
                 v-model="formEsocial.dataexame"
                 style="width: 100%"
               ></DatePicker>
@@ -56,9 +56,18 @@
           </Input>
         </FormItem>
       </i-col>
-      <i-col :sm="24">
+      </row>
+      <row :gutter="20">
+       <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()">{{stringBtn}}</Button>
+          <Button @click="$emit('cancelarDadosExames')" class="btnFormDadosExames"
+            >Cancelar</Button
+          >
+        </FormItem>
+      </i-col>
+      <i-col :sm="12">
+        <FormItem>
+          <Button type="primary" @click="salvar()" class="btnFormDadosExames">{{stringBtn}}</Button>
         </FormItem>
       </i-col>
     </row>
@@ -149,3 +158,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.btnFormDadosExames{
+  width: 100%;
+}
+</style>

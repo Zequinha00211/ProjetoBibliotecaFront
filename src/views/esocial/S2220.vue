@@ -91,7 +91,7 @@
               >
                 <DatePicker
                   type="date"
-                  format="DD/MM/yyyy"
+                  format="dd/MM/yyyy"
                   v-model="formEsocial.dataemissaoatestado"
                   style="width: 100%"
                 ></DatePicker>
@@ -248,11 +248,12 @@
       </Tabs>
     </Form>
 
-    <Modal v-model="showModal" width="760">
+    <Modal v-model="showModal" width="760" title="Dados dos Exames" :footer-hide="true">
       <div style="text-align: center">
         <FormS2220
           v-model="exame"
           @handleSubmit="handleSubmit"
+          @cancelarDadosExames="cancelarDadosExames"
           v-if="exibirForm"
         />
       </div>
@@ -358,6 +359,10 @@ export default {
         });
       }
 
+      this.exibirForm = true;
+      this.showModal = false;
+    },
+     cancelarDadosExames(){
       this.exibirForm = true;
       this.showModal = false;
     },
