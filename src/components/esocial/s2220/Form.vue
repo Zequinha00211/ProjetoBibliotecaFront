@@ -8,55 +8,69 @@
         >
           <row :gutter="20">
             <i-col :sm="12">
-              <FormItem prop="nmrinsc" label="Número da Inscrição">
+              <FormItem prop="inscricaoempresa" label="Número da Inscrição">
                 <Input
                   type="text"
-                  v-model="formEsocial.nmrinsc"
+                  v-model="formEsocial.inscricaoempresa"
                   placeholder=" "
                   v-mask="`##.###.###/####-##`"
                 />
               </FormItem>
             </i-col>
             <i-col :sm="12">
-              <FormItem prop="name" label="Nome do Empregado">
-                <Input type="text" v-model="formEsocial.name" placeholder=" " />
+              <FormItem prop="nameempregado" label="Nome do Empregado">
+                <Input
+                  type="text"
+                  v-model="formEsocial.nameempregado"
+                  placeholder=" "
+                />
               </FormItem>
             </i-col>
           </row>
           <row :gutter="20">
             <i-col :sm="12">
-              <FormItem prop="cpf" label="CPF do Empregado">
+              <FormItem prop="cpfempregado" label="CPF do Empregado">
                 <Input
                   type="text"
-                  v-model="formEsocial.cpf"
+                  v-model="formEsocial.cpfempregado"
                   placeholder=" "
                   v-mask="`###.###.###-##`"
                 />
               </FormItem>
             </i-col>
             <i-col :sm="12">
-              <FormItem prop="matricula" label="Matricula do Empregado">
+              <FormItem
+                prop="matriculaempregado"
+                label="Matricula do Empregado"
+              >
                 <Input
                   type="text"
-                  v-model="formEsocial.matricula"
+                  v-model="formEsocial.matriculaempregado"
                   placeholder=" "
                 />
               </FormItem>
             </i-col>
           </row>
-           <row :gutter="20">
-          <i-col :sm="24">
-            <FormItem prop="codigo" label="Codigo da Categoria do Trabalhador">
-              <Select v-model="formEsocial.codigo" filterable>
-                <Option
-                  v-for="categoria in categoriasTrabalhador"
-                  :value="categoria.codigo"
-                  :key="categoria.id"
-                  >{{ categoria.group.descricao }} - {{ categoria.descricao }}</Option
+          <row :gutter="20">
+            <i-col :sm="24">
+              <FormItem
+                prop="codigodecategoriatrabalhador"
+                label="Codigo da Categoria do Trabalhador"
+              >
+                <Select
+                  v-model="formEsocial.codigodecategoriatrabalhador"
+                  filterable
                 >
-              </Select>
-            </FormItem>
-          </i-col>
+                  <Option
+                    v-for="codigodecategoriatrabalhador in categoriasTrabalhador"
+                    :value="codigodecategoriatrabalhador.codigo"
+                    :key="codigodecategoriatrabalhador.id"
+                    >{{ codigodecategoriatrabalhador.group.descricao }} -
+                    {{ codigodecategoriatrabalhador.descricao }}</Option
+                  >
+                </Select>
+              </FormItem>
+            </i-col>
             <i-col :sm="24">
               <ButtonGroup shape="circle">
                 <Button
@@ -75,13 +89,13 @@
             <i-col :sm="8">
               <FormItem prop="tipoexame" label="Tipo do Exame">
                 <Select v-model="formEsocial.tipoexame" filterable>
-                <Option
-                  v-for="tipoexame in tiposdeExames"
-                  :value="tipoexame.codigo"
-                  :key="tipoexame.id"
-                  >{{ tipoexame.descricao }}</Option
-                >
-              </Select>
+                  <Option
+                    v-for="tipoexame in tiposdeExames"
+                    :value="tipoexame.codigo"
+                    :key="tipoexame.id"
+                    >{{ tipoexame.descricao }}</Option
+                  >
+                </Select>
               </FormItem>
             </i-col>
             <i-col :sm="8">
@@ -99,10 +113,10 @@
             </i-col>
             <i-col :sm="8">
               <FormItem prop="atestadoaso" label="Atestado do ASO">
-                 <Select v-model="formEsocial.ho" filterable>
-                  <Option value="1">Apto</Option>
-                  <Option value="2">Inapto</Option>
-              </Select>
+                <Select v-model="formEsocial.atestadoaso" filterable>
+                  <Option :value="1">Apto</Option>
+                  <Option :value="2">Inapto</Option>
+                </Select>
               </FormItem>
             </i-col>
           </row>
@@ -116,10 +130,10 @@
               >
             </i-col>
             <i-col :sm="24">
-              <ListExame
+              <ti-grid-exames
                 v-model="exames"
-                @editar="editar"
-                @deleteItem="deleteItem"
+                @editarItemExame="editarItemExame"
+                @deleteItemExame="deleteItemExame"
               />
             </i-col>
           </row>
@@ -153,10 +167,10 @@
               </FormItem>
             </i-col>
             <i-col :sm="4">
-              <FormItem prop="ufexpedicao" label="UF de Expedição do CRM">
+              <FormItem prop="ufexpedicaocrm" label="UF de Expedição do CRM">
                 <Input
                   type="text"
-                  v-model="formEsocial.ufexpedicao"
+                  v-model="formEsocial.ufexpedicaocrm"
                   placeholder=" "
                 />
               </FormItem>
@@ -238,7 +252,7 @@
                   <Icon type="ios-arrow-back"></Icon>
                   Anterior
                 </Button>
-                <Button type="primary" @click="salvar()">{{
+                <Button type="primary" @click="salvarAtualizarCadastro()">{{
                   stringBtn
                 }}</Button>
               </ButtonGroup>
@@ -248,11 +262,16 @@
       </Tabs>
     </Form>
 
-    <Modal v-model="showModal" width="760" title="Dados dos Exames" :footer-hide="true">
+    <Modal
+      v-model="showModal"
+      width="760"
+      title="Dados dos Exames"
+      :footer-hide="true"
+    >
       <div style="text-align: center">
-        <FormS2220
+        <ti-form-exames
           v-model="exame"
-          @handleSubmit="handleSubmit"
+          @adicionarDadosExames="adicionarDadosExames"
           @cancelarDadosExames="cancelarDadosExames"
           v-if="exibirForm"
         />
@@ -263,34 +282,31 @@
 </template>
 
 <script>
-import ListExame from "@/components/esocial/GridS2220";
-import FormS2220 from "@/components/esocial/FormS2220";
+import TiGridExames from "@/components/esocial/s2220/GridExames";
+import TiFormExames from "@/components/esocial/s2220/FormExames";
 import axios from "axios";
 export default {
+  props: {
+    value: {},
+  },
   data() {
     return {
-      categoriasTrabalhador: {},
-      tiposdeExames: {},
+      idCadastroS2220: this.$route.params.id,
+      idCadastroS2220Exame: this.$route.params.id,
+      categoriasTrabalhador: [],
+      tiposdeExames: [],
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
-      formEsocial: {
-        nmrinsc: "",
-        cpf: "",
-        tipoexame: "",
-        dataemissaoatestado: "",
-        inscmedico: "",
-        ufexpedicao: "",
-        nomemedico: "",
-      },
+      formEsocial: {},
       ruleEsocial: {
-        nmrinsc: [
+        inscricaoempresa: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        cpf: [
+        cpfempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -316,7 +332,7 @@ export default {
             trigger: "blur",
           },
         ],
-        ufexpedicao: [
+        ufexpedicaocrm: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -338,72 +354,85 @@ export default {
     };
   },
   components: {
-    ListExame,
-    FormS2220,
+    TiGridExames,
+    TiFormExames,
+  },
+  watch: {
+    value(newValue) {
+      this.preencherDados(newValue);
+    },
   },
   methods: {
-    handleSubmit(data) {
-      this.exibirForm = false;
-      if (data.id === undefined) {
-        this.exames.push({
-          ...data,
-          id: new Date().getTime(),
-        });
-      } else {
-        this.exames = this.exames.filter((exame) => {
-          if (data.id != exame.id) {
-            return data;
-          } else {
-            return exame;
-          }
-        });
-      }
-
-      this.exibirForm = true;
-      this.showModal = false;
-    },
-     cancelarDadosExames(){
-      this.exibirForm = true;
-      this.showModal = false;
-    },
-    editar(data) {
-      console.log(data);
-      this.exibirForm = false;
-      this.exame = data;
-      setTimeout(() => {
-        this.showModal = true;
-        this.exibirForm = true;
-      }, 250);
-    },
-     deleteItem(data) {
-      this.exames = this.exames.filter((exame) => {
-        if (exame.obs != data.obs) {
-          return exame;
+    preencherDados(newValue) {
+      this.formEsocial = newValue || {};
+      if (newValue.id != undefined) {
+        let dataemissaoatestado = newValue?.dataemissaoatestado;
+        if (typeof dataemissaoatestado === "string" && dataemissaoatestado) {
+          dataemissaoatestado = new Date(dataemissaoatestado);
         }
-      });
+        this.formEsocial.dataemissaoatestado = dataemissaoatestado;
+        this.exames = this.formEsocial.exames;
+      }
     },
-    salvar() {
-      this.$refs["formEsocial"].validate((valid) => {
+    async salvarAtualizarCadastro() {
+      this.$refs["formEsocial"].validate(async (valid) => {
         if (valid) {
-          console.log(this.formEsocial);
-           this.$emit("handleSubmit", this.formEsocial);
+          this.formEsocial.exames = this.exames;
+          if (this.formEsocial.id != undefined) {
+            this.$emit("atualizar", this.formEsocial);
+          } else {
+            this.$emit("salvar", this.formEsocial);
+          }
         } else {
           this.$Message.error("Insira todos os campos!");
         }
       });
     },
+    adicionarDadosExames(data) {
+      if (this.exame.editar != undefined && this.exame.editar === true) {
+        this.exames[this.exame.index] = this.exame;
+      } else {
+         this.exames.push({
+          ...data,
+        }); 
+      }     
+      this.formEsocial.exames = this.exames;
+      this.exibirForm = true;
+      this.showModal = false;
+    },
+    cancelarDadosExames() {
+      this.exibirForm = true;
+      this.showModal = false;
+    },
+    editarItemExame(data) {
+      this.exibirForm = false;
+      this.exame = data.key;
+      this.exame.editar = true;
+      this.exame.index = data.rowIndex;
+      setTimeout(() => {
+        this.showModal = true;
+        this.exibirForm = true;
+      }, 250);
+    },
+    deleteItemExame(data) {
+      const exames = this.exames;
+      this.exames = exames.filter((element, index) => {
+        return data.rowIndex !== index;
+      });
+    },
     async buscarCategoriadoTrabalhador() {
-    const { data } = await axios.get("/esocial/tabela/01");
-    this.categoriasTrabalhador = data.data.data;
-  },
-   async buscarTipodeExames() {
-    const { data } = await axios.get("/esocial/atributos/tipo-exame");
-    this.tiposdeExames = data.data.data;
-  },
+      const { data } = await axios.get("/esocial/tabela/01");
+      this.categoriasTrabalhador = data.data.data;
+    },
+    async buscarTipodeExames() {
+      const { data } = await axios.get("/esocial/atributos/tipo-exame");
+      this.tiposdeExames = data.data.data;
+    },
   },
   created() {
     this.buscarCategoriadoTrabalhador();
     this.buscarTipodeExames();
+    this.preencherDados(this.value);
   },
 };
 </script>

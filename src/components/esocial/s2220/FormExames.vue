@@ -1,9 +1,10 @@
 <template>
-  <Form ref="formEsocial" :model="formEsocial" :rules="ruleEsocial" inline>
+  <Form ref="formEsocialExame" :model="formEsocialExame" :rules="ruleEsocial" inline>
     <row :gutter="20">
       <i-col :sm="8">
+        
         <FormItem prop="codexame" label="Código do Exame">
-         <Select v-model="formEsocial.codexame" filterable>
+         <Select v-model="formEsocialExame.codexame" filterable>
                 <Option
                   v-for="codexame in codigoprocedimento"
                   :value="codexame.codigo"
@@ -18,16 +19,16 @@
          <DatePicker
                 type="date"
                 format="dd/MM/yyyy"
-                v-model="formEsocial.dataexame"
+                v-model="formEsocialExame.dataexame"
                 style="width: 100%"
               ></DatePicker>
         </FormItem>
       </i-col>
       <i-col :sm="8">
         <FormItem prop="ordemexame" label="Ordem do Exame">
-           <Select v-model="formEsocial.ordemexame" filterable>
-                  <Option value="1">Inicial</Option>
-                  <Option value="2">Sequencial</Option>
+           <Select v-model="formEsocialExame.ordemexame" filterable>
+                  <Option :value="1">Inicial</Option>
+                  <Option :value="2">Sequencial</Option>
               </Select>
         </FormItem>
       </i-col>
@@ -35,7 +36,7 @@
      <row :gutter="20">
       <i-col :sm="24">
         <FormItem prop="indicacaoresultado" label="Indicação do Resultado">
-           <Select v-model="formEsocial.indicacaoresultado" filterable>
+           <Select v-model="formEsocialExame.indicacaoresultado" filterable>
                 <Option
                   v-for="indicacaoresultado in indicacaoderesultado"
                   :value="indicacaoresultado.codigo"
@@ -48,10 +49,10 @@
         </row>
       <row :gutter="20">
       <i-col :sm="24">
-        <FormItem prop="obs" label="Observações">
+        <FormItem prop="obsexame" label="Observações">
           <Input
             type="text"
-            v-model="formEsocial.obs"
+            v-model="formEsocialExame.obsexame"
           >
           </Input>
         </FormItem>
@@ -67,7 +68,7 @@
       </i-col>
       <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()" class="btnFormDadosExames">{{stringBtn}}</Button>
+          <Button type="primary" @click="adicionar()" class="btnFormDadosExames">{{stringBtn}}</Button>
         </FormItem>
       </i-col>
     </row>
@@ -86,15 +87,10 @@ export default {
   },
   data() {
     return {
-      codigoprocedimento: {},
-      indicacaoderesultado: {},
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
-      formEsocial: {
-        codexame: "",
-        dataexame: "",
-        ordemexame: "",
-        obs: "",
-      },
+      codigoprocedimento: [],
+      indicacaoderesultado: [],
+      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Adicionar',
+      formEsocialExame: {},
       ruleEsocial: {
         codexame: [
           {
@@ -107,36 +103,32 @@ export default {
             required: true,
             message: "Campo Obrigatório.",
           },       
-        ],
-         ordemexame: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },       
-        ],
-         obs: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },       
-        ],
+        ],    
       },
     };
   },
   watch: {
     value(newValue) {
-      this.formEsocial = newValue || {}; 
+
+       this.formEsocialExame = newValue || {};
+       if(newValue.id !=undefined) {
+         let dataemissaoatestado =newValue?.dataemissaoatestado;
+          if (typeof dataemissaoatestado === "string" && dataemissaoatestado) {
+            dataemissaoatestado = new Date(dataemissaoatestado);
+          }
+        
+          this.formEsocialExame.dataemissaoatestado = dataemissaoatestado;   
+       }
+          
       
     },
   },
   methods: {
-    salvar() {
-      this.$refs["formEsocial"].validate((valid) => {
-        if (valid) {
-          this.$emit("handleSubmit", this.formEsocial); 
-          this.formEsocial = { codexame: "",dataexame: "", ordemexame: "", indicacaoresultado: "", obs: ""}       
+      
+    adicionar() {
+      this.$refs["formEsocialExame"].validate((valid) => {
+        if (valid) { 
+          this.$emit("adicionarDadosExames", this.formEsocialExame);     
         } else {
           this.$Message.error("Insira todos os campos!");
         }
@@ -153,8 +145,16 @@ export default {
   },
   created() {
     this.buscarCodigoProcedimento();
-    this.buscarIndicacaodeResultado();
-    this.formEsocial = this.value || {};  
+    this.buscarIndicacaodeResultado();  
+      this.formEsocialExame = this.value || {}; 
+      if( this.value.id !=undefined) {
+         let dataemissaoatestado = this.value?.dataemissaoatestado;
+          if (typeof dataemissaoatestado === "string" && dataemissaoatestado) {
+            dataemissaoatestado = new Date(dataemissaoatestado);
+          }
+        
+          this.formEsocialExame.dataemissaoatestado = dataemissaoatestado;   
+       }
   },
 };
 </script>

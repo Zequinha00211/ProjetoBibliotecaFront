@@ -999,7 +999,6 @@ export default {
   watch: {
     value(newValue) {
       this.formEsocial = newValue || {};
-      this.formEsocial.cnpj = newValue.cnpjFormat;
     },
   },
   methods: {
@@ -1081,7 +1080,6 @@ export default {
     this.buscarLateralidadePartesAtingidas();
 
     this.formEsocial = this.value || {};
-    this.formEsocial.cnpj = this.value.cnpjFormat;
   },
 };
 </script>

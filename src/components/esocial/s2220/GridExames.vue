@@ -1,6 +1,7 @@
 <template>
+
   <DxDataGrid
-    :data-source="exames"
+    :data-source="cadastross2220exame || []"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -18,18 +19,18 @@
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
     <DxColumn :width="200" data-field="codexame" caption="Código do Exame" />
-    <DxColumn :width="200" data-field="dataexame" caption="Data do Exame" />
+    <DxColumn :width="200" data-field="dataexame" data-type="date" caption="Data do Exame" />
     <DxColumn :width="200" data-field="ordemexame" caption="Ordem do Exame" />
     <DxColumn data-field="indicacaoresultado" caption="Indicação do Exame" /> 
-    <DxColumn data-field="obs" caption="Observações do Exame" /> 
+    <DxColumn data-field="obsexame" caption="Observações do Exame" /> 
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar(data.key)"
+       @click="editar(data)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem(data.key)" size="small">
+      <Button @click="deleteItemExame(data)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -42,7 +43,7 @@
   </DxDataGrid>
 </template>
 <script>
-
+import "devextreme/data/odata/store";
 import {
   DxDataGrid,
   DxColumn,
@@ -70,24 +71,25 @@ export default {
   },
   data() {
     return {
-      exames: {},
+      cadastross2220exame: [],
     };
   },
   watch: {
     value(newValue) {
-      this.exames = newValue || [];
+      this.cadastross2220exame = newValue || [];   
     },
   },
   methods: {
-    deleteItem(data) {
-      this.$emit("deleteItem", data);     
+    deleteItemExame(data) {
+      this.$emit("deleteItemExame", data);     
     },
-     editar(data) {
-      this.$emit("editar", data);     
-    },
+    editar(data){ 
+      this.$emit("editarItemExame", data);     
+    }
   },
   created() {
-    this.exames = this.value || [];
+    this.cadastross2220exame = this.value || [];
+    
   },
 };
 </script>

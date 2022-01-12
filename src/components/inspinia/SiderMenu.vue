@@ -27,6 +27,11 @@
 
         <ti-menu-grupo name="Esocial" icon="fa fa-building">
           <ti-menu-grupo-level3 name="S-2210" icon="fa fa-circle">
+             <ti-sider-menu-item
+            name="Listar"
+            :to="{ name: 'listS2210' }"
+            icon="fa fa-list"
+          />
             <ti-sider-menu-item
               name="Adicionar"
               :to="{ name: 's2210Esocial' }"
@@ -34,9 +39,14 @@
             />
           </ti-menu-grupo-level3>
           <ti-menu-grupo-level3 name="S-2220" icon="fa fa-circle">
+             <ti-sider-menu-item
+            name="Listar"
+            :to="{ name: 'listS2220' }"
+            icon="fa fa-list"
+          />
             <ti-sider-menu-item
               name="Adicionar"
-              :to="{ name: 's2220Esocial' }"
+              :to="{ name: 'salvarS2220Esocial' }"
               icon="fa fa-plus"
             />
           </ti-menu-grupo-level3>
