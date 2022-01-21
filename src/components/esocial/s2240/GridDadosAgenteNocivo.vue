@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="agentesnocivos"
+    :data-source="cadastross2240agentenocivo"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -18,17 +18,17 @@
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
     <DxColumn :width="100" data-field="codagentenocivo" caption="Código do Agente Nocivo" />
-    <DxColumn :width="400" data-field="descagentenocivo" caption="Descrição do Agente Nocivo" />
-    <DxColumn :width="300" data-field="tipoavaliacao" caption="Tipo de Avaliação" />
-    <DxColumn :width="400" data-field="doseexpo" caption="Dose da Exposição" />
+    <DxColumn :width="420" data-field="descagentenocivo" caption="Descrição do Agente Nocivo" />
+    <DxColumn :width="250" data-field="tipoavaliacao" caption="Tipo de Avaliação" />
+    <DxColumn :width="300" data-field="doseexposicao" caption="Dose da Exposição" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar(data.key)"
+        @click="editar(data)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem(data.key)" size="small">
+      <Button @click="deleteItemAgenteNocivo(data)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -41,7 +41,7 @@
   </DxDataGrid>
 </template>
 <script>
-
+import "devextreme/data/odata/store";
 import {
   DxDataGrid,
   DxColumn,
@@ -69,24 +69,24 @@ export default {
   },
   data() {
     return {
-      agentesnocivos: {},
+      cadastross2240agentenocivo: [],
     };
   },
   watch: {
     value(newValue) {
-      this.agentesnocivos = newValue || [];
+      this.cadastross2240agentenocivo = newValue || [];
     },
   },
   methods: {
-    deleteItem(data) {
-      this.$emit("deleteItem", data);     
+    deleteItemAgenteNocivo(data) {
+      this.$emit("deleteItemAgenteNocivo", data);     
     },
      editar(data) {
-      this.$emit("editar", data);     
+      this.$emit("editarItemAgenteNocivo", data);     
     },
   },
   created() {
-    this.agentesnocivos = this.value || [];
+    this.cadastross2240agentenocivo = this.value || [];
   },
 };
 </script>

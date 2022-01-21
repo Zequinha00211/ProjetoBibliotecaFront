@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="epis"
+    :data-source="cadastross2240data || []"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,16 +17,15 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="600" data-field="caoudoc" caption="Documento de Avaliação" />
-    <DxColumn :width="600" data-field="descepi" caption="Descrição do EPI" />
+    <DxColumn :width="1200" data-field="datainicio" caption="Data" data-type="date" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar3(data.key)"
+         @click="editar(data)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem3(data.key)" size="small">
+      <Button @click="deleteItemData(data)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -39,7 +38,7 @@
   </DxDataGrid>
 </template>
 <script>
-
+import "devextreme/data/odata/store";
 import {
   DxDataGrid,
   DxColumn,
@@ -67,24 +66,24 @@ export default {
   },
   data() {
     return {
-      epis: {},
+      cadastross2240data: [],
     };
   },
   watch: {
     value(newValue) {
-      this.epis = newValue || [];
+      this.cadastross2240data = newValue || [];
     },
   },
   methods: {
-    deleteItem3(data) {
-      this.$emit("deleteItem3", data);     
+    deleteItemData(data) {
+      this.$emit("deleteItemData", data);     
     },
-     editar3(data) {
-      this.$emit("editar3", data);     
+     editar(data) {
+      this.$emit("editarItemData", data);     
     },
   },
   created() {
-    this.epis = this.value || [];
+    this.cadastross2240data = this.value || [];
   },
 };
 </script>

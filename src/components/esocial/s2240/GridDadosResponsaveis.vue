@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="datasinicio"
+    :data-source="cadastross2240responsavel"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,15 +17,19 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="1200" data-field="datainicio" caption="Data" />
+    <DxColumn :width="200" data-field="cpfresponsavel" caption="CPF do responsável" />
+    <DxColumn :width="200" data-field="orgclasse" caption="Órgão de Classe" />
+    <DxColumn :width="100" data-field="uforgao" caption="UF do Órgão de classe" />
+    <DxColumn :width="200" data-field="descorgaoclase" caption="Descrição do Órgão de Classe" />
+    <DxColumn :width="300" data-field="nmrinscorgao" caption="Número de inscrição do Órgão de classe" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar1(data.key)"
+         @click="editar(data)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem1(data.key)" size="small">
+      <Button @click="deleteItemResponsavel(data)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -38,7 +42,7 @@
   </DxDataGrid>
 </template>
 <script>
-
+import "devextreme/data/odata/store";
 import {
   DxDataGrid,
   DxColumn,
@@ -66,24 +70,24 @@ export default {
   },
   data() {
     return {
-      datasinicio: {},
+      cadastross2240responsavel: [],
     };
   },
   watch: {
     value(newValue) {
-      this.datasinicio = newValue || [];
+      this.cadastross2240responsavel = newValue || [];
     },
   },
   methods: {
-    deleteItem1(data) {
-      this.$emit("deleteItem1", data);     
+    deleteItemResponsavel(data) {
+      this.$emit("deleteItemResponsavel", data);     
     },
-     editar1(data) {
-      this.$emit("editar1", data);     
+     editar(data) {
+      this.$emit("editarItemResponsavel", data);     
     },
-  },
+  }, 
   created() {
-    this.datasinicio = this.value || [];
+    this.cadastross2240responsavel = this.value || [];
   },
 };
 </script>

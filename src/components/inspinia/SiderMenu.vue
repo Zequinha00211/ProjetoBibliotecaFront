@@ -52,9 +52,14 @@
           </ti-menu-grupo-level3>
 
             <ti-menu-grupo-level3 name="S-2240" icon="fa fa-circle">
+          <ti-sider-menu-item
+            name="Listar"
+            :to="{ name: 'listS2240' }"
+            icon="fa fa-list"
+          />
             <ti-sider-menu-item
               name="Adicionar"
-              :to="{ name: 's2240Esocial' }"
+              :to="{ name: 'salvarS2240Esocial' }"
               icon="fa fa-plus"
             />
           </ti-menu-grupo-level3>

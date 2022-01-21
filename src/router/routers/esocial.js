@@ -1,10 +1,12 @@
 import S2210Esocial from '@/views/esocial/S2210'; 
-import S2240Esocial from '@/views/esocial/S2240';
 import SalvarS2220Esocial from '@/views/esocial/SalvarS2220';
+import SalvarS2240Esocial from '@/views/esocial/SalvarS2240';
 import EditS2210 from '@/views/esocial/EditS2210';
 import ListS2210 from '@/views/esocial/ListS2210'; 
 import EditarS2220 from '@/views/esocial/EditarS2220';
 import ListS2220 from '@/views/esocial/ListS2220'; 
+import EditarS2240 from '@/views/esocial/EditarS2240';
+import ListS2240 from '@/views/esocial/ListS2240'; 
 export default [
     {
         path: '/esocial/s-2210/adicionar',
@@ -46,9 +48,21 @@ export default [
     },
     {
         path: '/esocial/s-2240/adicionar',
-        name: 's2240Esocial',
-        component: S2240Esocial,
+        name: 'salvarS2240Esocial',
+        component: SalvarS2240Esocial,
         meta: { auth: true, title: "Cadastro S-2240" },
+    },
+    {
+        path: '/esocial/s-2240/editar/:id',
+        name: 'editarS2240',
+        component: EditarS2240,
+        meta: { auth: true, title: "Atualização S-2240" },
+    },
+    {
+        path: '/esocial/s-2240',
+        name: 'listS2240',
+        component: ListS2240,
+        meta: { auth: true, title: "S-2240" },
     },
 
 ];

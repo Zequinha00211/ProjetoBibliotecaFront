@@ -146,7 +146,7 @@ export default {
   created() {
     this.buscarCodigoProcedimento();
     this.buscarIndicacaodeResultado();  
-      this.formEsocialExame = this.value || {}; 
+    this.formEsocialExame = this.value || {}; 
       if( this.value.id !=undefined) {
          let dataemissaoatestado = this.value?.dataemissaoatestado;
           if (typeof dataemissaoatestado === "string" && dataemissaoatestado) {

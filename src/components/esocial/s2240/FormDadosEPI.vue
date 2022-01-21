@@ -2,10 +2,10 @@
   <Form ref="FormDadosEPI" :model="FormDadosEPI" :rules="rule4Esocial" inline>
     <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="caoudoc" label="CA ou documento de avaliação de EPI">
+            <FormItem prop="caoudocumentoavaliacao" label="CA ou documento de avaliação de EPI">
               <Input
                 type="text"
-                v-model="FormDadosEPI.caoudoc"
+                v-model="FormDadosEPI.caoudocumentoavaliacao"
                 placeholder=" "
               />
             </FormItem>
@@ -30,7 +30,7 @@
       </i-col>
       <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()" class="btnFormDadosEPI">{{
+          <Button type="primary" @click="adicionar()" class="btnFormDadosEPI">{{
             stringBtn
           }}</Button>
         </FormItem>
@@ -50,10 +50,8 @@ export default {
   },
   data() {
     return {
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
+      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Adicionar',
       FormDadosEPI: {
-        caoudoc: "",
-        descepi: "",
       },
       rule4Esocial: {
       },
@@ -66,11 +64,10 @@ export default {
     },
   },
   methods: {
-    salvar() {
+    adicionar() {
       this.$refs["FormDadosEPI"].validate((valid) => {
         if (valid) {
-          this.$emit("salvarDadosEPI", this.FormDadosEPI); 
-           this.FormDadosEPI = { caoudoc: "", descepi: "",}        
+          this.$emit("adicionarDadosEPI", this.FormDadosEPI);       
         } else {
           this.$Message.error("Insira todos os campos!");
         }

@@ -19,11 +19,11 @@
       <i-col :sm="12">
         <FormItem prop="orgclasse" label="Órgão de Classe">
           <Select v-model="dadosResponsaveis.orgclasse" filterable>
-            <Option value="1">Conselho Regional de Medicina - CRM</Option>
-            <Option value="4"
+            <Option :value="1">Conselho Regional de Medicina - CRM</Option>
+            <Option :value="4"
               >Conselho Regional de Engenharia e Agronomia - CREA</Option
             >
-            <Option value="9">Outros</Option>
+            <Option :value="9">Outros</Option>
           </Select>
         </FormItem>
       </i-col>
@@ -72,7 +72,7 @@
       </i-col>
       <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()" class="btnFormDadosResponsaveis">{{
+          <Button type="primary" @click="adicionar()" class="btnFormDadosResponsaveis">{{
             stringBtn
           }}</Button>
         </FormItem>
@@ -92,14 +92,8 @@ export default {
   },
   data() {
     return {
-      stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
-      dadosResponsaveis: {
-        cpfresponsavel: "",
-        orgclasse: "",
-        uforgao: "",
-        descorgaoclase: "",
-        nmrinscorgao: "",
-      },
+      stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Adicionar",
+      dadosResponsaveis: {},
       rule3Esocial: {
         cpfresponsavel: [
           {
@@ -134,17 +128,10 @@ export default {
     },
   },
   methods: {
-    salvar() {
+    adicionar() {
       this.$refs["dadosResponsaveis"].validate((valid) => {
         if (valid) {
-          this.$emit("salvarDadosResponsaveis", this.dadosResponsaveis);
-          this.dadosResponsaveis = {
-            cpfresponsavel: "",
-            orgclasse: "",
-            uforgao: "",
-            descorgaoclase: "",
-            nmrinscorgao: "",
-          };
+          this.$emit("adicionarDadosResponsaveis", this.dadosResponsaveis);
         } else {
           this.$Message.error("Insira todos os campos!");
         }

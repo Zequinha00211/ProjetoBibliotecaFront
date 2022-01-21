@@ -8,37 +8,37 @@
       >
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="inscemp" label="Inscrição da Empresa">
+            <FormItem prop="inscricaoempresa" label="Inscrição da Empresa">
               <Input
                 type="text"
-                v-model="formEsocial.inscemp"
+                v-model="formEsocial.inscricaoempresa"
                 placeholder=" "
                 v-mask="`##.###.###/####-##`"
               />
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="name" label="Nome do Empregado">
-              <Input type="text" v-model="formEsocial.name" placeholder=" " />
+            <FormItem prop="nameempregado" label="Nome do Empregado">
+              <Input type="text" v-model="formEsocial.nameempregado" placeholder=" " />
             </FormItem>
           </i-col>
         </row>
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="cpf" label="CPF do Empregado">
+            <FormItem prop="cpfempregado" label="CPF do Empregado">
               <Input
                 type="text"
-                v-model="formEsocial.cpf"
+                v-model="formEsocial.cpfempregado"
                 placeholder=" "
                 v-mask="`###.###.###-##`"
               />
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="matricula" label="Matricula do Empregado">
+            <FormItem prop="matriculaempregado" label="Matricula do Empregado">
               <Input
                 type="text"
-                v-model="formEsocial.matricula"
+                v-model="formEsocial.matriculaempregado"
                 placeholder=" "
               />
             </FormItem>
@@ -46,8 +46,8 @@
         </row>
         <row :gutter="20">
           <i-col :sm="24">
-            <FormItem prop="codigo" label="Codigo da Categoria do Trabalhador">
-              <Select v-model="formEsocial.codigo" filterable>
+            <FormItem prop="codigodecategoriatrabalhador" label="Codigo da Categoria do Trabalhador">
+              <Select v-model="formEsocial.codigodecategoriatrabalhador" filterable>
                 <Option
                   v-for="categoria in categoriasTrabalhador"
                   :value="categoria.codigo"
@@ -74,15 +74,15 @@
               <label>Data de Inicio nas Condições de Risco</label>
             </i-col>
             <i-col :sm="24">
-              <Button @click="(showModal = true), (datainicio = {})">
+              <Button @click="(showModalDadosData = true), (datainicio = {})">
                 Adicionar Data</Button
               >
             </i-col>
              <i-col :sm="24">
-              <ListData
+              <TiGridDatas
                 v-model="datasinicio"
-                @editar1="editar1"
-                @deleteItem1="deleteItem1"
+                @editarItemData="editarItemData"
+                @deleteItemData="deleteItemData"
               />
             </i-col>
         </row>
@@ -95,8 +95,8 @@
           <i-col :sm="12">
             <FormItem prop="locambiente" label="Local do Ambiente">
               <Select v-model="formEsocial.locambiente" filterable>
-                <Option value="1">Estabelecimento do próprio empregador</Option>
-                <Option value="2">Estabelecimento de terceiros</Option>
+                <Option :value="1">Estabelecimento do próprio empregador</Option>
+                <Option :value="2">Estabelecimento de terceiros</Option>
               </Select>
             </FormItem>
           </i-col>
@@ -175,10 +175,10 @@
               >
             </i-col>
              <i-col :sm="24">
-              <ListAgenteNocivo
+               <TiGridAgentes
                 v-model="agentesnocivos"
-                @editar="editar"
-                @deleteItem="deleteItem"
+                @editarItemAgenteNocivo="editarItemAgenteNocivo"
+                @deleteItemAgenteNocivo="deleteItemAgenteNocivo"
               />
             </i-col>
         </row>
@@ -186,7 +186,7 @@
           <i-col :sm="8">
             <FormItem prop="limitetolerancia" label="Limite de tolerância">
               <Input
-                type="text"
+                type="number"
                 v-model="formEsocial.limitetolerancia"
                 placeholder=" "
               />
@@ -233,13 +233,13 @@
         <row :gutter="20">
           <i-col :sm="24">
             <FormItem
-              prop="equipamentosprotecao"
+              prop="equipamentosproecaocoletiva"
               label="Utiliza Equipamentos de Proteção Coletiva(EPC)"
             >
-              <Select v-model="formEsocial.equipamentosprotecao" filterable>
-                <Option value="0">Não se aplica</Option>
-                <Option value="1">Não implementa</Option>
-                <Option value="2">Implementa</Option>
+              <Select v-model="formEsocial.equipamentosproecaocoletiva" filterable>
+                <Option :value="0">Não se aplica</Option>
+                <Option :value="1">Não implementa</Option>
+                <Option :value="2">Implementa</Option>
               </Select>
             </FormItem>
           </i-col>
@@ -247,12 +247,12 @@
         <row :gutter="20">
           <i-col :sm="24">
             <FormItem
-              prop="epcsprotecao"
+              prop="epcsprotecaoeficazes"
               label="Os EPCS são eficazes na proteção do trabalhador"
             >
               <Input
                 type="text"
-                v-model="formEsocial.epcsprotecao"
+                v-model="formEsocial.epcsprotecaoeficazes"
                 placeholder=" "
               />
             </FormItem>
@@ -261,13 +261,13 @@
         <row :gutter="20">
           <i-col :sm="24">
             <FormItem
-              prop="utilizaequipamentos"
+              prop="utilizaequipamentosindividual"
               label="Utiliza Equipamentos de Proteção Individual(EPI)"
             >
-              <Select v-model="formEsocial.utilizaequipamentos" filterable>
-                <Option value="0">Não se aplica</Option>
-                <Option value="1">Não utilizado</Option>
-                <Option value="2">Utilizado</Option>
+              <Select v-model="formEsocial.utilizaequipamentosindividual" filterable>
+                <Option :value="0">Não se aplica</Option>
+                <Option :value="1">Não utilizado</Option>
+                <Option :value="2">Utilizado</Option>
               </Select>
             </FormItem>
           </i-col>
@@ -275,12 +275,12 @@
         <row :gutter="20">
           <i-col :sm="24">
             <FormItem
-              prop="episprotecao"
+              prop="episprotecaoeficazes"
               label="Os EPIS são eficazes na proteção do trabalhador"
             >
               <Input
                 type="text"
-                v-model="formEsocial.episprotecao"
+                v-model="formEsocial.episprotecaoeficazes"
                 placeholder=" "
               />
             </FormItem>
@@ -315,10 +315,10 @@
               >
             </i-col>
              <i-col :sm="24">
-              <ListEpi
+              <TiGridEpis
                 v-model="epis"
-                @editar3="editar3"
-                @deleteItem3="deleteItem3"
+                @editarItemEpi="editarItemEpi"
+                @deleteItemEpi="deleteItemEpi"
               />
             </i-col>
         </row>
@@ -337,8 +337,8 @@
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="boascondicoes" label="Boas Condições de Uso">
-              <Select v-model="formEsocial.boascondicoes" filterable>
+            <FormItem prop="boascondicoesdeuso" label="Boas Condições de Uso">
+              <Select v-model="formEsocial.boascondicoesdeuso" filterable>
                 <Option value="S">Sim</Option>
                 <Option value="N">Não</Option>
               </Select>
@@ -347,8 +347,8 @@
         </row>
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="usoininepi" label="Uso ininterrupto do EPI">
-              <Select v-model="formEsocial.usoininepi" filterable>
+            <FormItem prop="usoininterruptoepi" label="Uso ininterrupto do EPI">
+              <Select v-model="formEsocial.usoininterruptoepi" filterable>
                 <Option value="S">Sim</Option>
                 <Option value="N">Não</Option>
               </Select>
@@ -413,10 +413,10 @@
               >
             </i-col>
              <i-col :sm="24">
-              <ListResponsavel
+              <TiGridResponsaveis
                 v-model="responsaveis"
-                @editar2="editar2"
-                @deleteItem2="deleteItem2"
+                @editarItemResponsavel="editarItemResponsavel"
+                @deleteItemResponsavel="deleteItemResponsavel"
               />
             </i-col>
         </row>
@@ -448,7 +448,7 @@
                 <Icon type="ios-arrow-back"></Icon>
                 Anterior
               </Button>
-              <Button type="primary" @click="salvar()">{{
+              <Button type="primary" @click="salvarAtualizarCadastro()">{{
                   stringBtn
                 }}</Button>
             </ButtonGroup>
@@ -457,22 +457,22 @@
       </TabPane>
     </Tabs>
   </Form>
-   <Modal v-model="showModal" width="500" :footer-hide="true" title="Data de Início nas Condições de Risco">
+   <Modal v-model="showModalDadosData" width="500" :footer-hide="true" title="Data de Início nas Condições de Risco">
       <div style="text-align: center">
-        <FormS2240
+       <TiFormDatas
           v-model="datainicio"
-          @handleSubmit="handleSubmit"
-          @cancelar="cancelar"
-          v-if="exibirForm"
+          @adicionarDadosDatas="adicionarDadosDatas"
+          @cancelarDadosDatas="cancelarDadosDatas"
+          v-if="exibirFormData"
         />
       </div>
       <div slot="footer"></div>
     </Modal>
     <Modal v-model="showModalAgenteNocivo" width="760" title="Dados do Agente Nocivo" :footer-hide="true">
       <div style="text-align: center">
-        <TiFormDadosAgenteNocivo
+        <TiFormAgentes
           v-model="agentenocivo"
-          @salvarDadosAgenteNocivo="salvarDadosAgenteNocivo"
+          @adicionarDadosAgentesNocivos="adicionarDadosAgentesNocivos"
           @cancelarDadosAgenteNocivo="cancelarDadosAgenteNocivo"
           v-if="exibirFormAgenteNocivo"
         />
@@ -481,9 +481,9 @@
     </Modal>
     <Modal v-model="showModalDadosResponsaveis" width="760" title="Dados dos Responsáveis" :footer-hide="true" >
       <div style="text-align: center">
-        <TiFormDadosReponsaveis
+        <TiFormReponsaveis
           v-model="responsavel"
-          @salvarDadosResponsaveis="salvarDadosResponsaveis"
+          @adicionarDadosResponsaveis="adicionarDadosResponsaveis"
           @cancelarDadosResponsaveis="cancelarDadosResponsaveis"
           v-if="exibirFormDadosResponsaveis"
         />
@@ -492,9 +492,9 @@
     </Modal>
      <Modal v-model="showModalDadosEPI" width="760" title="Dados do EPI" :footer-hide="true">
       <div style="text-align: center">
-        <TiFormDadosEPI
+        <TiFormEpis
           v-model="epi"
-          @salvarDadosEPI="salvarDadosEPI"
+          @adicionarDadosEPI="adicionarDadosEPI"
           @cancelarDadosEPI="cancelarDadosEPI"
           v-if="exibirFormDadosEPI"
         />
@@ -506,14 +506,14 @@
 
 <script>
 import { mask } from "vue-the-mask";
-import ListData from "@/components/esocial/GridS2240";
-import FormS2240 from "@/components/esocial/FormS2240";
-import ListAgenteNocivo from "@/components/esocial/GridDadosAgenteNocivo";
-import TiFormDadosAgenteNocivo from "@/components/esocial/FormDadosAgenteNocivo";
-import ListResponsavel from "@/components/esocial/GridDadosResponsaveis";
-import TiFormDadosReponsaveis from "@/components/esocial/FormDadosReponsaveis";
-import ListEpi from "@/components/esocial/GridDadosEPI";
-import TiFormDadosEPI from "@/components/esocial/FormDadosEPI";
+import TiGridDatas from "@/components/esocial/s2240/GridDatas";
+import TiFormDatas from "@/components/esocial/s2240/FormData";
+import TiGridAgentes from "@/components/esocial/s2240/GridDadosAgenteNocivo";
+import TiFormAgentes from "@/components/esocial/s2240/FormDadosAgenteNocivo";
+import TiGridResponsaveis from "@/components/esocial/s2240/GridDadosResponsaveis";
+import TiFormReponsaveis from "@/components/esocial/s2240/FormDadosReponsaveis";
+import TiGridEpis from "@/components/esocial/s2240/GridDadosEPI";
+import TiFormEpis from "@/components/esocial/s2240/FormDadosEPI";
 import axios from "axios";
 export default {
   props: {
@@ -524,53 +524,35 @@ export default {
   },
   data() {
     return {
+      idCadastroS2240: this.$route.params.id,
+      idCadastroS2240Data: this.$route.params.id,
       categoriasTrabalhador: {},
       codsituacaoTrabalhador: {},
       unidadedemedida: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {
-        inscemp: "",
-        name: "",
-        cpf: "",
-        codigo: "",
-        data: "",
-        locambiente: "",
-        nomesetor: "",
-        inscsetor: "",
-        descatividade: "",
-        codagentenocivo: "",
-        cpfresponsavel: "",
-        orgclasse: "",
-        uforgao: "",
-        nmrinscorgao: "",
       },
       ruleEsocial: {
-        inscemp: [
+        inscricaoempresa: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        name: [
+        nameempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
           },
         ],
-        cpf: [
+        cpfempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
-          },
-        ],
-        codigo: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
           },
         ],
         data: [
@@ -584,7 +566,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         nomesetor: [
@@ -615,6 +596,67 @@ export default {
             trigger: "blur",
           },
         ],
+        equipamentosproecaocoletiva: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+          },
+        ],
+        utilizaequipamentosindividual: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+          },
+        ],
+        medidaprotecao: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        boascondicoesdeuso: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        usoininterruptoepi: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        validaderespeitada: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        periodicidadedetroca: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        higienizacaocorreta: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        obscomplementares: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
         orgclasse: [
           {
             required: true,
@@ -638,10 +680,11 @@ export default {
         ],
       },
       datasinicio: [],
-      showModal: false,
-      exibirForm: true,
+      showModalDadosData: false,
+      exibirFormData: true,
       datainicio: {},
       agentesnocivos: [],
+      agentesnocivosOld: [],
       showModalAgenteNocivo: false,
       exibirFormAgenteNocivo: true,
       agentenocivo: {},
@@ -656,184 +699,180 @@ export default {
     };   
   },
    components: {
-    ListData,
-    FormS2240,
-    ListAgenteNocivo,
-    TiFormDadosAgenteNocivo,
-    ListResponsavel,
-    TiFormDadosReponsaveis,
-    ListEpi,
-    TiFormDadosEPI,
+    TiGridDatas,
+    TiFormDatas,
+    TiGridAgentes,
+    TiFormAgentes,
+    TiGridResponsaveis,
+    TiFormReponsaveis,
+    TiGridEpis,
+    TiFormEpis,
   },
+   watch: {
+    value(newValue) {
+      console.log(newValue)
+      this.preencherDados(newValue);
+    },
+   },
   methods: {
-     handleSubmit(data) {
-      this.exibirForm = false;
-      if (data.id === undefined) {
-        this.datasinicio.push({
-          ...data,
-          id: new Date().getTime(),
-        });
-      } else {
-        this.datasinicio = this.datasinicio.filter((datainicio) => {
-          if (data.id != data.id) {
-            return data;
-          } else {
-            return datainicio;
-          }
-        });
-      }
+    preencherDados(newValue) {
+      this.formEsocial = newValue || {};
 
-      this.exibirForm = true;
-      this.showModal = false;
+        this.datasinicio = this.formEsocial.datasinicio;
+        this.agentesnocivos = this.formEsocial.agentesnocivos;
+        this.epis = this.formEsocial.epis;
+        this.responsaveis = this.formEsocial.responsaveis;
     },
-    cancelar(){
-      this.exibirForm = true;
-      this.showModal = false;
-    },
-    salvarDadosAgenteNocivo(data) {
-      this. exibirFormAgenteNocivo = false;
-      if (data.id === undefined) {
-        this.agentesnocivos.push({
-          ...data,
-          id: new Date().getTime(),
-        });
-      } else {
-        this.agentesnocivos = this.agentesnocivos.filter((agentenocivo) => {
-          if (data.id != agentenocivo.id) {
-            return data;
+    async salvarAtualizarCadastro() {
+      this.$refs["formEsocial"].validate(async (valid) => {
+        if (valid) {
+          this.formEsocial.datasinicio = this.datasinicio;
+          this.formEsocial.agentesnocivos = this.agentesnocivos;
+          this.formEsocial.epis = this.epis;
+          this.formEsocial.responsaveis = this.responsaveis;
+          if (this.formEsocial.id != undefined) {
+            this.$emit("atualizar", this.formEsocial);
           } else {
-            return agentenocivo;
+            this.$emit("salvar", this.formEsocial);
           }
-        });
-      }
-
-      this.exibirFormAgenteNocivo = true;
-      this.showModalAgenteNocivo = false;
-    },
-    cancelarDadosAgenteNocivo(){
-      this.exibirFormAgenteNocivo = true;
-      this.showModalAgenteNocivo = false;
-    },
-    salvarDadosResponsaveis(data) {
-      this. exibirFormDadosResponsaveis = false;
-      if (data.id === undefined) {
-        this.responsaveis.push({
-          ...data,
-          id: new Date().getTime(),
-        });
-      } else {
-        this.responsaveis = this.responsaveis.filter((responsavel) => {
-          if (data.id != responsavel.id) {
-            return data;
-          } else {
-            return responsavel;
-          }
-        });
-      }
-
-      this.exibirFormDadosResponsaveis = true;
-      this.showModalDadosResponsaveis = false;
-    },
-    cancelarDadosResponsaveis(){
-      this.exibirFormDadosResponsaveis = true;
-      this.showModalDadosResponsaveis = false;
-    },
-    salvarDadosEPI(data) {
-      this. exibirFormDadosEPI = false;
-      if (data.id === undefined) {
-        this.epis.push({
-          ...data,
-          id: new Date().getTime(),
-        });
-      } else {
-        this.epis = this.epis.filter((epi) => {
-          if (data.id != epi.id) {
-            return data;
-          } else {
-            return epi;
-          }
-        });
-      }
-
-      this.exibirFormDadosEPI = true;
-      this.showModalDadosEPI = false;
-    },
-    cancelarDadosEPI(){
-      this.exibirFormDadosEPI = true;
-      this.showModalDadosEPI = false;
-    },
-    editar1(data) {
-      console.log(data);
-      this.exibirForm = false;
-      this.datainicio = data;
-      setTimeout(() => {
-        this.showModal = true;
-        this.exibirForm = true;
-      }, 250);
-    },
-     deleteItem1(data) {
-      this.datasinicio = this.datasinicio.filter((datainicio) => {
-        if (datainicio.datainicio != data.datainicio) {
-          return datainicio;
+        } else {
+          this.$Message.error("Insira todos os campos!");
         }
-      });   
+      });
     },
-      editar(data) {
-      console.log(data);
+    adicionarDadosDatas(data) {
+      if (this.datainicio.editar != undefined && this.datainicio.editar === true) {
+        this.datasinicio[this.datainicio.index] = this.datainicio;
+      } else {
+         this.datasinicio.push({
+          ...data,
+        }); 
+      }     
+      this.formEsocial.datasinicio = this.datasinicio;
+      this.exibirFormData = true;
+      this.showModalDadosData = false;
+    },
+    adicionarDadosAgentesNocivos(data) {
+      console.log('adicionarDadosAgentesNocivos')
+      if (this.agentenocivo.editar != undefined && this.agentenocivo.editar === true) {
+        this.agentesnocivos[this.agentenocivo.index] = this.agentenocivo;
+      } else {
+         this.agentesnocivos.push({
+          ...data,
+        }); 
+      }     
+      this.formEsocial.agentesnocivos = this.agentesnocivos;
+      this.exibirFormAgenteNocivo = true;
+      this.showModalAgenteNocivo = false;
+    },
+      editarItemAgenteNocivo(data) {
+      this.agentesnocivosOld = this.agentesnocivos;
       this.exibirFormAgenteNocivo = false;
-      this.agentenocivo = data;
+      this.agentenocivo = data.key;
+      this.agentenocivo.editar = true;
+      this.agentenocivo.index = data.rowIndex;
       setTimeout(() => {
         this.showModalAgenteNocivo = true;
         this.exibirFormAgenteNocivo = true;
       }, 250);
     },
-     deleteItem(data) {
-      this.agentesnocivos = this.agentesnocivos.filter((agentenocivo) => {
-        if (agentenocivo.codagentenocivo != data.codagentenocivo) {
-          return agentenocivo;
-        }
-      });   
+     cancelarDadosAgenteNocivo(){
+      console.log( this.agentesnocivos[0].descagentenocivo, this.agentesnocivosOld[0].descagentenocivo)
+      
+      this.exibirFormAgenteNocivo = true;
+      this.showModalAgenteNocivo = false;
     },
-     editar2(data) {
-      console.log(data);
+    adicionarDadosResponsaveis(data) {
+      if (this.responsavel.editar != undefined && this.responsavel.editar === true) {
+        this.responsaveis[this.responsavel.index] = this.responsavel;
+      } else {
+         this.responsaveis.push({
+          ...data,
+        }); 
+      }     
+      this.formEsocial.responsaveis = this.responsaveis;
+      this.exibirFormDadosResponsaveis = true;
+      this.showModalDadosResponsaveis = false;
+    },
+    adicionarDadosEPI(data) {
+      if (this.epi.editar != undefined && this.epi.editar === true) {
+        this.epis[this.epi.index] = this.epi;
+      } else {
+         this.epis.push({
+          ...data,
+        }); 
+      }     
+      this.formEsocial.epis = this.epis;
+      this.exibirFormDadosEPI = true;
+      this.showModalDadosEPI = false;
+    },
+    cancelarDadosDatas(){
+      this.exibirFormData = true;
+      this.showModalDadosData = false;
+    },
+    
+     cancelarDadosResponsaveis(){
+       
+      this.exibirFormDadosResponsaveis = true;
+      this.showModalDadosResponsaveis = false;
+    },
+     cancelarDadosEPI(){
+      this.exibirFormDadosEPI = true;
+      this.showModalDadosEPI = false;
+    },
+    editarItemData(data) {
+      this.exibirFormData = false;
+      this.datainicio = data.key;
+      this.datainicio.editar = true;
+      this.datainicio.index = data.rowIndex;
+      setTimeout(() => {
+        this.showModalDadosData = true;
+        this.exibirFormData = true;
+      }, 250);
+    },
+   
+    editarItemResponsavel(data) {
       this.exibirFormDadosResponsaveis = false;
-      this.responsavel = data;
+      this.responsavel = data.key;
+      this.responsavel.editar = true;
+      this.responsavel.index = data.rowIndex;
       setTimeout(() => {
         this.showModalDadosResponsaveis = true;
         this.exibirFormDadosResponsaveis = true;
       }, 250);
     },
-     deleteItem2(data) {
-      this.responsaveis = this.responsaveis.filter((responsavel) => {
-        if (responsavel.cpfresponsavel != data.cpfresponsavel) {
-          return responsavel;
-        }
-      });
-     },
-      editar3(data) {
-      console.log(data);
+    editarItemEpi(data) {
       this.exibirFormDadosEPI = false;
-      this.epi = data;
+      this.epi = data.key;
+      this.epi.editar = true;
+      this.epi.index = data.rowIndex;
       setTimeout(() => {
         this.showModalDadosEPI = true;
         this.exibirFormDadosEPI = true;
       }, 250);
     },
-    deleteItem3(data) {
-      this.epis = this.epis.filter((epi) => {
-        if (epi.descepi != data.descepi) {
-          return epi;
-        }
+    deleteItemData(data) {
+      const datasinicio = this.datasinicio;
+      this.datasinicio = datasinicio.filter((element, index) => {
+        return data.rowIndex !== index;
       });
-     },
-     salvar() {
-      this.$refs["formEsocial"].validate((valid) => {
-        if (valid) {
-          console.log(this.formEsocial);
-          /*  this.$emit("handleSubmit", this.formEsocial); */
-        } else {
-          this.$Message.error("Insira todos os campos!");
-        }
+    },
+    deleteItemAgenteNocivo(data) {
+      const agentesnocivos = this.agentesnocivos;
+      this.agentesnocivos = agentesnocivos.filter((element, index) => {
+        return data.rowIndex !== index;
+      });
+    },
+     deleteItemResponsavel(data) {
+      const responsaveis = this.responsaveis;
+      this.responsaveis = responsaveis.filter((element, index) => {
+        return data.rowIndex !== index;
+      });
+    },
+      deleteItemEpi(data) {
+      const epis = this.epis;
+      this.epis = epis.filter((element, index) => {
+        return data.rowIndex !== index;
       });
     },
     async buscarCategoriadoTrabalhador() {
@@ -849,10 +888,7 @@ export default {
     this.buscarCategoriadoTrabalhador();
     this.buscarUnidadeMedida();
 
-    this.formEsocial = this.value || {};
-    this.form2Esocial = this.value || {};
-    this.form3Esocial = this.value || {};
-    this.form4Esocial = this.value || {};
+    this.preencherDados(this.value);
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="responsaveis"
+    :data-source="cadastross2240epi"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,19 +17,16 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="200" data-field="cpfresponsavel" caption="CPF do responsável" />
-    <DxColumn :width="200" data-field="orgclasse" caption="Órgão de Classe" />
-    <DxColumn :width="100" data-field="uforgao" caption="UF do Órgão de classe" />
-    <DxColumn :width="200" data-field="descorgaoclase" caption="Descrição do Órgão de Classe" />
-    <DxColumn :width="300" data-field="nmrinscorgao" caption="Número de inscrição do Órgão de classe" />
+    <DxColumn :width="600" data-field="caoudocumentoavaliacao" caption="Documento de Avaliação" />
+    <DxColumn :width="600" data-field="descepi" caption="Descrição do EPI" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar2(data.key)"
+        @click="editar(data)"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItem2(data.key)" size="small">
+      <Button @click="deleteItemEpi(data)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -42,7 +39,7 @@
   </DxDataGrid>
 </template>
 <script>
-
+import "devextreme/data/odata/store";
 import {
   DxDataGrid,
   DxColumn,
@@ -70,24 +67,24 @@ export default {
   },
   data() {
     return {
-      responsaveis: {},
+      cadastross2240epi: [],
     };
   },
   watch: {
     value(newValue) {
-      this.responsaveis = newValue || [];
+      this.cadastross2240epi = newValue || [];
     },
   },
   methods: {
-    deleteItem2(data) {
-      this.$emit("deleteItem2", data);     
+    deleteItemEpi(data) {
+      this.$emit("deleteItemEpi", data);     
     },
-     editar2(data) {
-      this.$emit("editar2", data);     
+     editar(data) {
+      this.$emit("editarItemEpi", data);     
     },
   },
   created() {
-    this.responsaveis = this.value || [];
+    this.cadastross2240epi = this.value || [];
   },
 };
 </script>

@@ -30,16 +30,16 @@
           <i-col :sm="12">
             <FormItem prop="tipoavaliacao" label="Tipo de Avaliação">
               <Select v-model="FormDadosAgenteNocivo.tipoavaliacao" filterable>
-                <Option value="1">Critério quantitativo</Option>
-                <Option value="2">Critério qualitativo</Option>
+                <Option :value="1">Critério quantitativo</Option>
+                <Option :value="2">Critério qualitativo</Option>
               </Select>
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="doseexpo" label="Dose da Exposição">
+            <FormItem prop="doseexposicao" label="Dose da Exposição">
               <Input
-                type="text"
-                v-model="FormDadosAgenteNocivo.doseexpo"
+                type="number"
+                v-model="FormDadosAgenteNocivo.doseexposicao"
                 placeholder=" "
               />
             </FormItem>
@@ -48,14 +48,14 @@
        <row :gutter="20">
       <i-col :sm="12">
         <FormItem>
-          <Button @click="$emit('cancelarDadosAgenteNocivo')" class="btnFormDadosAgenteNocivo"
+          <Button @click="$emit('cancelarDadosAgenteNocivo', {})" class="btnFormDadosAgenteNocivo"
             >Cancelar</Button
           >
         </FormItem>
       </i-col>
       <i-col :sm="12">
         <FormItem>
-          <Button type="primary" @click="salvar()" class="btnFormDadosAgenteNocivo">{{
+          <Button type="primary" @click="adicionar()" class="btnFormDadosAgenteNocivo">{{
             stringBtn
           }}</Button>
         </FormItem>
@@ -77,22 +77,11 @@ export default {
   data() {
     return {
       codigoagentenocivo: {},
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
+      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Adicionar',
       FormDadosAgenteNocivo: {
-         codagentenocivo: "",
-         descagentenocivo: "",
-         tipoavaliacao: "",
-         doseexpo: "",
-
       },
       rule2Esocial: {
          codagentenocivo: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-          },
-        ],
-         descagentenocivo: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -102,17 +91,12 @@ export default {
     };
   },
   watch: {
-    value(newValue) {
-      this.FormDadosAgenteNocivo = newValue || {}; 
-      
-    },
   },
   methods: {
-    salvar() {
+    adicionar() {
       this.$refs["FormDadosAgenteNocivo"].validate((valid) => {
         if (valid) {
-          this.$emit("salvarDadosAgenteNocivo", this.FormDadosAgenteNocivo); 
-           this.FormDadosAgenteNocivo = { codagentenocivo: "", descagentenocivo: "", tipoavaliacao: "", doseexpo: "",}        
+          this.$emit("adicionarDadosAgentesNocivos", this.FormDadosAgenteNocivo); 
         } else {
           this.$Message.error("Insira todos os campos!");
         }
