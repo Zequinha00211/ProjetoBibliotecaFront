@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Adicionar',
+      stringBtn:'Adicionar',
       FormDadosEPI: {
       },
       rule4Esocial: {
@@ -60,7 +60,7 @@ export default {
   watch: {
     value(newValue) {
       this.FormDadosEPI = newValue || {}; 
-      
+      this.stringBtn =  this.FormDadosEPI.index !=undefined ? 'Atualizar' : "Adicionar"
     },
   },
   methods: {
@@ -76,6 +76,7 @@ export default {
   },
   created() {
     this.FormDadosEPI = this.value || {};  
+    this.stringBtn =  this.FormDadosEPI.index !=undefined ? 'Atualizar' : "Adicionar"
   },
 };
 </script>

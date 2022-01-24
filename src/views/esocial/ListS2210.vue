@@ -42,7 +42,7 @@ export default {
       this.showModal = true;    
     },
     async deleteS2210(){
-      await axios.delete("esocial/s-2210"+this.s2210.id);
+      await axios.delete("esocial/s-2210/"+this.s2210.id);
       this.showModal = false;
       this.buscarCadastrosS2210();
     }

@@ -19,7 +19,7 @@
         
       <i-col :sm="12">
         <FormItem>
-          <Button @click="$emit('cancelarDadosData')" class="btnFormDadosData">Cancelar</Button>
+          <Button @click="$emit('cancelarDadosDatas')" class="btnFormDadosData">Cancelar</Button>
         </FormItem>
       </i-col>
       <i-col :sm="12">
@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Adicionar",
+      stringBtn: "Adicionar",
       formEsocialData: {
       },
       ruleEsocial: {
@@ -66,6 +66,7 @@ export default {
         
           this.formEsocialData.datainicio = datainicio;   
        }
+       this.stringBtn =  this.formEsocialData.index !=undefined ? 'Atualizar' : "Adicionar"
     },
   },
   methods: {
@@ -88,6 +89,7 @@ export default {
           }
         
           this.formEsocialData.datainicio = datainicio;   
+          this.stringBtn =  this.formEsocialData.index !=undefined ? 'Atualizar' : "Adicionar"
        }
   },
 };

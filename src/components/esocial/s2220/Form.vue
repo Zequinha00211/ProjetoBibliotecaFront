@@ -134,6 +134,7 @@
                 v-model="exames"
                 @editarItemExame="editarItemExame"
                 @deleteItemExame="deleteItemExame"
+                v-if="exibirGridExames"
               />
             </i-col>
           </row>
@@ -350,6 +351,7 @@ export default {
       exames: [],
       showModal: false,
       exibirForm: true,
+      exibirGridExames: true,
       exame: {},
     };
   },
@@ -360,6 +362,12 @@ export default {
   watch: {
     value(newValue) {
       this.preencherDados(newValue);
+    },
+    exame() {
+      this.exibirGridExames = false;
+      setTimeout(() => {
+        this.exibirGridExames = true;
+      }, 100);
     },
   },
   methods: {
@@ -399,16 +407,16 @@ export default {
       this.formEsocial.exames = this.exames;
       this.exibirForm = true;
       this.showModal = false;
+      this.exame = {};
     },
     cancelarDadosExames() {
+      this.exame = {};
       this.exibirForm = true;
       this.showModal = false;
     },
     editarItemExame(data) {
       this.exibirForm = false;
-      this.exame = data.key;
-      this.exame.editar = true;
-      this.exame.index = data.rowIndex;
+      this.exame = { ...data.key, editar: true, index: data.rowIndex };
       setTimeout(() => {
         this.showModal = true;
         this.exibirForm = true;

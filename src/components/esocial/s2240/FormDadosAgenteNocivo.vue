@@ -2,12 +2,12 @@
   <Form ref="FormDadosAgenteNocivo" :model="FormDadosAgenteNocivo" :rules="rule2Esocial" inline>
     <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="codagentenocivo" label="Código do Agente Nocivo">
+            <FormItem prop="codagentenocivo" label="Código do Agente Nocivo">           
               <Select v-model="FormDadosAgenteNocivo.codagentenocivo" filterable>
                 <Option
                   v-for="codagentenocivo in codigoagentenocivo"
                   :value="codagentenocivo.codigo"
-                  :key="codagentenocivo.id"
+                  :key="codagentenocivo.codigo"
                   >{{ codagentenocivo.codigo }}</Option
                 >
               </Select>
@@ -48,7 +48,7 @@
        <row :gutter="20">
       <i-col :sm="12">
         <FormItem>
-          <Button @click="$emit('cancelarDadosAgenteNocivo', {})" class="btnFormDadosAgenteNocivo"
+          <Button @click="$emit('cancelarDadosAgenteNocivo')" class="btnFormDadosAgenteNocivo"
             >Cancelar</Button
           >
         </FormItem>
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       codigoagentenocivo: {},
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Adicionar',
+      stringBtn : 'Adicionar',
       FormDadosAgenteNocivo: {
       },
       rule2Esocial: {
@@ -91,6 +91,11 @@ export default {
     };
   },
   watch: {
+    value(newValue) { 
+      this.FormDadosAgenteNocivo = newValue || {}; 
+      this.FormDadosAgenteNocivo.codagentenocivo = parseInt(this.FormDadosAgenteNocivo.codagentenocivo);
+      this.stringBtn =  this.FormDadosAgenteNocivo.index !=undefined ? 'Atualizar' : "Adicionar"
+    },
   },
   methods: {
     adicionar() {
@@ -110,6 +115,8 @@ export default {
   created() {
     this.buscarCodigoAgenteNocivo();
     this.FormDadosAgenteNocivo = this.value || {};  
+    this.FormDadosAgenteNocivo.codagentenocivo = parseInt(this.FormDadosAgenteNocivo.codagentenocivo);
+    this.stringBtn =  this.FormDadosAgenteNocivo.index !=undefined ? 'Atualizar' : "Adicionar"
   },
 };
 </script>
