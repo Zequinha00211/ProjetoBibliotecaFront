@@ -18,9 +18,9 @@ export default {
     EditCompany
   },
   methods: {
-    async handleSubmit(data) {
-      await axios.post("company/register", data);
-      this.$Message.success("Alterado com Sucesso!");
+    async handleSubmit(empresa) {
+      const {data} = await axios.post("company/register", empresa);
+      this.$Message.success(data.data);
     },
   },
   created() {

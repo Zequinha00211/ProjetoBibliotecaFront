@@ -7,13 +7,15 @@
       >
         <row :gutter="20">
           <i-col :sm="12">
-            <FormItem prop="inscricaoempresa" label="Inscrição da Empresa">
-              <Input
-                type="text"
-                v-model="formEsocial.inscricaoempresa"
-                placeholder=" "
-                v-mask="`##.###.###/####-##`"
-              />
+            <FormItem prop="idinscricaoempresa" label="Inscrição da Empresa">
+               <Select v-model="formEsocial.idinscricaoempresa" filterable>
+                <Option
+                  v-for="inscricaoempresa in inscricaodaempresa"
+                  :value="inscricaoempresa.id"
+                  :key="inscricaoempresa.id"
+                  >{{ inscricaoempresa.name }} - {{ inscricaoempresa.cnpjFormat }}</Option
+                > 
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="12">
@@ -239,11 +241,14 @@
         <row :gutter="20">
           <i-col :sm="4">
             <FormItem prop="tipodolocal" label="Tipo do Local">
-              <Input
-                type="text"
-                v-model="formEsocial.tipodolocal"
-                placeholder=" "
-              />
+               <Select v-model="formEsocial.tipodolocal" filterable>
+                <Option
+                  v-for="tipodolocal in tiposdelocal"
+                  :value="tipodolocal.codigo"
+                  :key="tipodolocal.id"
+                  >{{ tipodolocal.descricao }}</Option
+                >
+              </Select>
             </FormItem>
           </i-col>
           <i-col :sm="8">
@@ -647,7 +652,7 @@
                 <Icon type="ios-arrow-back"></Icon>
                 Anterior
               </Button>
-              <Button type="primary" @click="salvar()">{{ stringBtn }}</Button>
+              <Button type="primary" @click="salvarAtualizarCadastro()">{{ stringBtn }}</Button>
             </ButtonGroup>
           </i-col>
         </row>
@@ -668,6 +673,7 @@ export default {
   },
   data() {
     return {
+      idCadastroS2210: this.$route.params.id,
       categoriasTrabalhador: {},
       codsituacaoTrabalhador: {},
       tipolocaldoAcidente: {},
@@ -679,65 +685,17 @@ export default {
       iniciativacat: {},
       orgaoclasse: {},
       tipocat: {},
+      inscricaodaempresa: [],
       lateralidadepartesatingidas: {},
+      tiposdelocal: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {},
-   /*    formEsocial: {
-        inscricaoempresa: "",
-        nameempregado: "",
-        cpfempregado: "",
-        matriculaempregado: "",
-        codigodecategoriatrabalhador: "",
-        datadoacidente: "",
-        tipodoacidente: "",
-        horadoacidente: "",
-        horastrabalhadasantes: "",
-        tipocat: "",
-        houveobito: "",
-        datadoobito: "",
-        comunicacaoaautoridade: "",
-        iniciativacat: "",
-        codigodasituacaogeradoradoacidente: "",
-        tipodolocal: "",
-        desclocal: "",
-        observacoes: "",
-        pais: "",
-        cep: "",
-        tipodologradouro: "",
-        numerodologradouro: "",
-        bairro: "",
-        desclogradouroradouro: "",
-        codmunicipionicipio: "",
-        codpostal: "",
-        complementologradouroradouro: "",
-        uf: "",
-        tipoinsclocal: "",
-        nmrinsc: "",
-        codigoparteatingida: "",
-        lateralidade: "",
-        codagentecausadoracidente: "",
-        datadoatendimento: "",
-        horarioatendimento: "",
-        namedomedico: "",
-        houveinternacao: "",
-        duracaodotratamento: "",
-        orgaodeclasse: "",
-        ufdoorgaoclasse: "",
-        houveafastamento: "",
-        desclesao: "",
-        nmrinscdoorgaodeclasse: "",
-        desccomplementardalesao: "",
-        nmrdoreciboultimacat: "",
-        diagnosticoprovavel: "",
-        coddatabelacid: "",
-      }, */
       ruleEsocial: {
-        inscricaoempresa: [
+        idinscricaoempresa: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         nameempregado: [
@@ -829,7 +787,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         pais: [
@@ -863,7 +820,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         uf: [
@@ -909,7 +865,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         datadoatendimento: [
@@ -976,7 +931,6 @@ export default {
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         nmrdoreciboultimacat: [
@@ -998,15 +952,38 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.formEsocial = newValue || {};
+      this.preencherDados(newValue);
     },
   },
   methods: {
-    salvar() {
-      this.$refs["formEsocial"].validate((valid) => {
+    preencherDados(newValue) {
+      this.formEsocial = newValue || {};
+      if (newValue.id != undefined) {
+        let datadoacidente = newValue?.datadoacidente;
+        if (typeof datadoacidente === "string" && datadoacidente) {
+          datadoacidente = new Date(datadoacidente);
+        }
+        let datadoobito = newValue?.datadoobito;
+        if (typeof datadoobito === "string" && datadoobito) {
+          datadoobito = new Date(datadoobito);
+        }
+        let datadoatendimento = newValue?.datadoatendimento;
+        if (typeof datadoatendimento === "string" && datadoatendimento) {
+          datadoatendimento = new Date(datadoatendimento);
+        }
+        this.formEsocial.datadoacidente = datadoacidente;
+        this.formEsocial.datadoobito = datadoobito;
+        this.formEsocial.datadoatendimento = datadoatendimento;
+      }
+    },
+    async salvarAtualizarCadastro() {
+      this.$refs["formEsocial"].validate(async (valid) => {
         if (valid) {
-          console.log(this.formEsocial);
-          this.$emit("handleSubmit", this.formEsocial);
+          if (this.formEsocial.id != undefined) {
+            this.$emit("atualizar", this.formEsocial);
+          } else {
+            this.$emit("salvar", this.formEsocial);
+          }
         } else {
           this.$Message.error("Insira todos os campos!");
         }
@@ -1064,6 +1041,14 @@ export default {
       );
       this.lateralidadepartesatingidas = data.data.data;
     },
+    async buscarInscricaoDaEmpresa() {
+      const { data } = await axios.get("/company/all");
+      this.inscricaodaempresa = data.data;
+    },
+     async buscarTipodeLocal() {
+      const { data } = await axios.get("/esocial/atributos/tipo-local");
+      this.tiposdelocal = data.data.data;
+    },
   },
   created() {
     this.buscarCategoriadoTrabalhador();
@@ -1078,8 +1063,9 @@ export default {
     this.buscarOrgaodeClasse();
     this.buscarTipodeCat();
     this.buscarLateralidadePartesAtingidas();
-
-    this.formEsocial = this.value || {};
+    this.buscarInscricaoDaEmpresa();
+    this.buscarTipodeLocal();
+    this.preencherDados(this.value);
   },
 };
 </script>

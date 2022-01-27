@@ -22,7 +22,7 @@ export default {
       this.formCompany = data.data;
     },
     async handleSubmit(data) {
-       await axios.post("company/update", data);
+       await axios.put("company/update", data);
       this.$Message.success("Alterado com Sucesso!");
     },
   },

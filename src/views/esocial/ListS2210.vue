@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ListS2210 v-model="cadastross2210" @modalDeleteS2210="modalDeleteS2210" />
+    <GridS2210 v-model="cadastross2210" @modalDeleteS2210="modalDeleteS2210" />
     <Modal v-model="showModal" width="360">
       <p slot="header" style="color: #f60; text-align: center">
         <Icon type="ios-information-circle"></Icon>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import ListS2210 from "@/components/esocial/GridS2210";
+import GridS2210 from "@/components/esocial/s2210/Grid";
 import axios from "axios";
 export default {
   data() {
@@ -30,7 +30,7 @@ export default {
     };
   },
   components: {
-    ListS2210,
+    GridS2210,
   },
   methods: {
     async buscarCadastrosS2210() {

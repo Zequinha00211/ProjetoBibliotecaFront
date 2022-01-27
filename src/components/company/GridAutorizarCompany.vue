@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="cadastross2220"
+    :data-source="companys"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -15,20 +15,14 @@
     <dx-header-filter :visible="true" />
     <DxFilterRow :visible="true" apply-filter="auto" />
     <DxSearchPanel :visible="true" />
-    <DxColumn cell-template="btn-actions" width="70" caption="#" />
+    <DxColumn cell-template="btn-actions" width="100" caption="AUTORIZAR" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="250" data-field="empresa.cnpjFormat" caption="Inscrição da Empresa" />
-    <DxColumn data-field="nameempregado" caption="Nome do Empregado" />
-    <DxColumn data-field="cpfempregado" caption="CPF do Empregado" />
+    <DxColumn :width="250" data-field="name" caption="Usuário" />
+    <DxColumn data-field="cnpjFormat" caption="CNPJ EMPRESA" />
+    <DxColumn data-field="statusautorizacao" caption="STATUS" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
-      <Button
-        :to="{ name: 'editarS2220', params: { id: data.key.id } }"
-        size="small"
-      >
-        <Icon type="md-create" />
-      </Button>
-      <Button @click="deleteS2220(data.key)" size="small">
-        <Icon type="md-close" />
+      <Button @click="autorizaCompany(data.key)" size="small">
+        <Icon type="md-open" />
       </Button>
     </ButtonGroup>
     <DxPaging :page-size="10" />
@@ -68,21 +62,21 @@ export default {
   },
   data() {
     return {
-      cadastross2220: {},
+      companys: {},
     };
   },
   watch: {
     value(newValue) {
-      this.cadastross2220 = newValue || [];
+      this.companys = newValue || [];
     },
   },
   methods: {
-    deleteS2220(data) {
-      this.$emit("modalDeleteS2220", data);     
+    autorizaCompany(data) {
+      this.$emit("modalAutorizaCompany", data);
     },
   },
   created() {
-    this.cadastross2220 = this.value || [];
+    this.companys = this.value || [];
   },
 };
 </script>

@@ -8,14 +8,16 @@
         >
           <row :gutter="20">
             <i-col :sm="12">
-              <FormItem prop="inscricaoempresa" label="Número da Inscrição">
-                <Input
-                  type="text"
-                  v-model="formEsocial.inscricaoempresa"
-                  placeholder=" "
-                  v-mask="`##.###.###/####-##`"
-                />
-              </FormItem>
+              <FormItem prop="idinscricaoempresa" label="Inscrição da Empresa">
+               <Select v-model="formEsocial.idinscricaoempresa" filterable>
+                <Option
+                  v-for="inscricaoempresa in inscricaodaempresa"
+                  :value="inscricaoempresa.id"
+                  :key="inscricaoempresa.id"
+                  >{{ inscricaoempresa.name }} - {{ inscricaoempresa.cnpjFormat }}</Option
+                > 
+              </Select>
+            </FormItem>
             </i-col>
             <i-col :sm="12">
               <FormItem prop="nameempregado" label="Nome do Empregado">
@@ -296,11 +298,18 @@ export default {
       idCadastroS2220Exame: this.$route.params.id,
       categoriasTrabalhador: [],
       tiposdeExames: [],
+      inscricaodaempresa: [],
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {},
       ruleEsocial: {
-        inscricaoempresa: [
+        idinscricaoempresa: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+          },
+        ],
+         nameempregado: [
           {
             required: true,
             message: "Campo Obrigatório.",
@@ -347,6 +356,27 @@ export default {
             trigger: "blur",
           },
         ],
+        nmrinscmedico: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        ufcrm: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
+        nomemedicoresp: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+            trigger: "blur",
+          },
+        ],
       },
       exames: [],
       showModal: false,
@@ -373,18 +403,14 @@ export default {
   methods: {
     preencherDados(newValue) {
       this.formEsocial = newValue || {};
-      if (newValue.id != undefined) {
-        let dataemissaoatestado = newValue?.dataemissaoatestado;
-        if (typeof dataemissaoatestado === "string" && dataemissaoatestado) {
-          dataemissaoatestado = new Date(dataemissaoatestado);
-        }
-        this.formEsocial.dataemissaoatestado = dataemissaoatestado;
-        this.exames = this.formEsocial.exames;
-      }
+      const Exames = this.formEsocial.exames;
+      this.exames = Exames !== undefined ? Exames : [];
     },
     async salvarAtualizarCadastro() {
       this.$refs["formEsocial"].validate(async (valid) => {
-        if (valid) {
+
+        const validate = valid && this.exames.length > 0;
+        if (validate) {
           this.formEsocial.exames = this.exames;
           if (this.formEsocial.id != undefined) {
             this.$emit("atualizar", this.formEsocial);
@@ -436,10 +462,15 @@ export default {
       const { data } = await axios.get("/esocial/atributos/tipo-exame");
       this.tiposdeExames = data.data.data;
     },
+    async buscarInscricaoDaEmpresa() {
+      const { data } = await axios.get("/company/all");
+      this.inscricaodaempresa = data.data;
+    },
   },
   created() {
     this.buscarCategoriadoTrabalhador();
     this.buscarTipodeExames();
+    this.buscarInscricaoDaEmpresa();
     this.preencherDados(this.value);
   },
 };

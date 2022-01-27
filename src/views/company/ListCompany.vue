@@ -4,15 +4,15 @@
     <Modal v-model="showModal" width="360">
       <p slot="header" style="color: #f60; text-align: center">
         <Icon type="ios-information-circle"></Icon>
-        <span>Deseja deletar {{company.name}} ?</span>
+        <span>Deseja deletar {{ company.name }} ?</span>
       </p>
       <div style="text-align: center">
-        <p>
-          Está ação depois de realizada não poderá ser desfeita.
-        </p>
+        <p>Está ação depois de realizada não poderá ser desfeita.</p>
       </div>
       <div slot="footer">
-        <Button type="error" size="large" long @click="deleteCompany()">Deletar</Button>
+        <Button type="error" size="large" long @click="deleteCompany()"
+          >Deletar</Button
+        >
       </div>
     </Modal>
   </div>
@@ -34,18 +34,20 @@ export default {
   },
   methods: {
     async buscarCompanys() {
-      const { data } = await axios.get("company/all");
+      const { data } = await axios.get("company/all", {
+        params: { listarTodos: true },
+      });
       this.companys = data.data;
     },
     modalDeleteCompany(data) {
       this.company = data;
-      this.showModal = true;    
+      this.showModal = true;
     },
-    async deleteCompany(){
-      await axios.delete("company/"+this.company.id);
+    async deleteCompany() {
+      await axios.delete("company/" + this.company.id);
       this.showModal = false;
       this.buscarCompanys();
-    }
+    },
   },
   created() {
     this.buscarCompanys();

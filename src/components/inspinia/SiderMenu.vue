@@ -18,6 +18,11 @@
             :to="{ name: 'listCompany' }"
             icon="fa fa-list"
           />
+           <ti-sider-menu-item
+            name="Autorização Empresas"
+            :to="{ name: 'listAutorizarCompany' }"
+            icon="fa fa-list"
+          />
           <ti-sider-menu-item
             name="Adicionar"
             :to="{ name: 'registerCompany' }"
@@ -34,7 +39,7 @@
           />
             <ti-sider-menu-item
               name="Adicionar"
-              :to="{ name: 's2210Esocial' }"
+              :to="{ name: 'salvarS2210Esocial' }"
               icon="fa fa-plus"
             />
           </ti-menu-grupo-level3>

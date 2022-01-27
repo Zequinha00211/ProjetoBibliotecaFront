@@ -1,4 +1,4 @@
-import S2210Esocial from '@/views/esocial/S2210'; 
+import SalvarS2210Esocial from '@/views/esocial/SalvarS2210'; 
 import SalvarS2220Esocial from '@/views/esocial/SalvarS2220';
 import SalvarS2240Esocial from '@/views/esocial/SalvarS2240';
 import EditS2210 from '@/views/esocial/EditS2210';
@@ -10,12 +10,12 @@ import ListS2240 from '@/views/esocial/ListS2240';
 export default [
     {
         path: '/esocial/s-2210/adicionar',
-        name: 's2210Esocial',
-        component: S2210Esocial,
+        name: 'salvarS2210Esocial',
+        component: SalvarS2210Esocial,
         meta: { auth: true, title: "Cadastro S-2210" },
     },
     {
-        path: '/esocial/s-2210/edit/:id',
+        path: '/esocial/s-2210/editar/:id',
         name: 'editS2210',
         component: EditS2210,
         meta: { auth: true, title: "Atualização S-2210" },

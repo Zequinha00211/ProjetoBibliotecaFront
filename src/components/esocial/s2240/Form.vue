@@ -8,13 +8,16 @@
         >
           <row :gutter="20">
             <i-col :sm="12">
-              <FormItem prop="inscricaoempresa" label="Inscrição da Empresa">
-                <Input
-                  type="text"
-                  v-model="formEsocial.inscricaoempresa"
-                  placeholder=" "
-                  v-mask="`##.###.###/####-##`"
-                />
+              <FormItem prop="idinscricaoempresa" label="Inscrição da Empresa">
+                <Select v-model="formEsocial.idinscricaoempresa" filterable>
+                  <Option
+                    v-for="inscricaoempresa in inscricaodaempresa"
+                    :value="inscricaoempresa.id"
+                    :key="inscricaoempresa.id"
+                    >{{ inscricaoempresa.name }} -
+                    {{ inscricaoempresa.cnpjFormat }}</Option
+                  >
+                </Select>
               </FormItem>
             </i-col>
             <i-col :sm="12">
@@ -590,15 +593,15 @@ export default {
       categoriasTrabalhador: {},
       codsituacaoTrabalhador: {},
       unidadedemedida: {},
+      inscricaodaempresa: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       tabname: "identificacaodoempregador",
       formEsocial: {},
       ruleEsocial: {
-        inscricaoempresa: [
+        idinscricaoempresa: [
           {
             required: true,
             message: "Campo Obrigatório.",
-            trigger: "blur",
           },
         ],
         nameempregado: [
@@ -804,15 +807,23 @@ export default {
   methods: {
     preencherDados(newValue) {
       this.formEsocial = newValue || {};
+      const datasInicio = this.formEsocial.datasinicio;
+      this.datasinicio = datasInicio !== undefined ? datasInicio : [];
 
-      this.datasinicio = this.formEsocial.datasinicio;
-      this.agentesnocivos = this.formEsocial.agentesnocivos;
-      this.epis = this.formEsocial.epis;
-      this.responsaveis = this.formEsocial.responsaveis;
+      const agentesNocivos = this.formEsocial.agentesnocivos;
+      this.agentesnocivos = agentesNocivos != undefined ? agentesNocivos : [];
+
+      const epis = this.formEsocial.epis;
+      this.epis = epis != undefined ? epis : [];
+
+      const responsaveis = this.formEsocial.responsaveis;
+      this.responsaveis = responsaveis != undefined ? responsaveis : [];
     },
     async salvarAtualizarCadastro() {
       this.$refs["formEsocial"].validate(async (valid) => {
-        if (valid) {
+    
+        const validate = valid && this.datasinicio.length > 0;
+        if (validate) {
           this.formEsocial.datasinicio = this.datasinicio;
           this.formEsocial.agentesnocivos = this.agentesnocivos;
           this.formEsocial.epis = this.epis;
@@ -973,10 +984,16 @@ export default {
       const { data } = await axios.get("/esocial/atributos/unidade-medida");
       this.unidadedemedida = data.data.data;
     },
+    async buscarInscricaoDaEmpresa() {
+      const { data } = await axios.get("/company/all");
+      this.inscricaodaempresa = data.data;
+    },
   },
   created() {
+    /*   this.datasinicio = []; */
     this.buscarCategoriadoTrabalhador();
     this.buscarUnidadeMedida();
+    this.buscarInscricaoDaEmpresa();
     this.preencherDados(this.value);
   },
 };

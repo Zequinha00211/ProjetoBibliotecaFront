@@ -17,7 +17,7 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="250" data-field="inscricaoempresa" caption="Inscrição da Empresa" />
+    <DxColumn :width="250" data-field="empresa.cnpjFormat" caption="Inscrição da Empresa" />
     <DxColumn data-field="nameempregado" caption="Nome do Empregado" />
     <DxColumn data-field="cpfempregado" caption="CPF do Empregado" />
     <ButtonGroup slot="btn-actions" slot-scope="data">

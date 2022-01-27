@@ -20,6 +20,7 @@
     <DxColumn :width="250" data-field="name" caption="RAZÃO SOCIAL" />
     <DxColumn data-field="cnpjFormat" caption="CNPJ EMPRESA" />
     <DxColumn data-field="created_at" caption="DATA CRIAÇÃO" data-type="date" />
+    <DxColumn data-field="empresa_usuario.statusEmpresaUsuario" caption="STATUS" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
         :to="{ name: 'editCompany', params: { id: data.key.id } }"

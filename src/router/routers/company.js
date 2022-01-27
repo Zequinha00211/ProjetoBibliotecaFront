@@ -1,6 +1,7 @@
 import RegisterCompany from '@/views/company/RegisterCompany';
 import EditCompany from '@/views/company/EditCompany';
 import ListCompany from '@/views/company/ListCompany';
+import ListAutorizarCompany from '@/views/company/ListAutorizarCompany';
 export default [
     {
         path: '/company/register',
@@ -19,6 +20,12 @@ export default [
         name: 'listCompany',
         component: ListCompany,
         meta: { auth: true, title: "Empresas" },
-    }
+    },
+    {
+        path: '/company/autorizacao',
+        name: 'listAutorizarCompany',
+        component: ListAutorizarCompany,
+        meta: { auth: true, title: "Empresas" },
+    },
 
 ];
