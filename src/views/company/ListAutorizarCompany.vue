@@ -1,19 +1,24 @@
 <template>
   <div>
-    <ListAutorizarCompany v-model="companys" @modalAutorizaCompany="modalAutorizaCompany" />
-      <Modal v-model="showModalAutoriza" width="360">
+    <ListAutorizarCompany v-model="companys" @modalAutorizaCompany="modalAutorizaCompany"  @cancelar="cancelar" />
+      <Modal v-model="showModalAutoriza" width="400">
       <p slot="header" style="color: #f60; text-align: center">
         <Icon type="ios-information-circle"></Icon>
         <span>Deseja dar acesso para {{ company.name }} ?</span>
       </p>
       <div style="text-align: center">
         <p>Após essa ação, {{company.name}} terá total acesso á empresa com cnpj {{company.cnpjFormat}}.</p>
-        <i-switch v-model="company.status"/>
       </div>
       <div slot="footer">
-        <Button type="error" size="large" long @click="autorizaCompany()"
-          >Autorizar</Button
-        >
+        <row :gutter="20">
+          <i-col :sm="12">
+            <Button long @click="cancelar()">Cancelar</Button>
+          </i-col>
+          <i-col :sm="12">
+            <Button type="primary" long @click="autorizaCompany()">
+          {{ company.status === false ? "Autorizar" : "Não Autorizar" }}</Button>
+          </i-col>
+        </row>
       </div>
     </Modal>
   </div>
@@ -21,13 +26,12 @@
 
 <script>
 import ListAutorizarCompany from "@/components/company/GridAutorizarCompany";
-import axios from "axios";
+import axios from "axios"; 
 export default {
   data() {
-    return {
+    return { 
       companys: [],
       showModalAutoriza: false,
-      showModalNaoAutoriza: false,
       company: {},
     };
   },
@@ -42,13 +46,21 @@ export default {
       this.companys = data.data;
     },
     modalAutorizaCompany(data) {
-      this.company = data;
+      this.company = {...data};
       this.company.status = data.status === 1 ? true : false;
       this.showModalAutoriza = true;
     },
+     cancelar() {
+      this.company = {};
+      this.showModalAutoriza = false;
+    },
      async autorizaCompany() {
-      await axios.put("company/usuario/autorizacao/" + this.company.idempresausuario, this.company);
-      this.showModal = false;
+      const params = {
+        ...this.company,
+        status: !this.company.status,
+      }
+      await axios.put("company/usuario/autorizacao/" + this.company.idempresausuario, params);
+      this.showModalAutoriza = false;
       this.buscarCompanys();
     },
   },
@@ -57,3 +69,4 @@ export default {
   },
 };
 </script>
+
