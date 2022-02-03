@@ -336,49 +336,20 @@
           label="EPI - Equipamento de Proteção Individual"
           name="epiprotecaoindividual"
         >
-        <row :gutter="20">
-      <i-col :sm="12">
-        <FormItem
-          prop="caoudocumentoavaliacao"
-          label="CA ou documento de avaliação de EPI"
-        >
-          <Select
-            v-model="formEsocial.caoudocumentoavaliacao"
-            multiple
-            filterable
-            :remote-method="remoteEpis"
-            :loading="loading"
-            @on-set-default-options="setDefaultOptions"
-          >
-            <Option
-              v-for="(documento, index) in dadosEpis"
-              :value="documento.id"
-              :key="index"
-              >{{ documento.codepi }}</Option
-            >
-          </Select>
-        </FormItem>
-      </i-col>
-      <i-col :sm="12">
-        <FormItem prop="descepi" label="Descrição do EPI">
-          <Select
-            v-model="formEsocial.descepi"
-            multiple
-            filterable
-            :remote-method="remoteEpis"
-            :loading="loading"
-            @on-set-default-options="setDefaultOptions"
-          >
-            <Option
-              v-for="(documento, index) in dadosEpis"
-              :value="documento.id"
-              :key="index"
-              >{{ documento.descepi }}</Option
-            >
-          </Select>
-        </FormItem>
-      </i-col>
-    </row>
+          <row :gutter="20">
+            <i-col :sm="24">
+              <FormItem prop="epis" label="EPI">
+                <Select v-model="formEsocial.epis" multiple filterable>
+                  <Option
+                    v-for="documento in dadosEpis"
+                    :value="documento.id"
+                    :key="documento.id"
+                    >{{ documento.codepi }} - {{ documento.descepi }}</Option
+                  >
+                </Select>
+              </FormItem>
+            </i-col>
+          </row>
           <row :gutter="20">
             <i-col :sm="24">
               <Divider orientation="left">Complementos dos APIS:</Divider>
@@ -766,8 +737,6 @@ export default {
       exibirFormDadosResponsaveis: true,
       exibirGridResponsavel: true,
       responsavel: {},
-      epis: [],
-      epi: {},
     };
   },
   components: {
@@ -810,20 +779,18 @@ export default {
       const agentesNocivos = this.formEsocial.agentesnocivos;
       this.agentesnocivos = agentesNocivos != undefined ? agentesNocivos : [];
 
-      const epis = this.formEsocial.epis;
-      this.epis = epis != undefined ? epis : [];
+      this.formEsocial.epis = (newValue.epis || []).map((epi) => epi.idsepi);
 
       const responsaveis = this.formEsocial.responsaveis;
       this.responsaveis = responsaveis != undefined ? responsaveis : [];
     },
     async salvarAtualizarCadastro() {
+      console.log(this.formEsocial);
       this.$refs["formEsocial"].validate(async (valid) => {
-    
         const validate = valid && this.datasinicio.length > 0;
         if (validate) {
           this.formEsocial.datasinicio = this.datasinicio;
           this.formEsocial.agentesnocivos = this.agentesnocivos;
-          this.formEsocial.epis = this.epis;
           this.formEsocial.responsaveis = this.responsaveis;
           if (this.formEsocial.id != undefined) {
             this.$emit("atualizar", this.formEsocial);
@@ -896,19 +863,6 @@ export default {
       this.showModalDadosResponsaveis = false;
       this.responsavel = {};
     },
-    adicionarDadosEPI(data) {
-      if (this.epi.editar != undefined && this.epi.editar === true) {
-        this.epis[this.epi.index] = this.epi;
-      } else {
-        this.epis.push({
-          ...data,
-        });
-      }
-      this.formEsocial.epis = this.epis;
-      this.exibirFormDadosEPI = true;
-      this.showModalDadosEPI = false;
-      this.epi = {};
-    },
     cancelarDadosDatas() {
       this.datainicio = {};
       this.exibirFormData = true;
@@ -918,11 +872,6 @@ export default {
       this.responsavel = {};
       this.exibirFormDadosResponsaveis = true;
       this.showModalDadosResponsaveis = false;
-    },
-    cancelarDadosEPI() {
-      this.epi = {};
-      this.exibirFormDadosEPI = true;
-      this.showModalDadosEPI = false;
     },
     editarItemData(data) {
       this.exibirFormData = false;
@@ -938,15 +887,6 @@ export default {
       setTimeout(() => {
         this.showModalDadosResponsaveis = true;
         this.exibirFormDadosResponsaveis = true;
-      }, 250);
-    },
-    editarItemEpi(data) {
-      this.exibirFormDadosEPI = false;
-      this.epi = { ...data.key, editar: true, index: data.rowIndex };
-      this.epi.editar = true;
-      setTimeout(() => {
-        this.showModalDadosEPI = true;
-        this.exibirFormDadosEPI = true;
       }, 250);
     },
     deleteItemData(data) {
