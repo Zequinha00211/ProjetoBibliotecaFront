@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="cadastross2240epi"
+    :data-source="cadastrosepi"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,16 +17,16 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="300" data-field="codepi" caption="Documento de Avaliação" />
-    <DxColumn :width="770" data-field="descepi" caption="Descrição do EPI" />
+    <DxColumn data-field="codepi" caption="Código do Equipamento" />
+    <DxColumn data-field="descepi" caption="Descrição do Equipamento" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
-        @click="editar(data)"
+        :to="{ name: 'editEpi', params: { id: data.key.id } }"
         size="small"
       >
         <Icon type="md-create" />
       </Button>
-      <Button @click="deleteItemEpi(data)" size="small">
+      <Button @click="deleteEpi(data.key)" size="small">
         <Icon type="md-close" />
       </Button>
     </ButtonGroup>
@@ -67,24 +67,21 @@ export default {
   },
   data() {
     return {
-      cadastross2240epi: [],
+      cadastrosepi: {},
     };
   },
   watch: {
     value(newValue) {
-      this.cadastross2240epi = newValue || [];
+      this.cadastrosepi = newValue || [];
     },
   },
   methods: {
-    deleteItemEpi(data) {
-      this.$emit("deleteItemEpi", data);     
-    },
-     editar(data) {
-      this.$emit("editarItemEpi", data);     
+    deleteEpi(data) {
+      this.$emit("modalDeleteEpi", data);     
     },
   },
   created() {
-    this.cadastross2240epi = this.value || [];
+    this.cadastrosepi = this.value || [];
   },
 };
 </script>

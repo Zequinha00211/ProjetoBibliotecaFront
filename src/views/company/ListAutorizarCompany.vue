@@ -4,10 +4,13 @@
       <Modal v-model="showModalAutoriza" width="400">
       <p slot="header" style="color: #f60; text-align: center">
         <Icon type="ios-information-circle"></Icon>
-        <span>Deseja dar acesso para {{ company.name }} ?</span>
+        <span> {{ company.status === false ? "Autorizar para uso"  : "Não autorizar" }} </span>
       </p>
-      <div style="text-align: center">
+      <div style="text-align: center" v-if="company.status === false">
         <p>Após essa ação, {{company.name}} terá total acesso á empresa com cnpj {{company.cnpjFormat}}.</p>
+      </div>
+       <div style="text-align: center" v-else>
+        <p>Após essa ação, {{company.name}} terá seu acesso retirado da empresa com cnpj {{company.cnpjFormat}}.</p>
       </div>
       <div slot="footer">
         <row :gutter="20">

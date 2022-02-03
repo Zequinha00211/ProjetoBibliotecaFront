@@ -336,24 +336,49 @@
           label="EPI - Equipamento de Proteção Individual"
           name="epiprotecaoindividual"
         >
-          <row :gutter="20">
-            <i-col :sm="24">
-              <label>EPI</label>
-            </i-col>
-            <i-col :sm="24">
-              <Button @click="(showModalDadosEPI = true), (epi = {})">
-                Adicionar Informações</Button
-              >
-            </i-col>
-            <i-col :sm="24">
-              <TiGridEpis
-                v-model="epis"
-                @editarItemEpi="editarItemEpi"
-                @deleteItemEpi="deleteItemEpi"
-                v-if="exibirGridEpi"
-              />
-            </i-col>
-          </row>
+        <row :gutter="20">
+      <i-col :sm="12">
+        <FormItem
+          prop="caoudocumentoavaliacao"
+          label="CA ou documento de avaliação de EPI"
+        >
+          <Select
+            v-model="formEsocial.caoudocumentoavaliacao"
+            multiple
+            filterable
+            :remote-method="remoteEpis"
+            :loading="loading"
+            @on-set-default-options="setDefaultOptions"
+          >
+            <Option
+              v-for="(documento, index) in dadosEpis"
+              :value="documento.id"
+              :key="index"
+              >{{ documento.codepi }}</Option
+            >
+          </Select>
+        </FormItem>
+      </i-col>
+      <i-col :sm="12">
+        <FormItem prop="descepi" label="Descrição do EPI">
+          <Select
+            v-model="formEsocial.descepi"
+            multiple
+            filterable
+            :remote-method="remoteEpis"
+            :loading="loading"
+            @on-set-default-options="setDefaultOptions"
+          >
+            <Option
+              v-for="(documento, index) in dadosEpis"
+              :value="documento.id"
+              :key="index"
+              >{{ documento.descepi }}</Option
+            >
+          </Select>
+        </FormItem>
+      </i-col>
+    </row>
           <row :gutter="20">
             <i-col :sm="24">
               <Divider orientation="left">Complementos dos APIS:</Divider>
@@ -549,22 +574,6 @@
       </div>
       <div slot="footer"></div>
     </Modal>
-    <Modal
-      v-model="showModalDadosEPI"
-      width="760"
-      title="Dados do EPI"
-      :footer-hide="true"
-    >
-      <div style="text-align: center">
-        <TiFormEpis
-          v-model="epi"
-          @adicionarDadosEPI="adicionarDadosEPI"
-          @cancelarDadosEPI="cancelarDadosEPI"
-          v-if="exibirFormDadosEPI"
-        />
-      </div>
-      <div slot="footer"></div>
-    </Modal>
   </div>
 </template>
 
@@ -576,8 +585,6 @@ import TiGridAgentes from "@/components/esocial/s2240/GridDadosAgenteNocivo";
 import TiFormAgentes from "@/components/esocial/s2240/FormDadosAgenteNocivo";
 import TiGridResponsaveis from "@/components/esocial/s2240/GridDadosResponsaveis";
 import TiFormReponsaveis from "@/components/esocial/s2240/FormDadosReponsaveis";
-import TiGridEpis from "@/components/esocial/s2240/GridDadosEPI";
-import TiFormEpis from "@/components/esocial/s2240/FormDadosEPI";
 import axios from "axios";
 export default {
   props: {
@@ -590,6 +597,7 @@ export default {
     return {
       idCadastroS2240: this.$route.params.id,
       idCadastroS2240Data: this.$route.params.id,
+      dadosEpis: {},
       categoriasTrabalhador: {},
       codsituacaoTrabalhador: {},
       unidadedemedida: {},
@@ -759,9 +767,6 @@ export default {
       exibirGridResponsavel: true,
       responsavel: {},
       epis: [],
-      showModalDadosEPI: false,
-      exibirFormDadosEPI: true,
-      exibirGridEpi: true,
       epi: {},
     };
   },
@@ -772,8 +777,6 @@ export default {
     TiFormAgentes,
     TiGridResponsaveis,
     TiFormReponsaveis,
-    TiGridEpis,
-    TiFormEpis,
   },
   watch: {
     value(newValue) {
@@ -789,12 +792,6 @@ export default {
       this.exibirGridAgenteNocivo = false;
       setTimeout(() => {
         this.exibirGridAgenteNocivo = true;
-      }, 100);
-    },
-    epi() {
-      this.exibirGridEpi = false;
-      setTimeout(() => {
-        this.exibirGridEpi = true;
       }, 100);
     },
     responsavel() {
@@ -988,12 +985,17 @@ export default {
       const { data } = await axios.get("/company/all");
       this.inscricaodaempresa = data.data;
     },
+    async buscarDadosEpi() {
+      const { data } = await axios.get("/esocial/epi/");
+      this.dadosEpis = data.data;
+    },
   },
   created() {
     /*   this.datasinicio = []; */
     this.buscarCategoriadoTrabalhador();
     this.buscarUnidadeMedida();
     this.buscarInscricaoDaEmpresa();
+    this.buscarDadosEpi();
     this.preencherDados(this.value);
   },
 };

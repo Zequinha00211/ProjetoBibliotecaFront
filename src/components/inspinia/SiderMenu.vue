@@ -68,6 +68,18 @@
               icon="fa fa-plus"
             />
           </ti-menu-grupo-level3>
+           <ti-menu-grupo-level3 name="EPI" icon="fa fa-circle">
+             <ti-sider-menu-item
+              name="Listar"
+              :to="{ name: 'listEpi' }"
+              icon="fa fa-list"
+            />
+            <ti-sider-menu-item
+              name="Adicionar"
+              :to="{ name: 'salvarEpiEsocial' }"
+              icon="fa fa-plus"
+            />
+          </ti-menu-grupo-level3>
         </ti-menu-grupo>
       </ul>
     </div>
