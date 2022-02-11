@@ -1,6 +1,6 @@
 <template>
   <DxDataGrid
-    :data-source="companys"
+    :data-source="arquivos"
     :show-borders="true"
     :allow-column-reordering="true"
     :allow-column-resizing="true"
@@ -17,8 +17,7 @@
     <DxSearchPanel :visible="true" />
     <DxColumn cell-template="btn-actions" width="70" caption="#" />
     <!-- <DxColumn data-field="id" caption="ID" /> -->
-    <DxColumn :width="250" data-field="name" caption="RAZÃO SOCIAL" />
-    <DxColumn data-field="cnpj" caption="CNPJ EMPRESA" /> 
+    <DxColumn :width="1200" data-field="upload" caption="ARQUIVOS" />
     <ButtonGroup slot="btn-actions" slot-scope="data">
       <Button
         @click="editar(data.key)"
@@ -67,12 +66,12 @@ export default {
   },
   data() {
     return {
-      companys: {},
+      arquivos: {},
     };
   },
   watch: {
     value(newValue) {
-      this.companys = newValue || [];
+      this.arquivos = newValue || [];
     },
   },
   methods: {
@@ -84,7 +83,7 @@ export default {
     },
   },
   created() {
-    this.companys = this.value || [];
+    this.arquivos = this.value || [];
   },
 };
 </script>

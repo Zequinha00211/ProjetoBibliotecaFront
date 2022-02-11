@@ -42,6 +42,11 @@
               :to="{ name: 'salvarS2210Esocial' }"
               icon="fa fa-plus"
             />
+             <ti-sider-menu-item
+              name="Upload"
+              :to="{ name: 'salvarS2210Upload' }"
+              icon="fa fa-cloud-upload"
+            />
           </ti-menu-grupo-level3>
           <ti-menu-grupo-level3 name="S-2220" icon="fa fa-circle">
              <ti-sider-menu-item
@@ -53,6 +58,11 @@
               name="Adicionar"
               :to="{ name: 'salvarS2220Esocial' }"
               icon="fa fa-plus"
+            />
+             <ti-sider-menu-item
+              name="Upload"
+              :to="{ name: 'salvarS2220Upload' }"
+              icon="fa fa-cloud-upload"
             />
           </ti-menu-grupo-level3>
 
@@ -67,6 +77,11 @@
               :to="{ name: 'salvarS2240Esocial' }"
               icon="fa fa-plus"
             />
+             <ti-sider-menu-item
+              name="Upload"
+              :to="{ name: 'salvarS2240Upload' }"
+              icon="fa fa-cloud-upload"
+            />
           </ti-menu-grupo-level3>
            <ti-menu-grupo-level3 name="EPI" icon="fa fa-circle">
              <ti-sider-menu-item
@@ -78,6 +93,11 @@
               name="Adicionar"
               :to="{ name: 'salvarEpiEsocial' }"
               icon="fa fa-plus"
+            />
+             <ti-sider-menu-item
+              name="Upload"
+              :to="{ name: 'salvarEpiUpload' }"
+              icon="fa fa-cloud-upload"
             />
           </ti-menu-grupo-level3>
         </ti-menu-grupo>

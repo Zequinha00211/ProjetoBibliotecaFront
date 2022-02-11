@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TiFormUpload from "@/components/exemplos/Form";
+import TiFormUpload from "@/components/esocial/s2210/FormUpload";
 import axios from "axios";
 export default {
   data() {
@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     async salvar(data) {
-      await axios.post("esocial/epi/upload", data);
+      await axios.post("esocial/s-2210/upload", data);
       this.$Message.success("Salvo com Sucesso!");
     },
   },

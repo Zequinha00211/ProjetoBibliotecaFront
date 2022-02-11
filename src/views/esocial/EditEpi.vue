@@ -22,8 +22,20 @@ export default {
       const { data } = await axios.get(
         "esocial/epi/" + this.idCadastroEpi
       );
+      let dataaprovacao = data?.data?.dataaprovacao;
+
+      if (typeof dataaprovacao === "string" && dataaprovacao) {
+        dataaprovacao = new Date(dataaprovacao);
+      }
+      let datavalidade = data?.data?.datavalidade;
+
+      if (typeof datavalidade === "string" && datavalidade) {
+        datavalidade = new Date(datavalidade);
+      }
 
       this.eventoEpi = data.data;
+      this.eventoEpi.dataaprovacao = dataaprovacao;
+      this.eventoEpi.datavalidade = datavalidade;
     },
     async atualizar(data) {
        await axios.put("esocial/epi", data);

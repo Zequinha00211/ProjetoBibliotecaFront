@@ -1,10 +1,10 @@
-import ExemplosIndex from '@/views/exemplos/Index';
+import SalvarEpiUpload from '@/views/exemplos/Index';
 export default [
     {
-        path: '/exemplos/listagem/dinamica',
-        name: 'exemplosIndex',
-        component: ExemplosIndex,
-        meta: { auth: true, title: "Exemplo  - Lista Dinâmica" },
+        path: '/esocial/epi/upload',
+        name: 'salvarEpiUpload',
+        component: SalvarEpiUpload,
+        meta: { auth: true, title: "Upload de Arquivos" },
     },
 
 ];

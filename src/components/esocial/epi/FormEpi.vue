@@ -2,29 +2,27 @@
   <Form ref="formEpi" :model="formEpi" :rules="ruleEpi" inline>
     <row :gutter="20">
       <i-col :sm="8">
-        <FormItem prop="codepi">
+        <FormItem prop="codepi" label="Código do Epi">
           <Input
             type="number"
             v-model="formEpi.codepi"
-            placeholder="Código Epi"
           >
           </Input>
         </FormItem>
       </i-col>
       <i-col :sm="16">
-        <FormItem prop="descepi">
-          <Input type="text" v-model="formEpi.descepi" placeholder="Descrição Epi">
+        <FormItem prop="descepi" label="Descrição Epi">
+          <Input type="text" v-model="formEpi.descepi">
           </Input>
         </FormItem>
       </i-col>
     </row>
     <row :gutter="20">
         <i-col :sm="24">
-        <FormItem prop="grupoepi">
+        <FormItem prop="grupoepi" label="Grupo EPI">
           <Input
             type="text"
             v-model="formEpi.grupoepi"
-            placeholder="Grupo EPI"
           >
           </Input>
         </FormItem>
@@ -32,11 +30,10 @@
     </row>
     <row :gutter="20">
         <i-col :sm="24">
-        <FormItem prop="subgrupoepi">
+        <FormItem prop="subgrupoepi" label="SubGrupo EPI">
           <Input
             type="text"
             v-model="formEpi.subgrupoepi"
-            placeholder="SubGrupo EPI"
           >
           </Input>
         </FormItem>
@@ -44,17 +41,16 @@
     </row>
     <row :gutter="20">
         <i-col :sm="6">
-        <FormItem prop="caoudocumentoavaliacao">
+        <FormItem prop="caoudocumentoavaliacao" label="Número CA">
           <Input
             type="number"
             v-model="formEpi.caoudocumentoavaliacao"
-            placeholder="Número CA"
           >
           </Input>
         </FormItem>
       </i-col>
        <i-col :sm="6">
-        <FormItem prop="dataaprovacao">
+        <FormItem prop="dataaprovacao" label="Data de Aprovação">
            <DatePicker
                 type="date"
                 format="dd/MM/yyyy"
@@ -64,7 +60,7 @@
         </FormItem>
       </i-col>
       <i-col :sm="6">
-        <FormItem prop="datavalidade">
+        <FormItem prop="datavalidade" label="Data de Validade">
            <DatePicker
                 type="date"
                 format="dd/MM/yyyy"
@@ -74,11 +70,10 @@
         </FormItem>
       </i-col>
        <i-col :sm="6">
-        <FormItem prop="nmrdolote">
+        <FormItem prop="nmrdolote" label="Número Lote">
           <Input
             type="number"
             v-model="formEpi.nmrdolote"
-            placeholder="Número Lote"
           >
           </Input>
         </FormItem>
@@ -86,11 +81,10 @@
       </row>
       <row :gutter="20">
         <i-col :sm="24">
-        <FormItem prop="fornecedor">
+        <FormItem prop="fornecedor" label="Fornecedor">
           <Input
             type="text"
             v-model="formEpi.fornecedor"
-            placeholder="Fornecedor"
           >
           </Input>
         </FormItem>

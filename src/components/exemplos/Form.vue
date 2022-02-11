@@ -1,88 +1,74 @@
 <template>
-  <Form ref="formCompany" :model="formCompany" :rules="ruleCompany" inline>
-    <row :gutter="20">
-      <i-col :sm="12">
-        <FormItem prop="name" label="Nome">
-          <Input
-            type="text"
-            v-model="formCompany.name"
-            placeholder="Razão Social"
-          >
-            <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </Input>
-        </FormItem>
-      </i-col>
-      <i-col :sm="12">
-        <FormItem prop="cnpj" label="CNPJ">
-          <Input type="text" v-model="formCompany.cnpj" placeholder="CNPJ" v-mask="`##.###.###/####-##`">
-            <Icon type="ios-lock-outline" slot="prepend"></Icon>
-          </Input>
-        </FormItem>
-      </i-col>
-      <i-col :sm="24">
-        <FormItem>
-          <Button type="primary" @click="salvar()">{{stringBtn}}</Button>
-        </FormItem>
-      </i-col>
-    </row>
-  </Form>
+  <div>
+    <Form ref="formUpload" :model="formUpload" :rules="ruleUpload" inline>
+      <row :gutter="20">
+        <i-col :sm="24">
+          <FormItem prop="upload">
+            <Upload
+              :headers="{ Authorization: `Bearer ${$auth.token()}` }"
+              :action="`${baseURL}esocial/epi/upload`"
+              :on-success="buscarAnexos"
+              :on-error="error"
+              :before-upload="handleBeforeUpload"
+              type="drag"
+              v-model="formUpload.upload"
+            >
+              <div style="padding: 20px 0">
+                <Icon
+                  type="ios-cloud-upload"
+                  size="52"
+                  style="color: #3399ff"
+                ></Icon>
+                <p>Clique aqui para adicionar um arquivo!</p>
+              </div>
+            </Upload>
+          </FormItem>
+        </i-col>
+      </row>
+    </Form>
+  </div>
 </template>
 
 <script>
-import { mask } from "vue-the-mask";
+import axios from "axios";
 export default {
   props: {
     value: {},
   },
-  directives: {
-    mask,
-  },
   data() {
     return {
-      stringBtn : this.$route.params.id != undefined ? 'Atualizar': 'Salvar',
-      formCompany: {
-        name: "",
-        cnpj: "",
-      },
-      ruleCompany: {
-        name: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        cnpj: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-         
-        ],
-      },
+      formUpload: {},
+      ruleUpload: {},
     };
   },
   watch: {
     value(newValue) {
-      this.formCompany = newValue || {}; 
-      
+      this.formUpload = newValue || {};
     },
   },
+  computed: {
+    baseURL: () => axios.defaults.baseURL,
+  },
   methods: {
-    salvar() {
-      this.$refs["formCompany"].validate((valid) => {
-        if (valid) {
-          this.$emit("handleSubmit", this.formCompany); 
-           this.formCompany = { name: "" , cnpj: ""}        
-        } else {
-          this.$Message.error("Insira todos os campos!");
-        }
+    buscarAnexos() {
+      this.$Notice.success({
+        title: "Upload Realizado com Sucesso!",
       });
+      this.$Spin.hide();
+    },
+    error(err, file, fileList) {
+      this.$Notice.error({
+        title: "Falha no Upload",
+        desc: `Arquivo ${fileList.name}`,
+      });
+      this.$Spin.hide();
+    },
+    handleBeforeUpload() {
+      this.$Spin.show();
     },
   },
   created() {
-    this.formCompany = this.value || {};  
+    this.formUpload = this.value || {};
   },
 };
 </script>

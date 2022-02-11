@@ -10,6 +10,9 @@ import EditarS2240 from '@/views/esocial/EditarS2240';
 import ListS2240 from '@/views/esocial/ListS2240';
 import EditEpi from '@/views/esocial/EditEpi';
 import ListEpi from '@/views/esocial/ListEpi';
+import SalvarS2210Upload from '@/views/esocial/UploadS2210';
+import SalvarS2220Upload from '@/views/esocial/UploadS2220';
+import SalvarS2240Upload from '@/views/esocial/UploadS2240';
 export default [
     {
         path: '/esocial/s-2210/adicionar',
@@ -84,6 +87,24 @@ export default [
         name: 'listEpi',
         component: ListEpi,
         meta: { auth: true, title: "EPI" },
+    },
+    {
+        path: '/esocial/s-2210/upload',
+        name: 'salvarS2210Upload',
+        component: SalvarS2210Upload,
+        meta: { auth: true, title: "Upload de Arquivos S-2210" },
+    },
+    {
+        path: '/esocial/s-2220/upload',
+        name: 'salvarS2220Upload',
+        component: SalvarS2220Upload,
+        meta: { auth: true, title: "Upload de Arquivos S-2220" },
+    },
+    {
+        path: '/esocial/s-2240/upload',
+        name: 'salvarS2240Upload',
+        component: SalvarS2240Upload,
+        meta: { auth: true, title: "Upload de Arquivos S-2240" },
     },
 
 ];
