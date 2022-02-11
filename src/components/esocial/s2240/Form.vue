@@ -926,7 +926,7 @@ export default {
       this.inscricaodaempresa = data.data;
     },
     async buscarDadosEpi() {
-      const { data } = await axios.get("/esocial/epi/");
+      const { data } = await axios.get("/esocial/epi");
       this.dadosEpis = data.data;
     },
   },
