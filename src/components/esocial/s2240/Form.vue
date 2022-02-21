@@ -9,7 +9,7 @@
           <row :gutter="20">
             <i-col :sm="12">
               <FormItem prop="idinscricaoempresa" label="Inscrição da Empresa">
-                <Select v-model="formEsocial.idinscricaoempresa" filterable>
+                <Select v-model="formEsocial.idinscricaoempresa" filterable @input="buscarDadosEpi()">
                   <Option
                     v-for="inscricaoempresa in inscricaodaempresa"
                     :value="inscricaoempresa.id"
@@ -926,7 +926,11 @@ export default {
       this.inscricaodaempresa = data.data;
     },
     async buscarDadosEpi() {
-      const { data } = await axios.get("/esocial/epi");
+      const { data } = await axios.get("/esocial/epi",{
+        params:{
+        idinscricaoempresa: this.formEsocial.idinscricaoempresa
+      }
+      });
       this.dadosEpis = data.data;
     },
   },
@@ -935,7 +939,7 @@ export default {
     this.buscarCategoriadoTrabalhador();
     this.buscarUnidadeMedida();
     this.buscarInscricaoDaEmpresa();
-    this.buscarDadosEpi();
+ /*    this.buscarDadosEpi(); */
     this.preencherDados(this.value);
   },
 };

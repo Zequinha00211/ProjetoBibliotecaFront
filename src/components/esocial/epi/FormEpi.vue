@@ -1,6 +1,19 @@
 <template>
   <Form ref="formEpi" :model="formEpi" :rules="ruleEpi" inline>
     <row :gutter="20">
+        <i-col :sm="8">
+              <FormItem prop="idinscricaoempresa" label="Inscrição da Empresa">
+                <Select v-model="formEpi.idinscricaoempresa" filterable>
+                  <Option
+                    v-for="inscricaoempresa in inscricaodaempresa"
+                    :value="inscricaoempresa.id"
+                    :key="inscricaoempresa.id"
+                    >{{ inscricaoempresa.name }} -
+                    {{ inscricaoempresa.cnpjFormat }}</Option
+                  >
+                </Select>
+              </FormItem>
+            </i-col>
       <i-col :sm="8">
         <FormItem prop="codepi" label="Código do Epi">
           <Input
@@ -10,7 +23,7 @@
           </Input>
         </FormItem>
       </i-col>
-      <i-col :sm="16">
+      <i-col :sm="8">
         <FormItem prop="descepi" label="Descrição Epi">
           <Input type="text" v-model="formEpi.descepi">
           </Input>
@@ -99,15 +112,23 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     value: {},
   },
   data() {
     return {
+      inscricaodaempresa: {},
       stringBtn: this.$route.params.id != undefined ? "Atualizar" : "Salvar",
       formEpi: {},
       ruleEpi: {
+         idinscricaoempresa: [
+          {
+            required: true,
+            message: "Campo Obrigatório.",
+          },
+        ],
         codepi: [
           {
             required: true,
@@ -169,9 +190,14 @@ export default {
         }
       });
     },
+     async buscarInscricaoDaEmpresa() {
+      const { data } = await axios.get("/company/all");
+      this.inscricaodaempresa = data.data;
+    },
   },
   created() {
      this.preencherDados(this.value);
+    this.buscarInscricaoDaEmpresa();
   },
 };
 </script>
