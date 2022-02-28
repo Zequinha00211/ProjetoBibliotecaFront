@@ -36,7 +36,11 @@
             </FormItem>
           </i-col>
           <i-col :sm="12">
-            <FormItem prop="doseexposicao" label="Dose da Exposição">
+            <FormItem prop="doseexposicao" label="Dose da Exposição" :rules="{
+                required:
+                  FormDadosAgenteNocivo.tipoavaliacao === 1,
+                message: 'Campo obrigatório',
+              }">
               <Input
                 type="number"
                 v-model="FormDadosAgenteNocivo.doseexposicao"

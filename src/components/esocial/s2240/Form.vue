@@ -274,6 +274,11 @@
               <FormItem
                 prop="epcsprotecaoeficazes"
                 label="Os EPCS são eficazes na proteção do trabalhador"
+                :rules="{
+                required:
+                formEsocial.equipamentosproecaocoletiva === 2,
+                message: 'Campo obrigatório',
+              }"
               >
                 <Input
                   type="text"
@@ -305,6 +310,11 @@
               <FormItem
                 prop="episprotecaoeficazes"
                 label="Os EPIS são eficazes na proteção do trabalhador"
+                 :rules="{
+                required:
+                formEsocial.utilizaequipamentosindividual === 2,
+                message: 'Campo obrigatório',
+              }"
               >
                 <Input
                   type="text"

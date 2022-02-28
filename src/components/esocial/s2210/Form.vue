@@ -111,7 +111,14 @@
             </FormItem>
           </i-col>
           <i-col :sm="5">
-            <FormItem prop="horadoacidente" label="Hora do Acidente">
+            <FormItem
+              prop="horadoacidente"
+              label="Hora do Acidente"
+              :rules="{
+                required: formEsocial.tipodoacidente === 1,
+                message: 'Campo obrigatório',
+              }"
+            >
               <TimePicker
                 format="HH:mm"
                 v-model="formEsocial.horadoacidente"
@@ -125,6 +132,10 @@
             <FormItem
               prop="horastrabalhadasantes"
               label="Horas Trabalhadas Antes"
+              :rules="{
+                required: formEsocial.tipodoacidente === 1,
+                message: 'Campo obrigatório',
+              }"
             >
               <TimePicker
                 format="HH:mm"
@@ -159,8 +170,7 @@
               prop="datadoobito"
               label="Data do Óbito"
               :rules="{
-                required:
-                formEsocial.houveobito === 'S',
+                required: formEsocial.houveobito === 'S',
                 message: 'Campo obrigatório',
               }"
             >
@@ -268,7 +278,11 @@
             </FormItem>
           </i-col>
           <i-col :sm="4">
-            <FormItem prop="pais" label="País">
+            <FormItem prop="pais" label="País"  :rules="{
+                required:
+                  formEsocial.tipodolocal === 2,
+                message: 'Campo obrigatório',
+              }">
               <Select v-model="formEsocial.pais" filterable>
                 <Option
                   v-for="pais in paisdoacidente"
@@ -280,7 +294,17 @@
             </FormItem>
           </i-col>
           <i-col :sm="4">
-            <FormItem prop="cep" label="CEP">
+            <FormItem
+              prop="cep"
+              label="CEP"
+              :rules="{
+                required:
+                  formEsocial.tipodolocal === 1 ||
+                  formEsocial.tipodolocal === 3 ||
+                  formEsocial.tipodolocal === 5,
+                message: 'Campo obrigatório',
+              }"
+            >
               <Input
                 type="text"
                 v-model="formEsocial.cep"
@@ -290,7 +314,14 @@
             </FormItem>
           </i-col>
           <i-col :sm="4">
-            <FormItem prop="uf" label="UF">
+            <FormItem prop="uf" label="UF"  :rules="{
+                required:
+                  formEsocial.tipodolocal === 1 ||
+                  formEsocial.tipodolocal === 3 ||
+                  formEsocial.tipodolocal === 4 ||
+                  formEsocial.tipodolocal === 5,
+                message: 'Campo obrigatório',
+              }">
               <Input type="text" v-model="formEsocial.uf" placeholder=" " />
             </FormItem>
           </i-col>
@@ -335,7 +366,18 @@
             </FormItem>
           </i-col>
           <i-col :sm="6">
-            <FormItem prop="codmunicipio" label="Código do Município">
+            <FormItem
+              prop="codmunicipio"
+              label="Código do Município"
+              :rules="{
+                required:
+                  formEsocial.tipodolocal === 1 ||
+                  formEsocial.tipodolocal === 3 ||
+                  formEsocial.tipodolocal === 4 ||
+                  formEsocial.tipodolocal === 5,
+                message: 'Campo obrigatório',
+              }"
+            >
               <Input
                 type="text"
                 v-model="formEsocial.codmunicipio"
@@ -344,7 +386,11 @@
             </FormItem>
           </i-col>
           <i-col :sm="6">
-            <FormItem prop="codpostal" label="Código Postal">
+            <FormItem prop="codpostal" label="Código Postal" :rules="{
+                required:
+                  formEsocial.tipodolocal === 2,
+                message: 'Campo obrigatório',
+              }">
               <Input
                 type="text"
                 v-model="formEsocial.codpostal"
@@ -740,20 +786,6 @@ export default {
             message: "Campo Obrigatório.",
           },
         ],
-        horadoacidente: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        horastrabalhadasantes: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
         tipocat: [
           {
             required: true,
@@ -798,13 +830,6 @@ export default {
             message: "Campo Obrigatório.",
           },
         ],
-        cep: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
         numerodologradouro: [
           {
             required: true,
@@ -826,13 +851,6 @@ export default {
           },
         ],
         uf: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
-            trigger: "blur",
-          },
-        ],
-        codmunicipionicipio: [
           {
             required: true,
             message: "Campo Obrigatório.",
