@@ -8,13 +8,14 @@
         <row :gutter="20">
           <i-col :sm="12">
             <FormItem prop="idinscricaoempresa" label="Inscrição da Empresa">
-               <Select v-model="formEsocial.idinscricaoempresa" filterable>
+              <Select v-model="formEsocial.idinscricaoempresa" filterable>
                 <Option
                   v-for="inscricaoempresa in inscricaodaempresa"
                   :value="inscricaoempresa.id"
                   :key="inscricaoempresa.id"
-                  >{{ inscricaoempresa.name }} - {{ inscricaoempresa.cnpjFormat }}</Option
-                > 
+                  >{{ inscricaoempresa.name }} -
+                  {{ inscricaoempresa.cnpjFormat }}</Option
+                >
               </Select>
             </FormItem>
           </i-col>
@@ -61,9 +62,7 @@
               >
                 <Option
                   v-for="codigodecategoriatrabalhador in categoriasTrabalhador"
-                  :value="
-                    codigodecategoriatrabalhador.codigo
-                  "
+                  :value="codigodecategoriatrabalhador.codigo"
                   :key="codigodecategoriatrabalhador.id"
                   >{{ codigodecategoriatrabalhador.group.descricao }} -
                   {{ codigodecategoriatrabalhador.descricao }}</Option
@@ -156,7 +155,15 @@
             </FormItem>
           </i-col>
           <i-col :sm="4">
-            <FormItem prop="datadoobito" label="Data do Óbito">
+            <FormItem
+              prop="datadoobito"
+              label="Data do Óbito"
+              :rules="{
+                required:
+                formEsocial.houveobito === 'S',
+                message: 'Campo obrigatório',
+              }"
+            >
               <DatePicker
                 type="date"
                 format="dd/MM/yyyy"
@@ -241,7 +248,7 @@
         <row :gutter="20">
           <i-col :sm="4">
             <FormItem prop="tipodolocal" label="Tipo do Local">
-               <Select v-model="formEsocial.tipodolocal" filterable>
+              <Select v-model="formEsocial.tipodolocal" filterable>
                 <Option
                   v-for="tipodolocal in tiposdelocal"
                   :value="tipodolocal.codigo"
@@ -652,7 +659,9 @@
                 <Icon type="ios-arrow-back"></Icon>
                 Anterior
               </Button>
-              <Button type="primary" @click="salvarAtualizarCadastro()">{{ stringBtn }}</Button>
+              <Button type="primary" @click="salvarAtualizarCadastro()">{{
+                stringBtn
+              }}</Button>
             </ButtonGroup>
           </i-col>
         </row>
@@ -756,12 +765,6 @@ export default {
             required: true,
             message: "Campo Obrigatório.",
             trigger: "blur",
-          },
-        ],
-        datadoobito: [
-          {
-            required: true,
-            message: "Campo Obrigatório.",
           },
         ],
         comunicacaoaautoridade: [
@@ -1045,7 +1048,7 @@ export default {
       const { data } = await axios.get("/company/all");
       this.inscricaodaempresa = data.data;
     },
-     async buscarTipodeLocal() {
+    async buscarTipodeLocal() {
       const { data } = await axios.get("/esocial/atributos/tipo-local");
       this.tiposdelocal = data.data.data;
     },
