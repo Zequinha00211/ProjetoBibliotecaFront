@@ -64,7 +64,7 @@
             <Select v-model="livro.SITUACAOLIVRO" style="width: 100%">
               <Option :value="1" v-if="livro.ID">EMPRESTADO</Option>
               <Option :value="0">DISPONÍVEL</Option>
-              <Option :value="2">ATRASADO</Option>
+              <Option :value="2" v-if="livro.ID">ATRASADO</Option>
             </Select>
           </FormItem>
         </i-col>
