@@ -3,6 +3,7 @@
     <Tabs v-model="abaAtiva">
       <TabPane label="Livros Disponíveis" name="disponiveis" />
       <TabPane label="Livros Emprestados" name="emprestados" />
+      <TabPane label="Livros Atrasados" name="atrasados" />
     </Tabs>
 
     <row :gutter="20">
@@ -34,6 +35,12 @@
           <dx-column data-field="SITUACAO" caption="Situação" :width="120" />
           <dx-column data-field="NOMEGENERO" caption="Genêro" :width="200" />
           <dx-column data-field="EDITORA" caption="Editora" :width="200" />
+          <dx-column
+            data-field="DATADEVOLUCAO"
+            caption="Data Devolução"
+            :width="200"
+            v-if="abaAtiva === 'emprestados' || abaAtiva === 'atrasados'"
+          />
 
           <ButtonGroup slot="btns-actions" slot-scope="data">
             <Button
@@ -56,7 +63,7 @@
               size="small"
               title="Pegar Emprestado"
               @click="pegarEmprestado(data.key)"
-              :disabled="data.key.SITUACAOLIVRO == 1"
+              :disabled="data.key.SITUACAOLIVRO == 1 || data.key.SITUACAOLIVRO == 2"
             >
               <i class="fa fa-arrow-circle-down" style="color: green" />
             </Button>
@@ -64,7 +71,7 @@
               size="small"
               title="Devolver Livro"
               @click="devolverLivro(data.key)"
-              :disabled="data.key.SITUACAOLIVRO == 0"
+              :disabled="data.key.SITUACAOLIVRO == 0 || data.key.IDUSUARIO !== userId"
             >
               <i class="fa fa-arrow-circle-up" style="color: orange" />
             </Button>
@@ -114,14 +121,29 @@ export default {
     return {
       livros: [],
       abaAtiva: "disponiveis",
+      userId: Number(localStorage.getItem("userId")),
     };
   },
   computed: {
     livrosFiltrados() {
       if (!Array.isArray(this.livros)) return [];
-      return this.abaAtiva === "disponiveis"
-        ? this.livros.filter((l) => l.SITUACAOLIVRO === 0)
-        : this.livros.filter((l) => l.SITUACAOLIVRO === 1);
+      const userId = Number(localStorage.getItem("userId"));
+      const isAdmin = localStorage.getItem("userGroup") === "admin";
+      
+      switch (this.abaAtiva) {
+        case "disponiveis":
+          return this.livros.filter((l) => l.SITUACAOLIVRO === 0);
+        case "emprestados":
+          return isAdmin
+        ? this.livros.filter((l) => l.SITUACAOLIVRO === 1)
+        : this.livros.filter((l) => l.SITUACAOLIVRO === 1 && l.IDUSUARIO === userId);
+        case "atrasados":
+          return isAdmin
+        ? this.livros.filter((l) => l.SITUACAOLIVRO === 2)
+        : this.livros.filter((l) => l.SITUACAOLIVRO === 2 && l.IDUSUARIO === userId);
+        default:
+          return this.livros;
+      }
     },
     isAdmin() {
       return localStorage.getItem("userGroup") === "admin";

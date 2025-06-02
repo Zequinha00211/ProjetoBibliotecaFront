@@ -149,6 +149,8 @@ export default {
     async emprestarDevolverLivro(livro) {
       this.$Spin.show();
       try {
+        const userId = Number(localStorage.getItem("userId")); 
+        livro.IDUSUARIO = userId;
         await axios.put(`/livro/emprestar-livro/`, livro);
         this.filtrarPorPeriodo();
       } catch (e) {

@@ -37,7 +37,6 @@
             :to="{ name: 'listaUsuarios' }"
             icon="fa fa-users"
           />
-          {{userId}}
           <ti-sider-menu-item
             name="Meu Usuário"
             :to="{ name: 'editarUsuario', params: { id: userId } }"

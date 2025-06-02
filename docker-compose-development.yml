@@ -10,5 +10,5 @@ services:
         ports:
             - "8080:8080"
         tty: true
-        container_name: "front_projetin"
+        container_name: "front_projetin_biblioteca"
         

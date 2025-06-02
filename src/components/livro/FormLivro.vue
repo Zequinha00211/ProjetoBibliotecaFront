@@ -35,7 +35,7 @@
         </i-col>
       </row>
       <row :gutter="20">
-        <i-col :sm="12">
+        <i-col :sm="8">
           <FormItem label="GENERO" prop="IDGENERO">
             <Select v-model="livro.IDGENERO" filterable style="width: 100%">
               <Option
@@ -47,7 +47,7 @@
             </Select>
           </FormItem>
         </i-col>
-        <i-col :sm="12">
+        <i-col :sm="8">
           <FormItem label="AUTOR DO LIVRO" prop="IDAUTOR">
             <Select v-model="livro.IDAUTOR" filterable style="width: 100%">
               <Option
@@ -59,17 +59,18 @@
             </Select>
           </FormItem>
         </i-col>
-      </row>
-      <row :gutter="20">
-        <i-col :sm="12">
+        <i-col :sm="8">
           <FormItem label="SITUAÇÃO DO LIVRO" prop="SITUACAOLIVRO">
             <Select v-model="livro.SITUACAOLIVRO" style="width: 100%">
-              <Option :value="1">EMPRESTADO</Option>
+              <Option :value="1" v-if="livro.ID">EMPRESTADO</Option>
               <Option :value="0">DISPONÍVEL</Option>
+              <Option :value="2">ATRASADO</Option>
             </Select>
           </FormItem>
         </i-col>
-        <i-col :sm="12">
+      </row>
+      <row :gutter="20">
+        <i-col :sm="24" v-if="!livro.ID">
           <FormItem label="QTD. LIVROS" prop="QTDLIVROS">
             <i-input v-model="livro.QTDLIVROS" style="width: 100%"></i-input>
           </FormItem>
@@ -77,7 +78,7 @@
       </row>
       <row :gutter="20">
         <i-col :sm="24">
-          <Button type="primary" long @click="salvarLivro">Cadastrar</Button>
+          <Button type="primary" long @click="salvarLivro">{{livro.ID === undefined ? 'Cadastrar' : 'Atualizar'}}</Button>
         </i-col>
       </row>
     </Form>

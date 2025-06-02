@@ -97,8 +97,14 @@ export default {
         if (!valid) return;
 
         if (this.usuario.id == undefined) {
-          this.$Message.error("Senha é obrigatória para novo usuário");
-          return;
+          if(this.usuario.password < 6){
+            this.$Message.error("Senha é obrigatória para novo usuário ou está com menos de 6 caracteres");
+            return;
+          }
+          if(this.usuario.privilegio_id == undefined){
+            this.$Message.error("Por favor, escolher um privilegio para o usuário!");
+            return;
+          }
         }
         if (this.usuario.password && this.usuario.password.length < 6) {
           this.$Message.error("Senha deve ter no mínimo 6 caracteres");
