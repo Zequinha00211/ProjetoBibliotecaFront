@@ -60,7 +60,7 @@
           </i-col>
         </row>
         <br />
-         <router-link :to="`/login`">Não possui conta ainda? Criar conta →</router-link>
+         <router-link :to="`/login`">Não possui conta ainda? Criar conta</router-link>
       </Form>
     </div>
   </div>

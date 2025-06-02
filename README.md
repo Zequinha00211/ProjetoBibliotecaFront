@@ -1,4 +1,4 @@
-# SST Tron Informática  - VUEJS
+# BIBLIOTECA  - VUEJS
 
 ## Inicialização do Projeto
 <p>O npm install será executado na configuração do projeto</p>

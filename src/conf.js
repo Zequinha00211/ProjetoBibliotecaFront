@@ -44,8 +44,6 @@ const exibirErrorRequest = (resp) => {
 
 export class Conf {
     requests() {
-       /*  let urlAplicacao =  window.location.protocol + "//" +  window.location.host+'/'
-        axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : urlAplicacao+'api/api/'; */
         let urlAplicacao = "";
         axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8005/api/' : urlAplicacao; 
         axios.interceptors.request.use(function (config) {
@@ -103,7 +101,7 @@ export class Conf {
 
         router.beforeEach((to, from, next) => {
             iView.LoadingBar.start();
-            document.title = `SST | ${to.meta.title || 'SST'}`
+            document.title = `BIBLIOTECA | ${to.meta.title || 'BIBLIOTECA'}`
             next();
         });
 

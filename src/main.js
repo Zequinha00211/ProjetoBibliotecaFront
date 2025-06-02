@@ -7,6 +7,8 @@ import { Conf } from './conf';
 import localization from 'devextreme/localization';
 import ptMessages from 'devextreme/localization/messages/pt.json';
 import VueTheMask from 'vue-the-mask'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 
 import 'font-awesome/css/font-awesome.min.css'
@@ -33,7 +35,7 @@ localization.locale(navigator.language || navigator.browserLanguage)
 Vue.router = router
 Vue.config.productionTip = false
 Vue.use(VueTheMask)
-
+Vue.use(VueAxios, axios);
 new Conf()
   .requests()
   .auth()

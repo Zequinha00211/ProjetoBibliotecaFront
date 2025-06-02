@@ -4,102 +4,45 @@
       <ul class="nav metismenu" id="side-menu">
         <li class="nav-header">
           <ti-perfil-usuario-resumo />
-          <div class="logo-element">TT</div>
+          <div class="logo-element">BIBLIOTECA</div>
         </li>
+
         <ti-sider-menu-item
           name="Home"
           to="/"
           icon="fa fa-home"
           :isGroup="false"
         />
-        <ti-menu-grupo name="Empresas" icon="fa fa-building">
+
+        <ti-menu-grupo name="Autores" icon="fa fa-building">
           <ti-sider-menu-item
             name="Listar"
-            :to="{ name: 'listCompany' }"
+            :to="{ name: 'listarAutores' }"
             icon="fa fa-list"
-          />
-           <ti-sider-menu-item
-            name="Autorização Empresas"
-            :to="{ name: 'listAutorizarCompany' }"
-            icon="fa fa-list"
-          />
-          <ti-sider-menu-item
-            name="Adicionar"
-            :to="{ name: 'registerCompany' }"
-            icon="fa fa-plus"
           />
         </ti-menu-grupo>
 
-        <ti-menu-grupo name="Esocial" icon="fa fa-building">
-          <ti-menu-grupo-level3 name="S-2210" icon="fa fa-circle">
-             <ti-sider-menu-item
-            name="Listar"
-            :to="{ name: 'listS2210' }"
-            icon="fa fa-list"
-          />
-            <ti-sider-menu-item
-              name="Adicionar"
-              :to="{ name: 'salvarS2210Esocial' }"
-              icon="fa fa-plus"
-            />
-             <ti-sider-menu-item
-              name="Upload"
-              :to="{ name: 'salvarS2210Upload' }"
-              icon="fa fa-cloud-upload"
-            />
-          </ti-menu-grupo-level3>
-          <ti-menu-grupo-level3 name="S-2220" icon="fa fa-circle">
-             <ti-sider-menu-item
-            name="Listar"
-            :to="{ name: 'listS2220' }"
-            icon="fa fa-list"
-          />
-            <ti-sider-menu-item
-              name="Adicionar"
-              :to="{ name: 'salvarS2220Esocial' }"
-              icon="fa fa-plus"
-            />
-             <ti-sider-menu-item
-              name="Upload"
-              :to="{ name: 'salvarS2220Upload' }"
-              icon="fa fa-cloud-upload"
-            />
-          </ti-menu-grupo-level3>
-
-            <ti-menu-grupo-level3 name="S-2240" icon="fa fa-circle">
+        <ti-menu-grupo name="Livros" icon="fa fa-building">
           <ti-sider-menu-item
             name="Listar"
-            :to="{ name: 'listS2240' }"
+            :to="{ name: 'listarLivros' }"
             icon="fa fa-list"
           />
-            <ti-sider-menu-item
-              name="Adicionar"
-              :to="{ name: 'salvarS2240Esocial' }"
-              icon="fa fa-plus"
-            />
-             <ti-sider-menu-item
-              name="Upload"
-              :to="{ name: 'salvarS2240Upload' }"
-              icon="fa fa-cloud-upload"
-            />
-          </ti-menu-grupo-level3>
-           <ti-menu-grupo-level3 name="EPI" icon="fa fa-circle">
-             <ti-sider-menu-item
-              name="Listar"
-              :to="{ name: 'listEpi' }"
-              icon="fa fa-list"
-            />
-            <ti-sider-menu-item
-              name="Adicionar"
-              :to="{ name: 'salvarEpiEsocial' }"
-              icon="fa fa-plus"
-            />
-             <ti-sider-menu-item
-              name="Upload"
-              :to="{ name: 'salvarEpiUpload' }"
-              icon="fa fa-cloud-upload"
-            />
-          </ti-menu-grupo-level3>
+        </ti-menu-grupo>
+
+        <ti-menu-grupo name="Usuários" icon="fa fa-users">
+          <ti-sider-menu-item
+            name="Usuários"
+            v-if="isAdmin"
+            :to="{ name: 'listaUsuarios' }"
+            icon="fa fa-users"
+          />
+          {{userId}}
+          <ti-sider-menu-item
+            name="Meu Usuário"
+            :to="{ name: 'editarUsuario', params: { id: userId } }"
+            icon="fa fa-users"
+          />
         </ti-menu-grupo>
       </ul>
     </div>
@@ -110,14 +53,25 @@
 import TiMenuGrupo from "./MenuGrupo";
 import TiSiderMenuItem from "./SiderMenuItem";
 import TiPerfilUsuarioResumo from "./PerfilUsuarioResumo";
-import TiMenuGrupoLevel3 from "./MenuGrupoLevel3";
 
 export default {
   components: {
     TiSiderMenuItem,
     TiPerfilUsuarioResumo,
-    TiMenuGrupoLevel3,
     TiMenuGrupo,
+  },
+  data() {
+    return {
+      usuarios: null,
+    };
+  },
+  computed: {
+    userId() {
+      return localStorage.getItem("userId");
+    },
+    isAdmin() {
+      return localStorage.getItem("userGroup") === "admin";
+    },
   },
   methods: {
     fix_height() {
@@ -143,7 +97,6 @@ export default {
         }
       }
     },
-
     metisMenu() {
       let menu = $(this.$refs.menu).metisMenu();
       menu.on("shown.metisMenu", () => {
@@ -151,7 +104,6 @@ export default {
       });
 
       $(window).bind("load resize scroll", () => {
-        // Full height of sidebar
         setTimeout(() => {
           if (!$("body").hasClass("body-small")) {
             this.fix_height();
@@ -166,5 +118,6 @@ export default {
   updated() {
     this.metisMenu();
   },
+  created() {},
 };
 </script>

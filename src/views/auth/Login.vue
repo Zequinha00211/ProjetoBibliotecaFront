@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="background-radom-img body-sst"
-    ref="body-login"
-    style="margin: 0"
-  >
+  <div class="background-radom-img body-sst" ref="body-login" style="margin: 0">
     <div class="pre-load-img" ref="pre-load-img"></div>
     <img class="imagem-sst-carrossel" />
     <div class="login-sst">
-      <h1>Seja bem-vindo(a) ao SST!</h1>
+      <h1>Seja bem-vindo(a) a sua Biblioteca!</h1>
 
       <p class="desc-sst">
         Tudo que você precisa está aqui. <br />
@@ -54,7 +50,6 @@
           </i-col>
         </row>
         <br />
-        <router-link :to="`/register`">← Ir para tela de login</router-link>
       </Form>
     </div>
   </div>
@@ -80,8 +75,14 @@ export default {
         if (valid) {
           this.$auth.login({
             params: this.user,
-            success() {},
-            error() {
+            success: (response) => {
+              localStorage.setItem("token", response.data.token);
+              const payload = JSON.parse(atob(response.data.token.split('.')[1]));
+              localStorage.setItem('userId', payload.sub);
+              localStorage.setItem('userGroup', payload.group);
+              this.$router.push("/");
+            },
+            error: () => {
               this.$Notice.error({
                 title: "Senha ou Usuário inválidas",
                 desc: "Tente novamente",
@@ -96,11 +97,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      // document.body.style.background = "linear-gradient(rgba(29, 15, 46,.5), rgba(98, 42, 94,.5)),url('/img/login/back-vertical.png')";
-
       document.body.style.backgroundSize = "150%";
-      //document.body.style.backgroundSize = "cover";
-      // document.body.style.height = "100%";
       document.body.style.backgroundRepeat = "no";
     }, 0.00003);
   },
@@ -157,7 +154,7 @@ export default {
   color: #154733;
   border-radius: 15px;
   margin: auto;
-  padding: 10px; 
+  padding: 10px;
 }
 .login-sst > .sst-content-img {
   width: 100%;
@@ -236,7 +233,7 @@ Microsoft Edge/Explore .login-sst input:-ms-autofill {
 }
 
 .imagem-sst-carrossel {
-   background-image: url("https://picsum.photos/1920/1080/?random"); /* The image used */
+  background-image: url("https://picsum.photos/1920/1080/?random"); /* The image used */
   z-index: -100;
   min-height: 100%;
   min-width: 1024px;

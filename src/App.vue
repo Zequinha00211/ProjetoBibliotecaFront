@@ -32,9 +32,8 @@ export default {
     }
   },
   computed: {
-    check() {
-      return this.$auth.check();
-    }
+    check () { return this?.$auth.check() },
+    user () { return this?.$auth.user() }
   },
   mounted(){
     inspiniaConfig();

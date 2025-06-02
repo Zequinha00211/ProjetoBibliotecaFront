@@ -1,19 +1,6 @@
 <template>
   <div class="dropdown profile-element">
-    <img
-      alt="image"
-      class="rounded-circle"
-      :src="hasErrorIMG ? '/img/icons/favicon-96x96.png' : srcIMG"
-      style="height: 55px; width: 55px"
-      @error="hasErrorIMG = true"
-    />
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-      <span class="block m-t-xs font-bold">{{ $auth.user().name }}</span>
-      <span
-        class="block m-t-xs font-bold"
-        style="font-size: 80%; font-style: italic"
-        ><b>ACL: </b></span
-      >
       <span class="text-muted text-xs block"
         >Perfil
         <b class="caret"></b>

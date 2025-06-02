@@ -1,6 +1,6 @@
 <template>
     <div class="row header-breadcrumb">
-        <h2>{{ $route.meta.title || "Tron Total"}}</h2>
+        <h2>{{ $route.meta.title || "Biblioteca"}}</h2>
         <Breadcrumb>
             <BreadcrumbItem :to="{name: 'home'}"> Home </BreadcrumbItem>
             <BreadcrumbItem v-for="(item, index) in routesBreadcrumb" :key="index" :to="($auth.check(item.meta.auth) || item.meta.auth ===true) ? {name: item.name} : null">{{ item.resumePath }}</BreadcrumbItem>
